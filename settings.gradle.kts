@@ -30,3 +30,6 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":core:ui")
+include(":feature:home")
+include(":core:kotlin")
+include(":core:test")

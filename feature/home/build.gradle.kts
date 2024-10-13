@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.jetbrainsCompose)
 }
 
 kotlin {
@@ -21,30 +21,17 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(compose.runtime)
-            api(compose.foundation)
-            api(compose.material3)
-            api(compose.materialIconsExtended)
-            api(compose.ui)
-            api(compose.components.resources)
-            api(compose.components.uiToolingPreview)
-            api(libs.androidx.navigation.compose)
-            api(libs.androidx.lifecycle.viewmodel)
-            api(libs.androidx.lifecycle.runtime.compose)
+            implementation(projects.core.kotlin)
+            implementation(projects.core.ui)
         }
-        androidMain.dependencies {
-            api(compose.preview)
-            api(libs.androidx.activity.compose)
+        commonTest.dependencies {
+            implementation(projects.core.test)
         }
     }
 }
 
-dependencies {
-    debugApi(compose.uiTooling)
-}
-
 android {
-    namespace = "com.maruchin.gymster.core.ui"
+    namespace = "com.maruchin.gymster.feature.home"
     compileSdk = 34
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
