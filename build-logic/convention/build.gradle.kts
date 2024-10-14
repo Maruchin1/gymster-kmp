@@ -38,5 +38,9 @@ gradlePlugin {
             id = "gymster.multiplatform"
             implementationClass = "MultiplatformConventionPlugin"
         }
+        register("compose") {
+            id = "gymster.compose"
+            implementationClass = "ComposeConventionPlugin"
+        }
     }
 }

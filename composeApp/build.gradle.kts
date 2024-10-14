@@ -4,8 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.gymsterCompose)
 }
 
 kotlin {
@@ -30,11 +29,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.home)
-            implementation(projects.core.kotlin)
             implementation(projects.core.ui)
-        }
-        commonTest.dependencies {
-            implementation(projects.core.test)
         }
     }
 }
@@ -73,8 +68,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
 }
