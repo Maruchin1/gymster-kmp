@@ -38,6 +38,10 @@ gradlePlugin {
             id = "gymster.multiplatform"
             implementationClass = "MultiplatformConventionPlugin"
         }
+        register("koin") {
+            id = "gymster.koin"
+            implementationClass = "KoinConventionPlugin"
+        }
         register("compose") {
             id = "gymster.compose"
             implementationClass = "ComposeConventionPlugin"

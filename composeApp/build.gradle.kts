@@ -30,27 +30,19 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.feature.home)
             implementation(projects.core.ui)
+            implementation(projects.core.database)
         }
     }
 }
 
 android {
     namespace = "com.maruchin.gymster"
-    compileSdk =
-        libs.versions.android.compileSdk
-            .get()
-            .toInt()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.maruchin.gymster"
-        minSdk =
-            libs.versions.android.minSdk
-                .get()
-                .toInt()
-        targetSdk =
-            libs.versions.android.targetSdk
-                .get()
-                .toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }

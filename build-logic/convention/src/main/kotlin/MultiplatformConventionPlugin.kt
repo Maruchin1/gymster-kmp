@@ -30,14 +30,12 @@ class MultiplatformConventionPlugin : Plugin<Project> {
             iosSimulatorArm64()
             with(sourceSets) {
                 commonMain.dependencies {
-                    api(libs.findLibrary("kotlinx-datetime").get())
-                    api(libs.findLibrary("kotlinx-coroutines").get())
-                    api(libs.findLibrary("koin-core").get())
+                    implementation(libs.findLibrary("kotlinx-datetime").get())
+                    implementation(libs.findLibrary("kotlinx-coroutines").get())
                 }
                 commonTest.dependencies {
                     implementation(libs.findLibrary("kotlin-test").get())
                     implementation(libs.findLibrary("kotlinx-coroutines-test").get())
-                    implementation(libs.findLibrary("koin-test").get())
                     implementation(libs.findLibrary("turbine").get())
                 }
             }

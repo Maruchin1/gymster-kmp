@@ -27,6 +27,9 @@ class ComposeConventionPlugin : Plugin<Project> {
                     implementation(libs.findLibrary("androidx-navigation-compose").get())
                     implementation(libs.findLibrary("androidx-lifecycle-viewmodel").get())
                     implementation(libs.findLibrary("androidx-lifecycle-runtime-compose").get())
+                    implementation(libs.findLibrary("koin-compose").get())
+                    implementation(libs.findLibrary("koin-compose-viewmodel").get())
+                    implementation(libs.findLibrary("koin-compose-viewmodel-navigation").get())
                 }
                 androidMain.dependencies {
                     implementation(compose.preview)
