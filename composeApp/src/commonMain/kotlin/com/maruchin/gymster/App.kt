@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.gymster.core.database.di.coreDatabaseModule
 import com.maruchin.gymster.core.ui.theme.AppTheme
+import com.maruchin.gymster.data.plans.di.dataPlansModule
 import com.maruchin.gymster.feature.home.HomeGraph
 import com.maruchin.gymster.feature.home.di.featureHomeModule
 import com.maruchin.gymster.feature.home.homeGraph
@@ -16,7 +17,7 @@ import org.koin.compose.KoinApplication
 internal fun App() {
     KoinApplication(
         application = {
-            modules(coreDatabaseModule, featureHomeModule)
+            modules(featureHomeModule, dataPlansModule, coreDatabaseModule)
         }
     ) {
         AppTheme {
