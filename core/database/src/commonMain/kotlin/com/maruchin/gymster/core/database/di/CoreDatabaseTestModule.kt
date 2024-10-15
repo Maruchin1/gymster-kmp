@@ -7,16 +7,18 @@ import com.maruchin.gymster.core.database.dao.PlanDao
 import com.maruchin.gymster.core.database.dao.PlanExerciseDao
 import com.maruchin.gymster.core.database.dao.PlanTrainingDao
 import com.maruchin.gymster.core.database.room.FakeGymsterDatabase
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val coreDatabaseTestModule = module {
 
-    single { FakeGymsterDatabase() }
+    singleOf(::FakeGymsterDatabase)
 
-    factory { FakePlanDao(get()) } bind PlanDao::class
+    factoryOf(::FakePlanDao) bind PlanDao::class
 
-    factory { FakePlanTrainingDao(get()) } bind PlanTrainingDao::class
+    factoryOf(::FakePlanTrainingDao) bind PlanTrainingDao::class
 
-    factory { FakePlanExerciseDao(get()) } bind PlanExerciseDao::class
+    factoryOf(::FakePlanExerciseDao) bind PlanExerciseDao::class
 }

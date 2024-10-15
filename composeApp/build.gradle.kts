@@ -29,6 +29,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.feature.home)
+            implementation(projects.feature.plans)
             implementation(projects.data.plans)
             implementation(projects.core.ui)
             implementation(projects.core.database)
