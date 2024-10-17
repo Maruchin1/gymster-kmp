@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.gymster.core.database.di.coreDatabaseModule
+import com.maruchin.gymster.core.preferences.di.corePreferencesModule
 import com.maruchin.gymster.core.ui.theme.AppTheme
 import com.maruchin.gymster.data.plans.di.dataPlansModule
 import com.maruchin.gymster.feature.home.HomeGraph
@@ -30,6 +31,7 @@ internal fun App(platformModule: Module = module { }) {
                 featurePlansModule,
                 dataPlansModule,
                 coreDatabaseModule,
+                corePreferencesModule,
                 platformModule
             )
         }

@@ -6,6 +6,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.data.plans)
             implementation(projects.core.ui)
         }
     }
