@@ -53,6 +53,7 @@ internal fun PlanListScreen(
     onCreatePlan: (name: String) -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    var isAddingPlan by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -63,7 +64,7 @@ internal fun PlanListScreen(
             )
         },
         floatingActionButton = {
-            CreatePlanButton(onCreatePlan = onCreatePlan)
+            CreatePlanButton(onClick = { isAddingPlan = true })
         }
     ) { contentPadding ->
         LazyColumn(
@@ -77,6 +78,14 @@ internal fun PlanListScreen(
                 PlanItem(plan = plan, onClick = { onOpenPlan(plan.id) })
             }
         }
+    }
+
+    if (isAddingPlan) {
+        PlanFormModal(
+            plan = null,
+            onDismiss = { isAddingPlan = false },
+            onSave = onCreatePlan
+        )
     }
 }
 
@@ -160,25 +169,12 @@ private fun TrainingItem(index: Int, training: PlanTraining) {
 }
 
 @Composable
-private fun CreatePlanButton(onCreatePlan: (name: String) -> Unit) {
-    var isAddingPlan by rememberSaveable { mutableStateOf(false) }
-
-    FloatingActionButton(
-        onClick = { isAddingPlan = true },
-        modifier = Modifier.size(56.dp)
-    ) {
+private fun CreatePlanButton(onClick: () -> Unit) {
+    FloatingActionButton(onClick = onClick) {
         Icon(
             imageVector = Icons.Outlined.Add,
             contentDescription = null,
             modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize)
-        )
-    }
-
-    if (isAddingPlan) {
-        PlanFormModal(
-            plan = null,
-            onDismiss = { isAddingPlan = false },
-            onSave = onCreatePlan
         )
     }
 }

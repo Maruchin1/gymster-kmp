@@ -1,5 +1,6 @@
 package com.maruchin.gymster.feature.home
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,13 +21,14 @@ import com.maruchin.gymster.data.plans.model.Plan
 internal fun PlansWidget(
     activePlan: Plan?,
     onOpenPlans: () -> Unit,
+    onOpenPlan: (planId: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "Active plan",
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.weight(1f)
             )
             if (activePlan != null) {
@@ -35,11 +37,22 @@ internal fun PlansWidget(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Card(modifier = Modifier.fillMaxWidth()) {
+        Spacer(modifier = Modifier.height(12.dp))
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                if (activePlan == null) {
+                    onOpenPlans()
+                } else {
+                    onOpenPlan(activePlan.id)
+                }
+            }
+        ) {
             Column(modifier = Modifier.padding(12.dp)) {
                 if (activePlan == null) {
-                    NoActivePlanContent(onOpenPlans = onOpenPlans)
+                    NoActivePlanContent()
+                } else {
+                    ActivePlanContent(plan = activePlan)
                 }
             }
         }
@@ -47,8 +60,27 @@ internal fun PlansWidget(
 }
 
 @Composable
-private fun NoActivePlanContent(onOpenPlans: () -> Unit) {
-    TextButton(onClick = onOpenPlans, modifier = Modifier.fillMaxWidth()) {
-        Text(text = "Choose a plan")
+private fun ActivePlanContent(plan: Plan) {
+    val trainingsCount = plan.trainings.size
+
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text(
+                text = plan.name,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = "${trainingsCount}x / week"
+            )
+        }
     }
+}
+
+@Composable
+private fun NoActivePlanContent() {
+    Text(text = "Choose a plan", modifier = Modifier.padding(horizontal = 12.dp, vertical = 16.dp))
 }

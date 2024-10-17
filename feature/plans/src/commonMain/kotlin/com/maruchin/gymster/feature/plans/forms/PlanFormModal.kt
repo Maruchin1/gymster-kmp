@@ -14,18 +14,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans.model.Plan
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,13 +47,7 @@ internal fun PlanFormModal(plan: Plan?, onDismiss: () -> Unit, onSave: (name: St
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PlanFormContent(plan: Plan?, onSave: (name: String) -> Unit) {
-    val planNameFocus = remember { FocusRequester() }
     var planName by remember(plan) { mutableStateOf(plan?.name.orEmpty()) }
-
-    LaunchedEffect(Unit) {
-        delay(300)
-        planNameFocus.requestFocus()
-    }
 
     Column {
         TopAppBar(
@@ -77,7 +67,6 @@ internal fun PlanFormContent(plan: Plan?, onSave: (name: String) -> Unit) {
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .focusRequester(planNameFocus)
                 .padding(horizontal = 16.dp, vertical = 24.dp)
         )
         Button(

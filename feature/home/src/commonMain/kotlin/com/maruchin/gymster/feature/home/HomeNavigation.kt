@@ -13,7 +13,10 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @Serializable
 internal data object HomeScreen
 
-internal fun NavGraphBuilder.homeScreen(onOpenPlans: () -> Unit, onOpenTrainings: () -> Unit) {
+internal fun NavGraphBuilder.homeScreen(
+    onOpenPlans: () -> Unit,
+    onOpenPlan: (planId: String) -> Unit
+) {
     composable<HomeScreen> {
         val viewModel = koinNavViewModel<HomeViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -21,7 +24,7 @@ internal fun NavGraphBuilder.homeScreen(onOpenPlans: () -> Unit, onOpenTrainings
         HomeScreen(
             state = state,
             onOpenPlans = onOpenPlans,
-            onOpenTrainings = onOpenTrainings
+            onOpenPlan = onOpenPlan
         )
     }
 }

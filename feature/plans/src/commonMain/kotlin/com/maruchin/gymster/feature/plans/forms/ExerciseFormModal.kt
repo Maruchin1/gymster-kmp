@@ -20,7 +20,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,12 +28,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans.model.PlanExercise
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +66,6 @@ private fun ExerciseFormContent(
     onSave: (name: String, sets: Int, reps: IntRange) -> Unit,
     onDelete: (() -> Unit)? = null
 ) {
-    val exerciseNameFocus = remember { FocusRequester() }
     var exerciseName by rememberSaveable(exercise) {
         mutableStateOf(exercise?.name.orEmpty())
     }
@@ -88,11 +83,6 @@ private fun ExerciseFormContent(
         derivedStateOf {
             arrayOf(exerciseName, sets, minReps, maxReps).all { it.isNotBlank() }
         }
-    }
-
-    LaunchedEffect(Unit) {
-        delay(300)
-        exerciseNameFocus.requestFocus()
     }
 
     Column {
@@ -125,7 +115,6 @@ private fun ExerciseFormContent(
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .focusRequester(exerciseNameFocus)
                 .padding(horizontal = 16.dp)
         )
         Spacer(modifier = Modifier.height(24.dp))

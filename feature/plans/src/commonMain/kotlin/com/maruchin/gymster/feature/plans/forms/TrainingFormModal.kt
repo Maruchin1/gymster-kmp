@@ -15,18 +15,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans.model.PlanTraining
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,13 +58,7 @@ private fun TrainingFormContent(
     onSave: (newName: String) -> Unit,
     onDelete: (() -> Unit)? = null
 ) {
-    val trainingNameFocus = remember { FocusRequester() }
     var trainingName by remember(training) { mutableStateOf(training?.name.orEmpty()) }
-
-    LaunchedEffect(Unit) {
-        delay(300)
-        trainingNameFocus.requestFocus()
-    }
 
     Column {
         TopAppBar(
@@ -95,7 +85,6 @@ private fun TrainingFormContent(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .focusRequester(trainingNameFocus)
                 .padding(horizontal = 16.dp, vertical = 24.dp)
         )
         Button(

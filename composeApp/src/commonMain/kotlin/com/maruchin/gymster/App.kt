@@ -21,6 +21,8 @@ import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
+// TODO Add data module for trainings
+
 @Composable
 @Preview
 internal fun App(platformModule: Module = module { }) {
@@ -46,7 +48,7 @@ internal fun App(platformModule: Module = module { }) {
             ) {
                 homeGraph(
                     onOpenPlans = { navController.navigateToPlans() },
-                    onOpenTrainings = {}
+                    onOpenPlan = { navController.navigateToPlans(it) }
                 )
                 plansGraph(navController)
             }
