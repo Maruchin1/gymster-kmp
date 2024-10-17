@@ -6,6 +6,7 @@ import com.maruchin.gymster.data.plans.mapper.toDomainModel
 import com.maruchin.gymster.data.plans.model.Plan
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -16,22 +17,25 @@ internal class DefaultPlansRepository(
     private val plansPreferencesDataSource: PlansPreferencesDataSource
 ) : PlansRepository {
 
-    override fun observeAllPlans(): Flow<List<Plan>> =
-        plansLocalDataSource.observeAllPlans().map { list ->
-            list.map { it.toDomainModel() }
-        }
+    override fun observeAllPlans(): Flow<List<Plan>> = combine(
+        plansLocalDataSource.observeAllPlans(),
+        plansPreferencesDataSource.observeActivePlanId()
+    ) { plans, activePlanId ->
+        plans.map { it.toDomainModel(activePlanId) }
+    }
 
-    override fun observePlan(planId: String): Flow<Plan?> =
-        plansLocalDataSource.observePlan(planId).map {
-            it?.toDomainModel()
-        }
+    override fun observePlan(planId: String): Flow<Plan?> = combine(
+        plansLocalDataSource.observePlan(planId),
+        plansPreferencesDataSource.observeActivePlanId()
+    ) { plan, activePlanId ->
+        plan?.toDomainModel(activePlanId)
+    }
 
     override fun observeActivePlan(): Flow<Plan?> = plansPreferencesDataSource.observeActivePlanId()
-        .flatMapLatest {
-            if (it == null) return@flatMapLatest flowOf(null)
-            plansLocalDataSource.observePlan(it)
+        .flatMapLatest { activePlanId ->
+            if (activePlanId == null) return@flatMapLatest flowOf(null)
+            plansLocalDataSource.observePlan(activePlanId).map { it?.toDomainModel(activePlanId) }
         }
-        .map { it?.toDomainModel() }
 
     override suspend fun createPlan(name: String): String = plansLocalDataSource.createPlan(name)
 
@@ -80,5 +84,9 @@ internal class DefaultPlansRepository(
 
     override suspend fun setActivePlan(planId: String) {
         plansPreferencesDataSource.setActivePlanId(planId)
+    }
+
+    override suspend fun clearActivePlan() {
+        plansPreferencesDataSource.removeActivePlanId()
     }
 }

@@ -7,6 +7,7 @@ import com.maruchin.gymster.data.plans.model.PlanTraining
 import kotlin.uuid.Uuid
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
@@ -19,20 +20,27 @@ class FakePlansRepository : PlansRepository {
         state.value = plans
     }
 
-    override fun observeAllPlans(): Flow<List<Plan>> = state
+    override fun observeAllPlans(): Flow<List<Plan>> =
+        combine(state, activePlanId) { plans, activePlanId ->
+            plans.map { plan ->
+                plan.copy(isActive = plan.id == activePlanId)
+            }
+        }
 
-    override fun observePlan(planId: String): Flow<Plan?> = state.map { plans ->
-        plans.find { it.id == planId }
-    }
+    override fun observePlan(planId: String): Flow<Plan?> =
+        combine(state, activePlanId) { plans, activePlanId ->
+            plans.find { it.id == planId }?.copy(isActive = planId == activePlanId)
+        }
 
     override fun observeActivePlan(): Flow<Plan?> = activePlanId.map { activePlanId ->
-        state.value.find { it.id == activePlanId }
+        state.value.find { it.id == activePlanId }?.copy(isActive = true)
     }
 
     override suspend fun createPlan(name: String): String {
         val newPlan = Plan(
             id = Uuid.random().toString(),
             name = name,
+            isActive = false,
             trainings = emptyList()
         )
         state.update { it + newPlan }
@@ -188,5 +196,9 @@ class FakePlansRepository : PlansRepository {
 
     override suspend fun setActivePlan(planId: String) {
         activePlanId.value = planId
+    }
+
+    override suspend fun clearActivePlan() {
+        activePlanId.value = null
     }
 }

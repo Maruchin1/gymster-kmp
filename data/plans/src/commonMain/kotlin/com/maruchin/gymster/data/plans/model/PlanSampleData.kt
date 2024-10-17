@@ -3,6 +3,7 @@ package com.maruchin.gymster.data.plans.model
 val samplePushPullLegsPlan = Plan(
     id = "1",
     name = "Push Pull Legs",
+    isActive = false,
     trainings = listOf(
         PlanTraining(
             id = "1",
@@ -115,9 +116,12 @@ val samplePushPullLegsPlan = Plan(
     )
 )
 
+val samplePushPullLegsPlanActive = samplePushPullLegsPlan.copy(isActive = true)
+
 val sampleFullBodyWorkoutEmptyPlan = Plan(
     id = "2",
     name = "Full Body Workout",
+    isActive = false,
     trainings = emptyList()
 )
 

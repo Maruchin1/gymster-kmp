@@ -19,6 +19,12 @@ internal class PlansPreferencesDataSource(private val dataStore: DataStore<Prefe
         }
     }
 
+    suspend fun removeActivePlanId() {
+        dataStore.edit { preferences ->
+            preferences.remove(activePlanId)
+        }
+    }
+
     companion object {
 
         private val activePlanId = stringPreferencesKey("active_plan_id")

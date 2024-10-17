@@ -43,6 +43,7 @@ class DefaultPlansRepositoryTest : KoinTest {
                 Plan(
                     id = planId,
                     name = "Push Pull",
+                    isActive = false,
                     trainings = emptyList()
                 )
             )
@@ -57,6 +58,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = emptyList()
             )
 
@@ -65,6 +67,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull Legs",
+                isActive = false,
                 trainings = emptyList()
             )
         }
@@ -79,6 +82,7 @@ class DefaultPlansRepositoryTest : KoinTest {
                 Plan(
                     id = planId,
                     name = "Push Pull",
+                    isActive = false,
                     trainings = emptyList()
                 )
             )
@@ -100,6 +104,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = emptyList()
             )
 
@@ -108,6 +113,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -128,6 +134,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -142,6 +149,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -162,6 +170,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -176,6 +185,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = emptyList()
             )
         }
@@ -190,6 +200,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -209,6 +220,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -242,6 +254,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -268,6 +281,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -301,6 +315,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -322,6 +337,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -366,6 +382,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -381,6 +398,7 @@ class DefaultPlansRepositoryTest : KoinTest {
             expectMostRecentItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = false,
                 trainings = listOf(
                     PlanTraining(
                         id = trainingId,
@@ -400,12 +418,32 @@ class DefaultPlansRepositoryTest : KoinTest {
             awaitItem() shouldBe null
 
             repository.setActivePlan(planId)
-
             awaitItem() shouldBe Plan(
                 id = planId,
                 name = "Push Pull",
+                isActive = true,
                 trainings = emptyList()
             )
+        }
+    }
+
+    @Test
+    fun `clear active plan`() = runTest {
+        val planId = repository.createPlan(name = "Push Pull")
+
+        repository.observeActivePlan().test {
+            awaitItem() shouldBe null
+
+            repository.setActivePlan(planId)
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                isActive = true,
+                trainings = emptyList()
+            )
+
+            repository.clearActivePlan()
+            awaitItem() shouldBe null
         }
     }
 }

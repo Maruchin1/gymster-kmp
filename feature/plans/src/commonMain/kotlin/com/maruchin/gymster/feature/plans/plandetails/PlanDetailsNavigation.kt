@@ -1,5 +1,6 @@
 package com.maruchin.gymster.feature.plans.plandetails
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -25,6 +26,12 @@ internal fun NavGraphBuilder.planDetailsScreen(onBack: () -> Unit) {
         val viewModel: PlanDetailsViewModel = koinNavViewModel { parametersOf(planId) }
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
+        if (state.isDeleted) {
+            LaunchedEffect(Unit) {
+                onBack()
+            }
+        }
+
         PlanDetailsScreen(
             state = state,
             onBack = onBack,
@@ -35,7 +42,10 @@ internal fun NavGraphBuilder.planDetailsScreen(onBack: () -> Unit) {
             onDeleteTraining = viewModel::deleteTraining,
             onAddExercise = viewModel::addExercise,
             onUpdateExercise = viewModel::updateExercise,
-            onDeleteExercise = viewModel::deleteExercise
+            onDeleteExercise = viewModel::deleteExercise,
+            onActivatePlan = viewModel::activatePlan,
+            onDeactivatePlan = viewModel::deactivatePlan,
+            onClearNotification = viewModel::clearNotification
         )
     }
 }

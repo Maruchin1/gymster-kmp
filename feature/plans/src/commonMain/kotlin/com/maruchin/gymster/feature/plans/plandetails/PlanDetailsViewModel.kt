@@ -10,16 +10,18 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class PlanDetailsViewModel(
+internal class PlanDetailsViewModel(
     private val planId: String,
     private val plansRepository: PlansRepository
 ) : ViewModel() {
 
     private val isDeleted = MutableStateFlow(false)
+    private val notification = MutableStateFlow<PlanDetailsNotification?>(null)
 
     val uiState: StateFlow<PlanDetailsUiState> = combine(
         plansRepository.observePlan(planId),
         isDeleted,
+        notification,
         ::PlanDetailsUiState
     ).stateIn(
         scope = viewModelScope,
@@ -74,5 +76,19 @@ class PlanDetailsViewModel(
 
     fun reorderExercises(exercisesIds: List<String>) = viewModelScope.launch {
         plansRepository.reorderExercises(exercisesIds)
+    }
+
+    fun activatePlan() = viewModelScope.launch {
+        plansRepository.setActivePlan(planId)
+        notification.value = PlanDetailsNotification.PLAN_ACTIVATED
+    }
+
+    fun deactivatePlan() = viewModelScope.launch {
+        plansRepository.clearActivePlan()
+        notification.value = PlanDetailsNotification.PLAN_DEACTIVATED
+    }
+
+    fun clearNotification() {
+        notification.value = null
     }
 }

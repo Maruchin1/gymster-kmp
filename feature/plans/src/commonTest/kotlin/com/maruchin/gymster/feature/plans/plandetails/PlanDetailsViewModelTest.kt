@@ -3,6 +3,8 @@ package com.maruchin.gymster.feature.plans.plandetails
 import app.cash.turbine.test
 import com.maruchin.gymster.data.plans.di.dataPlansTestModule
 import com.maruchin.gymster.data.plans.model.samplePlans
+import com.maruchin.gymster.data.plans.model.samplePushPullLegsPlan
+import com.maruchin.gymster.data.plans.model.samplePushPullLegsPlanActive
 import com.maruchin.gymster.data.plans.repository.FakePlansRepository
 import com.maruchin.gymster.feature.plans.di.featurePlansModule
 import io.kotest.matchers.collections.shouldContain
@@ -136,6 +138,55 @@ class PlanDetailsViewModelTest : KoinTest {
             viewModel.reorderExercises(reorderedExercises.map { it.id })
 
             awaitItem()!!.trainings.first().exercises shouldContainInOrder reorderedExercises
+        }
+    }
+
+    @Test
+    fun `activate plan`() = runTest {
+        plansRepository.setPlans(samplePlans)
+        val viewModel: PlanDetailsViewModel = get { parametersOf(samplePushPullLegsPlan.id) }
+
+        viewModel.uiState.test {
+            awaitItem() shouldBe PlanDetailsUiState()
+            awaitItem() shouldBe PlanDetailsUiState(samplePushPullLegsPlan)
+
+            viewModel.activatePlan()
+            awaitItem() shouldBe PlanDetailsUiState(
+                plan = samplePushPullLegsPlanActive,
+                notification = PlanDetailsNotification.PLAN_ACTIVATED
+            )
+
+            viewModel.clearNotification()
+            awaitItem() shouldBe PlanDetailsUiState(samplePushPullLegsPlanActive)
+        }
+    }
+
+    @Test
+    fun `deactivate plan`() = runTest {
+        plansRepository.setPlans(samplePlans)
+        val viewModel: PlanDetailsViewModel = get { parametersOf(samplePushPullLegsPlanActive.id) }
+
+        viewModel.uiState.test {
+            awaitItem() shouldBe PlanDetailsUiState()
+            awaitItem() shouldBe PlanDetailsUiState(samplePushPullLegsPlan)
+
+            viewModel.activatePlan()
+            awaitItem() shouldBe PlanDetailsUiState(
+                plan = samplePushPullLegsPlanActive,
+                notification = PlanDetailsNotification.PLAN_ACTIVATED
+            )
+
+            viewModel.clearNotification()
+            awaitItem() shouldBe PlanDetailsUiState(samplePushPullLegsPlanActive)
+
+            viewModel.deactivatePlan()
+            awaitItem() shouldBe PlanDetailsUiState(
+                plan = samplePushPullLegsPlan,
+                notification = PlanDetailsNotification.PLAN_DEACTIVATED
+            )
+
+            viewModel.clearNotification()
+            awaitItem() shouldBe PlanDetailsUiState(samplePushPullLegsPlan)
         }
     }
 }

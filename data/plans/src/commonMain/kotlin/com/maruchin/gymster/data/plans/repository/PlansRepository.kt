@@ -32,4 +32,6 @@ interface PlansRepository {
     suspend fun reorderExercises(exercisesIds: List<String>)
 
     suspend fun setActivePlan(planId: String)
+
+    suspend fun clearActivePlan()
 }
