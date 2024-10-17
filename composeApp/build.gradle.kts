@@ -33,6 +33,7 @@ kotlin {
             implementation(projects.data.plans)
             implementation(projects.core.ui)
             implementation(projects.core.database)
+            implementation(projects.core.preferences)
         }
     }
 }

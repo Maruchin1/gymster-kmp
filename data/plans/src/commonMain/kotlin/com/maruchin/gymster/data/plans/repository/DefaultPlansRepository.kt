@@ -1,13 +1,20 @@
 package com.maruchin.gymster.data.plans.repository
 
 import com.maruchin.gymster.data.plans.datasource.PlansLocalDataSource
+import com.maruchin.gymster.data.plans.datasource.PlansPreferencesDataSource
 import com.maruchin.gymster.data.plans.mapper.toDomainModel
 import com.maruchin.gymster.data.plans.model.Plan
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
-internal class DefaultPlansRepository(private val plansLocalDataSource: PlansLocalDataSource) :
-    PlansRepository {
+@OptIn(ExperimentalCoroutinesApi::class)
+internal class DefaultPlansRepository(
+    private val plansLocalDataSource: PlansLocalDataSource,
+    private val plansPreferencesDataSource: PlansPreferencesDataSource
+) : PlansRepository {
 
     override fun observeAllPlans(): Flow<List<Plan>> =
         plansLocalDataSource.observeAllPlans().map { list ->
@@ -18,6 +25,13 @@ internal class DefaultPlansRepository(private val plansLocalDataSource: PlansLoc
         plansLocalDataSource.observePlan(planId).map {
             it?.toDomainModel()
         }
+
+    override fun observeActivePlan(): Flow<Plan?> = plansPreferencesDataSource.observeActivePlanId()
+        .flatMapLatest {
+            if (it == null) return@flatMapLatest flowOf(null)
+            plansLocalDataSource.observePlan(it)
+        }
+        .map { it?.toDomainModel() }
 
     override suspend fun createPlan(name: String): String = plansLocalDataSource.createPlan(name)
 
@@ -62,5 +76,9 @@ internal class DefaultPlansRepository(private val plansLocalDataSource: PlansLoc
 
     override suspend fun reorderExercises(exercisesIds: List<String>) {
         plansLocalDataSource.reorderExercises(exercisesIds)
+    }
+
+    override suspend fun setActivePlan(planId: String) {
+        plansPreferencesDataSource.setActivePlanId(planId)
     }
 }

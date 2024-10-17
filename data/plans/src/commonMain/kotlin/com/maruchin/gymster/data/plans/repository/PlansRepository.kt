@@ -9,6 +9,8 @@ interface PlansRepository {
 
     fun observePlan(planId: String): Flow<Plan?>
 
+    fun observeActivePlan(): Flow<Plan?>
+
     suspend fun createPlan(name: String): String
 
     suspend fun updatePlan(planId: String, name: String)
@@ -28,4 +30,6 @@ interface PlansRepository {
     suspend fun deleteExercise(exerciseId: String)
 
     suspend fun reorderExercises(exercisesIds: List<String>)
+
+    suspend fun setActivePlan(planId: String)
 }

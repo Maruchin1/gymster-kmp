@@ -2,6 +2,7 @@ package com.maruchin.gymster.data.plans.repository
 
 import app.cash.turbine.test
 import com.maruchin.gymster.core.database.di.coreDatabaseTestModule
+import com.maruchin.gymster.core.preferences.di.corePreferencesTestModule
 import com.maruchin.gymster.data.plans.di.dataPlansModule
 import com.maruchin.gymster.data.plans.model.Plan
 import com.maruchin.gymster.data.plans.model.PlanExercise
@@ -23,7 +24,7 @@ class DefaultPlansRepositoryTest : KoinTest {
 
     @BeforeTest
     fun setup() {
-        startKoin { modules(dataPlansModule, coreDatabaseTestModule) }
+        startKoin { modules(dataPlansModule, coreDatabaseTestModule, corePreferencesTestModule) }
     }
 
     @AfterTest
@@ -387,6 +388,23 @@ class DefaultPlansRepositoryTest : KoinTest {
                         exercises = listOf(exercise2, exercise1)
                     )
                 )
+            )
+        }
+    }
+
+    @Test
+    fun `set active plan`() = runTest {
+        val planId = repository.createPlan(name = "Push Pull")
+
+        repository.observeActivePlan().test {
+            awaitItem() shouldBe null
+
+            repository.setActivePlan(planId)
+
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = emptyList()
             )
         }
     }

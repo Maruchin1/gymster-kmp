@@ -7,6 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core.database)
+            implementation(projects.core.preferences)
             implementation(projects.core.utils)
         }
     }

@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.update
 class FakePlansRepository : PlansRepository {
 
     private val state = MutableStateFlow(emptyList<Plan>())
+    private val activePlanId = MutableStateFlow<String?>(null)
 
     fun setPlans(plans: List<Plan>) {
         state.value = plans
@@ -22,6 +23,10 @@ class FakePlansRepository : PlansRepository {
 
     override fun observePlan(planId: String): Flow<Plan?> = state.map { plans ->
         plans.find { it.id == planId }
+    }
+
+    override fun observeActivePlan(): Flow<Plan?> = activePlanId.map { activePlanId ->
+        state.value.find { it.id == activePlanId }
     }
 
     override suspend fun createPlan(name: String): String {
@@ -179,5 +184,9 @@ class FakePlansRepository : PlansRepository {
                 )
             }
         }
+    }
+
+    override suspend fun setActivePlan(planId: String) {
+        activePlanId.value = planId
     }
 }
