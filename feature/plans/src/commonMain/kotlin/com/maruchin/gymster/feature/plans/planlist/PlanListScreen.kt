@@ -112,7 +112,9 @@ private fun PlanItem(plan: Plan, onClick: () -> Unit, modifier: Modifier = Modif
         onClick = onClick
     ) {
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(

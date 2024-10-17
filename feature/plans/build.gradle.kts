@@ -8,6 +8,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.data.plans)
             implementation(projects.core.ui)
+            implementation(projects.core.utils)
         }
     }
 }

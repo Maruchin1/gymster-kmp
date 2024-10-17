@@ -35,6 +35,9 @@ class ComposeConventionPlugin : Plugin<Project> {
                     implementation(compose.preview)
                     implementation(libs.findLibrary("androidx-activity-compose").get())
                 }
+                commonTest.dependencies {
+                    implementation(libs.findLibrary("koin-test").get())
+                }
             }
         }
         dependencies {

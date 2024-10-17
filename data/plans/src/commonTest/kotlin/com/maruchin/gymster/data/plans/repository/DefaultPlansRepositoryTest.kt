@@ -6,11 +6,11 @@ import com.maruchin.gymster.data.plans.di.dataPlansModule
 import com.maruchin.gymster.data.plans.model.Plan
 import com.maruchin.gymster.data.plans.model.PlanExercise
 import com.maruchin.gymster.data.plans.model.PlanTraining
+import io.kotest.matchers.shouldBe
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
-import kotlin.test.assertEquals
 import kotlinx.coroutines.test.runTest
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -34,19 +34,16 @@ class DefaultPlansRepositoryTest : KoinTest {
     @Test
     fun `create plan`() = runTest {
         repository.observeAllPlans().test {
-            assertEquals(emptyList(), awaitItem())
+            awaitItem() shouldBe emptyList()
 
             val planId = repository.createPlan(name = "Push Pull")
 
-            assertContentEquals(
-                expected = listOf(
-                    Plan(
-                        id = planId,
-                        name = "Push Pull",
-                        trainings = emptyList()
-                    )
-                ),
-                actual = awaitItem()
+            awaitItem() shouldBe listOf(
+                Plan(
+                    id = planId,
+                    name = "Push Pull",
+                    trainings = emptyList()
+                )
             )
         }
     }
@@ -56,24 +53,18 @@ class DefaultPlansRepositoryTest : KoinTest {
         val planId = repository.createPlan(name = "Push Pull")
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = emptyList()
-                ),
-                actual = awaitItem()
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = emptyList()
             )
 
             repository.updatePlan(planId, "Push Pull Legs")
 
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull Legs",
-                    trainings = emptyList()
-                ),
-                actual = awaitItem()
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull Legs",
+                trainings = emptyList()
             )
         }
     }
@@ -83,15 +74,12 @@ class DefaultPlansRepositoryTest : KoinTest {
         val planId = repository.createPlan(name = "Push Pull")
 
         repository.observeAllPlans().test {
-            assertContentEquals(
-                expected = listOf(
-                    Plan(
-                        id = planId,
-                        name = "Push Pull",
-                        trainings = emptyList()
-                    )
-                ),
-                actual = awaitItem()
+            awaitItem() shouldBe listOf(
+                Plan(
+                    id = planId,
+                    name = "Push Pull",
+                    trainings = emptyList()
+                )
             )
 
             repository.deletePlan(planId)
@@ -108,30 +96,24 @@ class DefaultPlansRepositoryTest : KoinTest {
         val planId = repository.createPlan(name = "Push Pull")
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = emptyList()
-                ),
-                actual = awaitItem()
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = emptyList()
             )
 
             val trainingId = repository.addTraining(planId, "Push")
 
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = emptyList()
-                        )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = emptyList()
                     )
-                ),
-                actual = awaitItem()
+                )
             )
         }
     }
@@ -142,36 +124,30 @@ class DefaultPlansRepositoryTest : KoinTest {
         val trainingId = repository.addTraining(planId, "Push")
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = emptyList()
-                        )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = emptyList()
                     )
-                ),
-                actual = awaitItem()
+                )
             )
 
             repository.updateTraining(trainingId, "Pull")
 
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Pull",
-                            exercises = emptyList()
-                        )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Pull",
+                        exercises = emptyList()
                     )
-                ),
-                actual = awaitItem()
+                )
             )
         }
     }
@@ -182,30 +158,24 @@ class DefaultPlansRepositoryTest : KoinTest {
         val trainingId = repository.addTraining(planId, "Push")
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = emptyList()
-                        )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = emptyList()
                     )
-                ),
-                actual = awaitItem()
+                )
             )
 
             repository.deleteTraining(trainingId)
 
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = emptyList()
-                ),
-                actual = awaitItem()
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = emptyList()
             )
         }
     }
@@ -216,19 +186,16 @@ class DefaultPlansRepositoryTest : KoinTest {
         val trainingId = repository.addTraining(planId, "Push")
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = emptyList()
-                        )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = emptyList()
                     )
-                ),
-                actual = awaitItem()
+                )
             )
 
             val exerciseId = repository.addExercise(
@@ -238,26 +205,23 @@ class DefaultPlansRepositoryTest : KoinTest {
                 reps = 4..6
             )
 
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = listOf(
-                                PlanExercise(
-                                    id = exerciseId,
-                                    name = "Wyciskanie sztangi na ławce poziomej",
-                                    sets = 3,
-                                    reps = 4..6
-                                )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = listOf(
+                            PlanExercise(
+                                id = exerciseId,
+                                name = "Wyciskanie sztangi na ławce poziomej",
+                                sets = 3,
+                                reps = 4..6
                             )
                         )
                     )
-                ),
-                actual = awaitItem()
+                )
             )
         }
     }
@@ -274,26 +238,23 @@ class DefaultPlansRepositoryTest : KoinTest {
         )
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = listOf(
-                                PlanExercise(
-                                    id = exerciseId,
-                                    name = "Wyciskanie sztangi na ławce poziomej",
-                                    sets = 3,
-                                    reps = 4..6
-                                )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = listOf(
+                            PlanExercise(
+                                id = exerciseId,
+                                name = "Wyciskanie sztangi na ławce poziomej",
+                                sets = 3,
+                                reps = 4..6
                             )
                         )
                     )
-                ),
-                actual = awaitItem()
+                )
             )
 
             repository.updateExercise(
@@ -303,26 +264,23 @@ class DefaultPlansRepositoryTest : KoinTest {
                 reps = 8..10
             )
 
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = listOf(
-                                PlanExercise(
-                                    id = exerciseId,
-                                    name = "Wyciskanie hantli nad głowę siedząc",
-                                    sets = 2,
-                                    reps = 8..10
-                                )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = listOf(
+                            PlanExercise(
+                                id = exerciseId,
+                                name = "Wyciskanie hantli nad głowę siedząc",
+                                sets = 2,
+                                reps = 8..10
                             )
                         )
                     )
-                ),
-                actual = awaitItem()
+                )
             )
         }
     }
@@ -339,43 +297,37 @@ class DefaultPlansRepositoryTest : KoinTest {
         )
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = listOf(
-                                PlanExercise(
-                                    id = exerciseId,
-                                    name = "Wyciskanie sztangi na ławce poziomej",
-                                    sets = 3,
-                                    reps = 4..6
-                                )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = listOf(
+                            PlanExercise(
+                                id = exerciseId,
+                                name = "Wyciskanie sztangi na ławce poziomej",
+                                sets = 3,
+                                reps = 4..6
                             )
                         )
                     )
-                ),
-                actual = awaitItem()
+                )
             )
 
             repository.deleteExercise(exerciseId)
 
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = emptyList()
-                        )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = emptyList()
                     )
-                ),
-                actual = awaitItem()
+                )
             )
         }
     }
@@ -410,37 +362,31 @@ class DefaultPlansRepositoryTest : KoinTest {
         )
 
         repository.observePlan(planId).test {
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = listOf(exercise1, exercise2)
-                        )
+            awaitItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = listOf(exercise1, exercise2)
                     )
-                ),
-                actual = awaitItem()
+                )
             )
 
             repository.reorderExercises(listOf(exercise2Id, exercise1Id))
 
             // TODO Think how to do it in one transaction. Now it requires N updates
-            assertEquals(
-                expected = Plan(
-                    id = planId,
-                    name = "Push Pull",
-                    trainings = listOf(
-                        PlanTraining(
-                            id = trainingId,
-                            name = "Push",
-                            exercises = listOf(exercise2, exercise1)
-                        )
+            expectMostRecentItem() shouldBe Plan(
+                id = planId,
+                name = "Push Pull",
+                trainings = listOf(
+                    PlanTraining(
+                        id = trainingId,
+                        name = "Push",
+                        exercises = listOf(exercise2, exercise1)
                     )
-                ),
-                actual = expectMostRecentItem()
+                )
             )
         }
     }
