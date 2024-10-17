@@ -17,13 +17,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.EditCalendar
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -71,7 +71,6 @@ internal fun PlanDetailsScreen(
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     var isEditingPlan by remember { mutableStateOf(false) }
     var isAddingTraining by remember { mutableStateOf(false) }
-    var editedTraining by remember { mutableStateOf<PlanTraining?>(null) }
 
     Scaffold(
         topBar = {
@@ -131,13 +130,6 @@ internal fun PlanDetailsScreen(
             onSave = onAddTraining
         )
     }
-    editedTraining?.let { training ->
-        TrainingFormModal(
-            training = editedTraining,
-            onDismiss = { editedTraining = null },
-            onSave = { onUpdateTraining(training.id, it) }
-        )
-    }
 }
 
 @Composable
@@ -180,21 +172,11 @@ private fun LazyListScope.trainingSection(
     onDeleteExercise: (exerciseId: String) -> Unit
 ) {
     stickyHeader {
-        var isEditingTraining by rememberSaveable { mutableStateOf(false) }
-
         TrainingHeader(
             training = training,
-            onEditTraining = { isEditingTraining = true },
+            onUpdateTraining = onUpdateTraining,
             onDeleteTraining = onDeleteTraining
         )
-
-        if (isEditingTraining) {
-            TrainingFormModal(
-                training = training,
-                onDismiss = { isEditingTraining = false },
-                onSave = onUpdateTraining
-            )
-        }
     }
     items(training.exercises, key = { it.id }) { exercise ->
         ExerciseItem(
@@ -213,11 +195,11 @@ private fun LazyListScope.trainingSection(
         if (isAddingExercise) {
             ExerciseFormModal(
                 exercise = null,
+                onDismiss = { isAddingExercise = false },
                 onSave = { name, sets, reps ->
                     onAddExercise(name, sets, reps)
                     isAddingExercise = false
-                },
-                onDismiss = { isAddingExercise = false }
+                }
             )
         }
     }
@@ -227,9 +209,11 @@ private fun LazyListScope.trainingSection(
 @Composable
 private fun TrainingHeader(
     training: PlanTraining,
-    onEditTraining: () -> Unit,
+    onUpdateTraining: (name: String) -> Unit,
     onDeleteTraining: () -> Unit
 ) {
+    var isEditingTraining by remember { mutableStateOf(false) }
+
     Column {
         HorizontalDivider()
         TopAppBar(
@@ -237,16 +221,21 @@ private fun TrainingHeader(
                 Text(text = training.name)
             },
             actions = {
-                IconButton(onClick = onEditTraining) {
-                    Icon(imageVector = Icons.Outlined.Edit, contentDescription = null)
-                }
-                IconButton(onClick = onDeleteTraining) {
-                    Icon(imageVector = Icons.Outlined.Delete, contentDescription = null)
+                TextButton(onClick = { isEditingTraining = true }) {
+                    Text(text = "Edit")
                 }
             },
             windowInsets = WindowInsets(top = 0)
         )
         HorizontalDivider()
+    }
+    if (isEditingTraining) {
+        TrainingFormModal(
+            training = training,
+            onDismiss = { isEditingTraining = false },
+            onSave = onUpdateTraining,
+            onDelete = onDeleteTraining
+        )
     }
 }
 
@@ -276,16 +265,15 @@ private fun ExerciseItem(
 ) {
     var isEditingExercise by rememberSaveable { mutableStateOf(false) }
 
-    ElevatedCard(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp),
+        onClick = { isEditingExercise = true }
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(12.dp)) {
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(top = 12.dp, start = 12.dp, end = 8.dp, bottom = 2.dp),
+                modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
@@ -300,36 +288,12 @@ private fun ExerciseItem(
                     text = "Reps: ${exercise.reps}",
                     style = MaterialTheme.typography.bodyMedium
                 )
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    AssistChip(
-                        onClick = { isEditingExercise = true },
-                        label = {
-                            Text(text = "Edit")
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Edit,
-                                contentDescription = null,
-                                modifier = Modifier.size(AssistChipDefaults.IconSize)
-                            )
-                        }
-                    )
-                    AssistChip(
-                        onClick = onDeleteExercise,
-                        label = {
-                            Text(text = "Delete")
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Delete,
-                                contentDescription = null,
-                                modifier = Modifier.size(AssistChipDefaults.IconSize)
-
-                            )
-                        }
-                    )
-                }
             }
+            Spacer(modifier = Modifier.width(8.dp))
+            Icon(
+                imageVector = Icons.Default.ChevronRight,
+                contentDescription = null
+            )
         }
     }
 
@@ -337,6 +301,7 @@ private fun ExerciseItem(
         ExerciseFormModal(
             exercise = exercise,
             onSave = onUpdateExercise,
+            onDelete = onDeleteExercise,
             onDismiss = { isEditingExercise = false }
         )
     }

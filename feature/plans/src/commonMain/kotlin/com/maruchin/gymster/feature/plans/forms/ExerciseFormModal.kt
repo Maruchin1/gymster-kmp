@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -40,8 +41,9 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun ExerciseFormModal(
     exercise: PlanExercise?,
+    onDismiss: () -> Unit,
     onSave: (name: String, sets: Int, reps: IntRange) -> Unit,
-    onDismiss: () -> Unit
+    onDelete: (() -> Unit)? = null
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
@@ -55,7 +57,8 @@ internal fun ExerciseFormModal(
                     sheetState.hide()
                     onDismiss()
                 }
-            }
+            },
+            onDelete = onDelete
         )
     }
 }
@@ -64,7 +67,8 @@ internal fun ExerciseFormModal(
 @Composable
 private fun ExerciseFormContent(
     exercise: PlanExercise?,
-    onSave: (name: String, sets: Int, reps: IntRange) -> Unit
+    onSave: (name: String, sets: Int, reps: IntRange) -> Unit,
+    onDelete: (() -> Unit)? = null
 ) {
     val exerciseNameFocus = remember { FocusRequester() }
     var exerciseName by rememberSaveable(exercise) {
@@ -95,6 +99,13 @@ private fun ExerciseFormContent(
         TopAppBar(
             title = {
                 Text("Exercise")
+            },
+            actions = {
+                if (onDelete != null) {
+                    TextButton(onClick = onDelete) {
+                        Text(text = "Delete")
+                    }
+                }
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = BottomSheetDefaults.ContainerColor
