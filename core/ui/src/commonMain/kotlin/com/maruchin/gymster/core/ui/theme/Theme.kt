@@ -7,18 +7,18 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val lightScheme = lightColorScheme(
-    primary = primaryContainerLight,
-    onPrimary = onPrimaryContainerLight,
+    primary = primaryLight,
+    onPrimary = onPrimaryLight,
     primaryContainer = primaryContainerLight,
     onPrimaryContainer = onPrimaryContainerLight,
-    secondary = primaryContainerLight,
-    onSecondary = onPrimaryContainerLight,
-    secondaryContainer = primaryContainerLight,
-    onSecondaryContainer = onPrimaryContainerLight,
-    tertiary = primaryContainerLight,
-    onTertiary = onPrimaryContainerLight,
-    tertiaryContainer = primaryContainerLight,
-    onTertiaryContainer = onPrimaryContainerLight,
+    secondary = secondaryLight,
+    onSecondary = onSecondaryLight,
+    secondaryContainer = secondaryContainerLight,
+    onSecondaryContainer = onSecondaryContainerLight,
+    tertiary = tertiaryLight,
+    onTertiary = onTertiaryLight,
+    tertiaryContainer = tertiaryContainerLight,
+    onTertiaryContainer = onTertiaryContainerLight,
     error = errorLight,
     onError = onErrorLight,
     errorContainer = errorContainerLight,
@@ -45,18 +45,18 @@ private val lightScheme = lightColorScheme(
 )
 
 private val darkScheme = darkColorScheme(
-    primary = primaryContainerDark,
-    onPrimary = onPrimaryContainerDark,
+    primary = primaryDark,
+    onPrimary = onPrimaryDark,
     primaryContainer = primaryContainerDark,
     onPrimaryContainer = onPrimaryContainerDark,
-    secondary = primaryContainerDark,
-    onSecondary = onPrimaryContainerDark,
-    secondaryContainer = primaryContainerDark,
-    onSecondaryContainer = onPrimaryContainerDark,
-    tertiary = primaryContainerDark,
-    onTertiary = onPrimaryContainerDark,
-    tertiaryContainer = primaryContainerDark,
-    onTertiaryContainer = onPrimaryContainerDark,
+    secondary = secondaryDark,
+    onSecondary = onSecondaryDark,
+    secondaryContainer = secondaryContainerDark,
+    onSecondaryContainer = onSecondaryContainerDark,
+    tertiary = tertiaryDark,
+    onTertiary = onTertiaryDark,
+    tertiaryContainer = tertiaryContainerDark,
+    onTertiaryContainer = onTertiaryContainerDark,
     error = errorDark,
     onError = onErrorDark,
     errorContainer = errorContainerDark,
@@ -89,9 +89,5 @@ fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable ()
         else -> lightScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = AppTypography,
-        content = content
-    )
+    MaterialTheme(colorScheme = colorScheme, content = content)
 }

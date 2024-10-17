@@ -1,6 +1,5 @@
 package com.maruchin.gymster.feature.plans.planlist
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,7 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Dataset
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,8 +37,9 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans.model.Plan
+import com.maruchin.gymster.feature.plans.forms.PlanFormModal
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PlanListScreen(
     state: PlanListUiState,
@@ -105,7 +105,7 @@ private fun TopBar(
 
 @Composable
 private fun PlanItem(plan: Plan, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    ElevatedCard(
+    Card(
         modifier = Modifier
             .aspectRatio(1f)
             .then(modifier),
