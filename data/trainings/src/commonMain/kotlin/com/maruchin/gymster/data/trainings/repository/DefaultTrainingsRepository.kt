@@ -22,7 +22,7 @@ internal class DefaultTrainingsRepository(
     private val clock: Clock
 ) : TrainingsRepository {
 
-    override fun observeAllTrainings(): Flow<List<TrainingWeek>> =
+    override fun observeAllTrainingWeeks(): Flow<List<TrainingWeek>> =
         trainingWeekDao.observeAllTrainings().map { list ->
             list.map { it.toDomainModel() }
         }

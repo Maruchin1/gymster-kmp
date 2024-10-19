@@ -22,10 +22,16 @@ import com.maruchin.gymster.feature.home.homeGraph
 import com.maruchin.gymster.feature.plans.di.featurePlansModule
 import com.maruchin.gymster.feature.plans.navigateToPlans
 import com.maruchin.gymster.feature.plans.plansGraph
+import com.maruchin.gymster.feature.trainings.di.featureTrainingsModule
+import com.maruchin.gymster.feature.trainings.navigateToTrainings
+import com.maruchin.gymster.feature.trainings.trainingsGraph
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
+
+// TODO Unify navigation routes naming
+// TODO Unify packages naming in features
 
 @Composable
 @Preview
@@ -35,6 +41,7 @@ internal fun App(platformModule: Module = module { }) {
             modules(
                 featureHomeModule,
                 featurePlansModule,
+                featureTrainingsModule,
                 dataPlansModule,
                 dataTrainingsModule,
                 coreDatabaseModule,
@@ -66,9 +73,11 @@ internal fun App(platformModule: Module = module { }) {
             ) {
                 homeGraph(
                     onOpenPlans = { navController.navigateToPlans() },
-                    onOpenPlan = { navController.navigateToPlans(it) }
+                    onOpenPlan = { navController.navigateToPlans(it) },
+                    onOpenTrainingHistory = { navController.navigateToTrainings() }
                 )
                 plansGraph(navController)
+                trainingsGraph(navController)
             }
         }
     }

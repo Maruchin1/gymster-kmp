@@ -15,7 +15,8 @@ internal data object HomeScreen
 
 internal fun NavGraphBuilder.homeScreen(
     onOpenPlans: () -> Unit,
-    onOpenPlan: (planId: String) -> Unit
+    onOpenPlan: (planId: String) -> Unit,
+    onOpenTrainingHistory: () -> Unit
 ) {
     composable<HomeScreen> {
         val viewModel = koinNavViewModel<HomeViewModel>()
@@ -25,7 +26,8 @@ internal fun NavGraphBuilder.homeScreen(
             state = state,
             onOpenPlans = onOpenPlans,
             onOpenPlan = onOpenPlan,
-            onStartNewWeek = viewModel::startNewWeek
+            onStartNewWeek = viewModel::startNewWeek,
+            onOpenTrainingHistory = onOpenTrainingHistory
         )
     }
 }

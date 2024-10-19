@@ -18,7 +18,7 @@ class FakeTrainingsRepository(private val clock: Clock) : TrainingsRepository {
         trainingWeeks.value = weeks
     }
 
-    override fun observeAllTrainings(): Flow<List<TrainingWeek>> = trainingWeeks
+    override fun observeAllTrainingWeeks(): Flow<List<TrainingWeek>> = trainingWeeks
 
     override fun observeCurrentTrainingWeek(): Flow<TrainingWeek?> = trainingWeeks.map { weeks ->
         weeks.maxByOrNull { it.startDate }

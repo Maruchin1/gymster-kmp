@@ -26,7 +26,8 @@ internal fun HomeScreen(
     state: HomeUiState,
     onOpenPlans: () -> Unit,
     onOpenPlan: (planId: String) -> Unit,
-    onStartNewWeek: () -> Unit
+    onStartNewWeek: () -> Unit,
+    onOpenTrainingHistory: () -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
@@ -51,6 +52,7 @@ internal fun HomeScreen(
             CurrentWeekWidget(
                 trainingWeek = state.currentTrainingWeek,
                 onStartNewWeek = onStartNewWeek,
+                onOpenTrainingHistory = onOpenTrainingHistory,
                 modifier = Modifier.padding(16.dp)
             )
         }

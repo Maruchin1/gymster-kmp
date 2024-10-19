@@ -30,6 +30,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.feature.home)
             implementation(projects.feature.plans)
+            implementation(projects.feature.trainings)
             implementation(projects.data.plans)
             implementation(projects.data.trainings)
             implementation(projects.core.ui)

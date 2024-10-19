@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TrainingsRepository {
 
-    fun observeAllTrainings(): Flow<List<TrainingWeek>>
+    fun observeAllTrainingWeeks(): Flow<List<TrainingWeek>>
 
     fun observeCurrentTrainingWeek(): Flow<TrainingWeek?>
 
