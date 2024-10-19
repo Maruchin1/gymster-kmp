@@ -1,5 +1,9 @@
 package com.maruchin.gymster
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -46,6 +50,18 @@ internal fun App(platformModule: Module = module { }) {
             NavHost(
                 navController = navController,
                 startDestination = HomeGraph,
+                enterTransition = {
+                    slideInHorizontally(initialOffsetX = { it }) + fadeIn()
+                },
+                exitTransition = {
+                    slideOutHorizontally(targetOffsetX = { -it }) + fadeOut()
+                },
+                popEnterTransition = {
+                    slideInHorizontally(initialOffsetX = { -it }) + fadeIn()
+                },
+                popExitTransition = {
+                    slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
+                },
                 modifier = Modifier.background(MaterialTheme.colorScheme.background)
             ) {
                 homeGraph(
