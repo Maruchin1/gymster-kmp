@@ -40,7 +40,44 @@ class FakeTrainingWeekDao internal constructor(private val database: FakeGymster
         }
     }
 
+    override fun observeCurrentTrainingWeek(): Flow<TrainingWeekWithTrainings?> = combine(
+        database.trainingWeeks,
+        database.trainings,
+        database.exercises,
+        database.setResults
+    ) { trainingWeeks, trainings, exercises, setResults ->
+        trainingWeeks.values.maxByOrNull { it.startDate }?.let { trainingWeek ->
+            TrainingWeekWithTrainings(
+                trainingWeek = trainingWeek,
+                trainings = trainings.values.filter { it.trainingWeekId == trainingWeek.id }
+                    .map { training ->
+                        TrainingWithExercises(
+                            training = training,
+                            exercises = exercises.values.filter { it.trainingId == training.id }
+                                .map { exercise ->
+                                    ExerciseWithSetResults(
+                                        exercise = exercise,
+                                        setResults = setResults.values.filter {
+                                            it.exerciseId == exercise.id
+                                        }
+                                    )
+                                }
+                        )
+                    }
+            )
+        }
+    }
+
+    override suspend fun getCurrentTrainingWeek(): TrainingWeekEntity? =
+        database.trainingWeeks.value.values.maxByOrNull { it.startDate }
+
     override suspend fun insert(trainingWeek: TrainingWeekEntity) {
+        database.trainingWeeks.update {
+            it + (trainingWeek.id to trainingWeek)
+        }
+    }
+
+    override suspend fun update(trainingWeek: TrainingWeekEntity) {
         database.trainingWeeks.update {
             it + (trainingWeek.id to trainingWeek)
         }

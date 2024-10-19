@@ -24,7 +24,8 @@ internal fun NavGraphBuilder.homeScreen(
         HomeScreen(
             state = state,
             onOpenPlans = onOpenPlans,
-            onOpenPlan = onOpenPlan
+            onOpenPlan = onOpenPlan,
+            onStartNewWeek = viewModel::startNewWeek
         )
     }
 }

@@ -9,7 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import com.maruchin.gymster.core.database.di.coreDatabaseModule
 import com.maruchin.gymster.core.preferences.di.corePreferencesModule
 import com.maruchin.gymster.core.ui.theme.AppTheme
+import com.maruchin.gymster.core.utils.di.coreClockModule
 import com.maruchin.gymster.data.plans.di.dataPlansModule
+import com.maruchin.gymster.data.trainings.di.dataTrainingsModule
 import com.maruchin.gymster.feature.home.HomeGraph
 import com.maruchin.gymster.feature.home.di.featureHomeModule
 import com.maruchin.gymster.feature.home.homeGraph
@@ -21,8 +23,6 @@ import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-// TODO Add data module for trainings
-
 @Composable
 @Preview
 internal fun App(platformModule: Module = module { }) {
@@ -32,8 +32,10 @@ internal fun App(platformModule: Module = module { }) {
                 featureHomeModule,
                 featurePlansModule,
                 dataPlansModule,
+                dataTrainingsModule,
                 coreDatabaseModule,
                 corePreferencesModule,
+                coreClockModule,
                 platformModule
             )
         }

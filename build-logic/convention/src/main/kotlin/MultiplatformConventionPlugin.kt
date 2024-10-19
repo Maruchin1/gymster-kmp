@@ -22,7 +22,7 @@ class MultiplatformConventionPlugin : Plugin<Project> {
             }
             compilerOptions {
                 freeCompilerArgs.addAll(
-                    "-Xopt-in=kotlin.uuid.ExperimentalUuidApi"
+                    "-opt-in=kotlin.uuid.ExperimentalUuidApi"
                 )
             }
             iosX64()

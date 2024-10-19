@@ -15,6 +15,14 @@ val coreDatabaseModule = module {
     factory { get<GymsterDatabase>().planTrainingDao }
 
     factory { get<GymsterDatabase>().planExerciseDao }
+
+    factory { get<GymsterDatabase>().trainingWeekDao }
+
+    factory { get<GymsterDatabase>().trainingDao }
+
+    factory { get<GymsterDatabase>().exerciseDao }
+
+    factory { get<GymsterDatabase>().setResultDao }
 }
 
 internal expect val platformModule: Module

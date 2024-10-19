@@ -7,7 +7,9 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.data.plans)
+            implementation(projects.data.trainings)
             implementation(projects.core.ui)
+            implementation(projects.core.utils)
         }
     }
 }

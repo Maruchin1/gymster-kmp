@@ -31,9 +31,11 @@ kotlin {
             implementation(projects.feature.home)
             implementation(projects.feature.plans)
             implementation(projects.data.plans)
+            implementation(projects.data.trainings)
             implementation(projects.core.ui)
             implementation(projects.core.database)
             implementation(projects.core.preferences)
+            implementation(projects.core.utils)
         }
     }
 }

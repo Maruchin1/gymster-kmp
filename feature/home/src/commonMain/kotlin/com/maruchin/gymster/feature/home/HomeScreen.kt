@@ -25,7 +25,8 @@ import androidx.compose.ui.unit.dp
 internal fun HomeScreen(
     state: HomeUiState,
     onOpenPlans: () -> Unit,
-    onOpenPlan: (planId: String) -> Unit
+    onOpenPlan: (planId: String) -> Unit,
+    onStartNewWeek: () -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
@@ -47,7 +48,11 @@ internal fun HomeScreen(
                 onOpenPlan = onOpenPlan,
                 modifier = Modifier.padding(16.dp)
             )
-            TrainingsWidget(modifier = Modifier.padding(16.dp))
+            CurrentWeekWidget(
+                trainingWeek = state.currentTrainingWeek,
+                onStartNewWeek = onStartNewWeek,
+                modifier = Modifier.padding(16.dp)
+            )
         }
     }
 }

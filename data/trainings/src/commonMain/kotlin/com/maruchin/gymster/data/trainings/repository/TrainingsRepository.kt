@@ -9,6 +9,8 @@ interface TrainingsRepository {
 
     fun observeAllTrainings(): Flow<List<TrainingWeek>>
 
+    fun observeCurrentTrainingWeek(): Flow<TrainingWeek?>
+
     fun observeTraining(trainingId: String): Flow<Training?>
 
     suspend fun startNewWeek(plan: Plan): TrainingWeek
