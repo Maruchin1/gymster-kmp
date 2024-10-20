@@ -74,7 +74,8 @@ internal fun App(platformModule: Module = module { }) {
                 homeGraph(
                     onOpenPlans = { navController.navigateToPlans() },
                     onOpenPlan = { navController.navigateToPlans(it) },
-                    onOpenTrainingHistory = { navController.navigateToTrainings() }
+                    onOpenTrainingHistory = { navController.navigateToTrainings() },
+                    onOpenTraining = { navController.navigateToTrainings(it) }
                 )
                 plansGraph(navController)
                 trainingsGraph(navController)

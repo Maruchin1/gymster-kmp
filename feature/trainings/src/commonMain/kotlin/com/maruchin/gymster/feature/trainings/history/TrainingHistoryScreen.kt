@@ -33,7 +33,11 @@ import kotlinx.datetime.format
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun TrainingHistoryScreen(state: TrainingHistoryUiState, onBack: () -> Unit) {
+internal fun TrainingHistoryScreen(
+    state: TrainingHistoryUiState,
+    onBack: () -> Unit,
+    onOpenTraining: (String) -> Unit
+) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(
@@ -62,14 +66,14 @@ internal fun TrainingHistoryScreen(state: TrainingHistoryUiState, onBack: () -> 
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(state.trainingWeeks) { week ->
-                TrainingWeekItem(week)
+                TrainingWeekItem(week = week, onOpenTraining = onOpenTraining)
             }
         }
     }
 }
 
 @Composable
-private fun TrainingWeekItem(week: TrainingWeek) {
+private fun TrainingWeekItem(week: TrainingWeek, onOpenTraining: (String) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -87,7 +91,7 @@ private fun TrainingWeekItem(week: TrainingWeek) {
                     isComplete = false,
                     name = training.name,
                     exercisesCount = training.exercises.size,
-                    onClick = {}
+                    onClick = { onOpenTraining(training.id) }
                 )
                 if (training != week.trainings.last()) {
                     HorizontalDivider(

@@ -15,6 +15,12 @@ data class Exercise(
 //        require(sets == setsResults.size)
     }
 
+    val isComplete: Boolean
+        get() = setsResults.all { it.isComplete }
+
+    val numOfCompletedSets: Int
+        get() = setsResults.count { it.isComplete }
+
     companion object {
 
         internal fun from(planExercise: PlanExercise) = Exercise(

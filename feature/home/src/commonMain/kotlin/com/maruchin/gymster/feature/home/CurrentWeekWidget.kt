@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -21,6 +23,7 @@ internal fun CurrentWeekWidget(
     trainingWeek: TrainingWeek?,
     onStartNewWeek: () -> Unit,
     onOpenTrainingHistory: () -> Unit,
+    onOpenTraining: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -42,8 +45,14 @@ internal fun CurrentWeekWidget(
                             isComplete = false,
                             name = training.name,
                             exercisesCount = training.exercises.size,
-                            onClick = {}
+                            onClick = { onOpenTraining(training.id) }
                         )
+                        if (training != trainingWeek.trainings.last()) {
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = 12.dp),
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                        }
                     }
                 }
             }

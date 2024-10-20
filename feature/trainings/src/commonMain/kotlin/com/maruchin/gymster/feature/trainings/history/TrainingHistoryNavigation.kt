@@ -12,11 +12,14 @@ import org.koin.core.annotation.KoinExperimentalAPI
 internal data object TrainingHistoryRoute
 
 @OptIn(KoinExperimentalAPI::class)
-internal fun NavGraphBuilder.trainingHistoryScreen(onBack: () -> Unit) {
+internal fun NavGraphBuilder.trainingHistoryScreen(
+    onBack: () -> Unit,
+    onOpenTraining: (String) -> Unit
+) {
     composable<TrainingHistoryRoute> {
         val viewModel = koinNavViewModel<TrainingHistoryViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-        TrainingHistoryScreen(state = state, onBack = onBack)
+        TrainingHistoryScreen(state = state, onBack = onBack, onOpenTraining = onOpenTraining)
     }
 }
