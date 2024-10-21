@@ -11,6 +11,9 @@ data class Training(
     val date: LocalDate? = null
 ) {
 
+    val isComplete: Boolean
+        get() = date != null
+
     fun getSetResult(setResultId: String): SetResult =
         exercises.flatMap { it.setsResults }.first { it.id == setResultId }
 

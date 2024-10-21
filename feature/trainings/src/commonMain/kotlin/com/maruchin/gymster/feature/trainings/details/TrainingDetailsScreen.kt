@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -17,29 +19,43 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
+import androidx.compose.material.icons.rounded.CalendarToday
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.maruchin.gymster.core.utils.clock.localDateShortFormat
+import com.maruchin.gymster.core.utils.clock.toLocalDate
+import com.maruchin.gymster.core.utils.clock.toMillis
 import com.maruchin.gymster.core.utils.format.format
 import com.maruchin.gymster.data.trainings.model.Exercise
 import com.maruchin.gymster.data.trainings.model.SetResult
@@ -47,8 +63,8 @@ import com.maruchin.gymster.data.trainings.model.Training
 import com.maruchin.gymster.feature.trainings.forms.SetResultFormModal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-
-// TODO Display date instead of complete button when training is completed and allow editing it
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format
 
 // TODO Show results from previous training
 
@@ -58,11 +74,33 @@ internal fun TrainingDetailsScreen(
     state: TrainingDetailsUiState,
     onBack: () -> Unit,
     onComplete: () -> Unit,
-    onUpdateSetResult: (setResultId: String, weight: Double, reps: Int) -> Unit
+    onUpdateSetResult: (setResultId: String, weight: Double, reps: Int) -> Unit,
+    onClearNotification: () -> Unit,
+    onUpdateTrainingDate: (LocalDate) -> Unit
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(state.notification) {
+        state.notification?.let { notification ->
+            val message = when (notification) {
+                TrainingDetailsNotification.TRAINING_COMPLETED -> "Training completed"
+            }
+            snackbarHostState.showSnackbar(message)
+            onClearNotification()
+        }
+    }
+
     Scaffold(
         topBar = {
-            TopBar(training = state.training, onBack = onBack, onComplete = onComplete)
+            TopBar(
+                training = state.training,
+                onBack = onBack,
+                onComplete = onComplete,
+                onUpdateTrainingDate = onUpdateTrainingDate
+            )
+        },
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
         }
     ) { contentPadding ->
         val loadedTraining = state.training ?: return@Scaffold
@@ -91,7 +129,12 @@ internal fun TrainingDetailsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBar(training: Training?, onBack: () -> Unit, onComplete: () -> Unit) {
+private fun TopBar(
+    training: Training?,
+    onBack: () -> Unit,
+    onComplete: () -> Unit,
+    onUpdateTrainingDate: (LocalDate) -> Unit
+) {
     TopAppBar(
         title = {
             Text(text = training?.name.orEmpty())
@@ -105,11 +148,78 @@ private fun TopBar(training: Training?, onBack: () -> Unit, onComplete: () -> Un
             }
         },
         actions = {
-            TextButton(onClick = onComplete) {
-                Text(text = "Complete")
+            if (training != null) {
+                if (training.date != null) {
+                    TrainingDateButton(
+                        date = training.date!!,
+                        onUpdate = onUpdateTrainingDate
+                    )
+                } else {
+                    TextButton(onClick = onComplete) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null,
+                            modifier = Modifier.size(ButtonDefaults.IconSize)
+                        )
+                        Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
+                        Text(text = "Complete")
+                    }
+                }
             }
         }
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TrainingDateButton(date: LocalDate, onUpdate: (LocalDate) -> Unit) {
+    var isEditingDate by rememberSaveable { mutableStateOf(false) }
+    val datePickerState = rememberDatePickerState(date.toMillis())
+
+    TextButton(onClick = { isEditingDate = true }) {
+        Icon(
+            imageVector = Icons.Rounded.CalendarToday,
+            contentDescription = null,
+            modifier = Modifier.size(ButtonDefaults.IconSize)
+        )
+        Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
+        Text(text = date.format(localDateShortFormat))
+    }
+
+    if (isEditingDate) {
+        TrainingDatePickerDialog(
+            datePickerState = datePickerState,
+            onDismiss = { isEditingDate = false },
+            onSave = {
+                isEditingDate = false
+                datePickerState.selectedDateMillis?.toLocalDate()?.let(onUpdate)
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TrainingDatePickerDialog(
+    datePickerState: DatePickerState,
+    onDismiss: () -> Unit,
+    onSave: () -> Unit
+) {
+    DatePickerDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = onSave) {
+                Text(text = "Save")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(text = "Cancel")
+            }
+        }
+    ) {
+        DatePicker(state = datePickerState)
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)

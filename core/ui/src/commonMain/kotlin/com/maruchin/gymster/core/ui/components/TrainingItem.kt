@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,12 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.maruchin.gymster.core.utils.clock.localDateShortFormat
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format
 
 @Composable
 fun TrainingItem(
     isComplete: Boolean,
     name: String,
     exercisesCount: Int,
+    date: LocalDate?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -52,9 +55,11 @@ fun TrainingItem(
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Icon(
-            imageVector = Icons.Rounded.ChevronRight,
-            contentDescription = null
-        )
+        if (date != null) {
+            Text(
+                text = date.format(localDateShortFormat),
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
     }
 }

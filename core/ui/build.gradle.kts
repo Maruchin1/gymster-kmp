@@ -6,3 +6,11 @@ plugins {
 android {
     namespace = "com.maruchin.gymster.core.ui"
 }
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.core.utils)
+        }
+    }
+}

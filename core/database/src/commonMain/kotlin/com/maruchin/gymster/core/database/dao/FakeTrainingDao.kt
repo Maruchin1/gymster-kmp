@@ -30,9 +30,17 @@ class FakeTrainingDao internal constructor(private val database: FakeGymsterData
         }
     }
 
+    override suspend fun getTraining(trainingId: String): TrainingEntity? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun insert(trainings: List<TrainingEntity>) {
         database.trainings.update { map ->
             map + trainings.associateBy { it.id }
         }
+    }
+
+    override suspend fun update(training: TrainingEntity) {
+        TODO("Not yet implemented")
     }
 }

@@ -28,8 +28,10 @@ internal fun NavGraphBuilder.trainingDetailsScreen(onBack: () -> Unit) {
         TrainingDetailsScreen(
             state = state,
             onBack = onBack,
+            onComplete = viewModel::completeTraining,
             onUpdateSetResult = viewModel::updateSetResult,
-            onComplete = viewModel::completeTraining
+            onClearNotification = viewModel::clearNotification,
+            onUpdateTrainingDate = viewModel::updateTrainingDate
         )
     }
 }

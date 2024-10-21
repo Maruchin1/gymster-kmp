@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
 
 class FakeTrainingsRepository(private val clock: Clock) : TrainingsRepository {
 
@@ -18,7 +19,9 @@ class FakeTrainingsRepository(private val clock: Clock) : TrainingsRepository {
         trainingWeeks.value = weeks
     }
 
-    override fun observeAllTrainingWeeks(): Flow<List<TrainingWeek>> = trainingWeeks
+    override fun observeAllTrainingWeeks(): Flow<List<TrainingWeek>> = trainingWeeks.map { list ->
+        list.sortedByDescending { it.startDate }
+    }
 
     override fun observeCurrentTrainingWeek(): Flow<TrainingWeek?> = trainingWeeks.map { weeks ->
         weeks.maxByOrNull { it.startDate }
@@ -37,7 +40,15 @@ class FakeTrainingsRepository(private val clock: Clock) : TrainingsRepository {
         return trainingWeek
     }
 
+    override suspend fun updateTraining(trainingId: String, date: LocalDate) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun updateSetResult(setResultId: String, weight: Double, reps: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun completeTraining(trainingId: String) {
         TODO("Not yet implemented")
     }
 }

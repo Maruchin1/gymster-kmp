@@ -42,9 +42,10 @@ internal fun CurrentWeekWidget(
                 Column {
                     trainingWeek.trainings.forEach { training ->
                         TrainingItem(
-                            isComplete = false,
+                            isComplete = training.isComplete,
                             name = training.name,
                             exercisesCount = training.exercises.size,
+                            date = training.date,
                             onClick = { onOpenTraining(training.id) }
                         )
                         if (training != trainingWeek.trainings.last()) {

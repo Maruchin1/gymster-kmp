@@ -13,6 +13,7 @@ import com.maruchin.gymster.data.trainings.model.TrainingWeek
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
 
 internal class DefaultTrainingsRepository(
     private val trainingWeekDao: TrainingWeekDao,
@@ -24,7 +25,7 @@ internal class DefaultTrainingsRepository(
 
     override fun observeAllTrainingWeeks(): Flow<List<TrainingWeek>> =
         trainingWeekDao.observeAllTrainings().map { list ->
-            list.map { it.toDomainModel() }
+            list.map { it.toDomainModel() }.sortedByDescending { it.startDate }
         }
 
     override fun observeCurrentTrainingWeek(): Flow<TrainingWeek?> =
@@ -53,10 +54,25 @@ internal class DefaultTrainingsRepository(
         return trainingWeek
     }
 
+    override suspend fun updateTraining(trainingId: String, date: LocalDate) {
+        val training = trainingDao.getTraining(trainingId)
+        checkNotNull(training)
+        val updatedTraining = training.copy(date = date)
+        trainingDao.update(updatedTraining)
+    }
+
     override suspend fun updateSetResult(setResultId: String, weight: Double, reps: Int) {
         val setResult = setResulDao.getSetResult(setResultId)
         checkNotNull(setResult)
         val updatedSetResult = setResult.copy(weight = weight, reps = reps)
         setResulDao.update(updatedSetResult)
+    }
+
+    override suspend fun completeTraining(trainingId: String) {
+        val training = trainingDao.getTraining(trainingId)
+        checkNotNull(training)
+        val currentDate = clock.currentDate()
+        val updatedTraining = training.copy(date = currentDate)
+        trainingDao.update(updatedTraining)
     }
 }

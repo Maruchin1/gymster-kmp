@@ -4,6 +4,7 @@ import com.maruchin.gymster.data.plans.model.Plan
 import com.maruchin.gymster.data.trainings.model.Training
 import com.maruchin.gymster.data.trainings.model.TrainingWeek
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.LocalDate
 
 interface TrainingsRepository {
 
@@ -15,5 +16,9 @@ interface TrainingsRepository {
 
     suspend fun startNewWeek(plan: Plan): TrainingWeek
 
+    suspend fun updateTraining(trainingId: String, date: LocalDate)
+
     suspend fun updateSetResult(setResultId: String, weight: Double, reps: Int)
+
+    suspend fun completeTraining(trainingId: String)
 }
