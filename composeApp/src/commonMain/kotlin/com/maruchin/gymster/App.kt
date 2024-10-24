@@ -17,13 +17,16 @@ import com.maruchin.gymster.core.utils.di.coreClockModule
 import com.maruchin.gymster.data.plans.di.dataPlansModule
 import com.maruchin.gymster.data.trainings.di.dataTrainingsModule
 import com.maruchin.gymster.di.uiModule
-import com.maruchin.gymster.feature.trainings.di.featureTrainingsModule
 import com.maruchin.gymster.ui.home.HomeRoute
 import com.maruchin.gymster.ui.home.homeScreen
 import com.maruchin.gymster.ui.plandetails.navigateToPlanDetails
 import com.maruchin.gymster.ui.plandetails.planDetailsScreen
 import com.maruchin.gymster.ui.planlist.navigateToPlanList
 import com.maruchin.gymster.ui.planlist.planListScreen
+import com.maruchin.gymster.ui.trainingdetails.navigateToTrainingDetails
+import com.maruchin.gymster.ui.trainingdetails.trainingDetailsScreen
+import com.maruchin.gymster.ui.traininghistory.navigateToTrainingHistory
+import com.maruchin.gymster.ui.traininghistory.trainingHistoryScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
@@ -39,7 +42,6 @@ internal fun App(platformModule: Module = module { }) {
         application = {
             modules(
                 uiModule,
-                featureTrainingsModule,
                 dataPlansModule,
                 dataTrainingsModule,
                 coreDatabaseModule,
@@ -72,14 +74,21 @@ internal fun App(platformModule: Module = module { }) {
                 homeScreen(
                     onOpenPlans = { navController.navigateToPlanList() },
                     onOpenPlan = { navController.navigateToPlanDetails(it) },
-                    onOpenTrainingHistory = {},
-                    onOpenTraining = {}
+                    onOpenTrainingHistory = { navController.navigateToTrainingHistory() },
+                    onOpenTraining = { navController.navigateToTrainingDetails(it) }
                 )
                 planListScreen(
                     onBack = { navController.navigateUp() },
                     onOpenPlan = { navController.navigateToPlanDetails(it) }
                 )
                 planDetailsScreen(
+                    onBack = { navController.navigateUp() }
+                )
+                trainingHistoryScreen(
+                    onBack = { navController.navigateUp() },
+                    onOpenTraining = { navController.navigateToTrainingDetails(it) }
+                )
+                trainingDetailsScreen(
                     onBack = { navController.navigateUp() }
                 )
             }

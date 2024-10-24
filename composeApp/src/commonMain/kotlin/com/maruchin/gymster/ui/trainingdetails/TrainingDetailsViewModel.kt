@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.trainings.details
+package com.maruchin.gymster.ui.trainingdetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

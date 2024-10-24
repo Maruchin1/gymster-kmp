@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.trainings.history
+package com.maruchin.gymster.ui.traininghistory
 
 import com.maruchin.gymster.data.trainings.model.TrainingWeek
 

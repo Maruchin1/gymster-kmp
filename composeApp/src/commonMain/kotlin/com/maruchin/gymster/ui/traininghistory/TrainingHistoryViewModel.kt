@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.trainings.history
+package com.maruchin.gymster.ui.traininghistory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

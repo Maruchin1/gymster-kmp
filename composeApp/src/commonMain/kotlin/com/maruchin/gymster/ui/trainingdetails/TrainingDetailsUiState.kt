@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.trainings.details
+package com.maruchin.gymster.ui.trainingdetails
 
 import com.maruchin.gymster.data.trainings.model.Training
 

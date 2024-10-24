@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.trainings.details
+package com.maruchin.gymster.ui.trainingdetails
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -60,7 +60,7 @@ import com.maruchin.gymster.core.utils.format.format
 import com.maruchin.gymster.data.trainings.model.Exercise
 import com.maruchin.gymster.data.trainings.model.SetResult
 import com.maruchin.gymster.data.trainings.model.Training
-import com.maruchin.gymster.feature.trainings.forms.SetResultFormModal
+import com.maruchin.gymster.ui.forms.SetResultFormModal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate

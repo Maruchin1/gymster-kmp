@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.trainings.history
+package com.maruchin.gymster.ui.traininghistory
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

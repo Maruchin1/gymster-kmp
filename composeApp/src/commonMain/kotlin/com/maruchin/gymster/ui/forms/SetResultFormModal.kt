@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.trainings.forms
+package com.maruchin.gymster.ui.forms
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

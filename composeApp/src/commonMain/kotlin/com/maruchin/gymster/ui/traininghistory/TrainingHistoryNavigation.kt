@@ -1,7 +1,8 @@
-package com.maruchin.gymster.feature.trainings.history
+package com.maruchin.gymster.ui.traininghistory
 
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
@@ -10,6 +11,10 @@ import org.koin.core.annotation.KoinExperimentalAPI
 
 @Serializable
 internal data object TrainingHistoryRoute
+
+internal fun NavController.navigateToTrainingHistory() {
+    navigate(TrainingHistoryRoute)
+}
 
 @OptIn(KoinExperimentalAPI::class)
 internal fun NavGraphBuilder.trainingHistoryScreen(
