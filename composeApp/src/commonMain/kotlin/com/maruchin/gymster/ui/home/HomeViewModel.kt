@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.home
+package com.maruchin.gymster.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

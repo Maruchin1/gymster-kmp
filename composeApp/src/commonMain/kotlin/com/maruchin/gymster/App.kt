@@ -16,15 +16,11 @@ import com.maruchin.gymster.core.ui.theme.AppTheme
 import com.maruchin.gymster.core.utils.di.coreClockModule
 import com.maruchin.gymster.data.plans.di.dataPlansModule
 import com.maruchin.gymster.data.trainings.di.dataTrainingsModule
-import com.maruchin.gymster.feature.home.HomeGraph
-import com.maruchin.gymster.feature.home.di.featureHomeModule
-import com.maruchin.gymster.feature.home.homeGraph
+import com.maruchin.gymster.di.uiModule
+import com.maruchin.gymster.ui.home.HomeRoute
+import com.maruchin.gymster.ui.home.homeScreen
 import com.maruchin.gymster.feature.plans.di.featurePlansModule
-import com.maruchin.gymster.feature.plans.navigateToPlans
-import com.maruchin.gymster.feature.plans.plansGraph
 import com.maruchin.gymster.feature.trainings.di.featureTrainingsModule
-import com.maruchin.gymster.feature.trainings.navigateToTrainings
-import com.maruchin.gymster.feature.trainings.trainingsGraph
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
@@ -39,7 +35,7 @@ internal fun App(platformModule: Module = module { }) {
     KoinApplication(
         application = {
             modules(
-                featureHomeModule,
+                uiModule,
                 featurePlansModule,
                 featureTrainingsModule,
                 dataPlansModule,
@@ -56,7 +52,7 @@ internal fun App(platformModule: Module = module { }) {
 
             NavHost(
                 navController = navController,
-                startDestination = HomeGraph,
+                startDestination = HomeRoute,
                 enterTransition = {
                     slideInHorizontally(initialOffsetX = { it }) + fadeIn()
                 },
@@ -71,14 +67,12 @@ internal fun App(platformModule: Module = module { }) {
                 },
                 modifier = Modifier.background(MaterialTheme.colorScheme.background)
             ) {
-                homeGraph(
-                    onOpenPlans = { navController.navigateToPlans() },
-                    onOpenPlan = { navController.navigateToPlans(it) },
-                    onOpenTrainingHistory = { navController.navigateToTrainings() },
-                    onOpenTraining = { navController.navigateToTrainings(it) }
+                homeScreen(
+                    onOpenPlans = {},
+                    onOpenPlan = {},
+                    onOpenTrainingHistory = {},
+                    onOpenTraining = {}
                 )
-                plansGraph(navController)
-                trainingsGraph(navController)
             }
         }
     }

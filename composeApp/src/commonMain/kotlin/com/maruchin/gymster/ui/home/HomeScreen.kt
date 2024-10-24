@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.home
+package com.maruchin.gymster.ui.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import com.maruchin.gymster.ui.home.component.ActivePlanWidget
+import com.maruchin.gymster.ui.home.component.CurrentWeekWidget
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +46,7 @@ internal fun HomeScreen(
                 .verticalScroll(rememberScrollState())
                 .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection)
         ) {
-            PlansWidget(
+            ActivePlanWidget(
                 activePlan = state.activePlan,
                 onOpenPlans = onOpenPlans,
                 onOpenPlan = onOpenPlan,

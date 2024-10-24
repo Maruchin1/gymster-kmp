@@ -1,6 +1,6 @@
 @file:OptIn(KoinExperimentalAPI::class)
 
-package com.maruchin.gymster.feature.home
+package com.maruchin.gymster.ui.home
 
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -11,7 +11,7 @@ import org.koin.compose.viewmodel.koinNavViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @Serializable
-internal data object HomeScreen
+internal data object HomeRoute
 
 @OptIn(KoinExperimentalAPI::class)
 internal fun NavGraphBuilder.homeScreen(
@@ -20,7 +20,7 @@ internal fun NavGraphBuilder.homeScreen(
     onOpenTrainingHistory: () -> Unit,
     onOpenTraining: (String) -> Unit
 ) {
-    composable<HomeScreen> {
+    composable<HomeRoute> {
         val viewModel = koinNavViewModel<HomeViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 

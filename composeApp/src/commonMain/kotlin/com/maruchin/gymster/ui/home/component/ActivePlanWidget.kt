@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.home
+package com.maruchin.gymster.ui.home.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans.model.Plan
 
 @Composable
-internal fun PlansWidget(
+internal fun ActivePlanWidget(
     activePlan: Plan?,
     onOpenPlans: () -> Unit,
     onOpenPlan: (planId: String) -> Unit,

@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.home
+package com.maruchin.gymster.ui.home.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

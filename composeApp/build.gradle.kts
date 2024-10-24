@@ -28,7 +28,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.feature.home)
             implementation(projects.feature.plans)
             implementation(projects.feature.trainings)
             implementation(projects.data.plans)
@@ -37,6 +36,8 @@ kotlin {
             implementation(projects.core.database)
             implementation(projects.core.preferences)
             implementation(projects.core.utils)
+
+            implementation(libs.kotlinx.datetime)
         }
     }
 }
