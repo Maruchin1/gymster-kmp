@@ -17,10 +17,13 @@ import com.maruchin.gymster.core.utils.di.coreClockModule
 import com.maruchin.gymster.data.plans.di.dataPlansModule
 import com.maruchin.gymster.data.trainings.di.dataTrainingsModule
 import com.maruchin.gymster.di.uiModule
+import com.maruchin.gymster.feature.trainings.di.featureTrainingsModule
 import com.maruchin.gymster.ui.home.HomeRoute
 import com.maruchin.gymster.ui.home.homeScreen
-import com.maruchin.gymster.feature.plans.di.featurePlansModule
-import com.maruchin.gymster.feature.trainings.di.featureTrainingsModule
+import com.maruchin.gymster.ui.plandetails.navigateToPlanDetails
+import com.maruchin.gymster.ui.plandetails.planDetailsScreen
+import com.maruchin.gymster.ui.planlist.navigateToPlanList
+import com.maruchin.gymster.ui.planlist.planListScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
@@ -36,7 +39,6 @@ internal fun App(platformModule: Module = module { }) {
         application = {
             modules(
                 uiModule,
-                featurePlansModule,
                 featureTrainingsModule,
                 dataPlansModule,
                 dataTrainingsModule,
@@ -68,10 +70,17 @@ internal fun App(platformModule: Module = module { }) {
                 modifier = Modifier.background(MaterialTheme.colorScheme.background)
             ) {
                 homeScreen(
-                    onOpenPlans = {},
-                    onOpenPlan = {},
+                    onOpenPlans = { navController.navigateToPlanList() },
+                    onOpenPlan = { navController.navigateToPlanDetails(it) },
                     onOpenTrainingHistory = {},
                     onOpenTraining = {}
+                )
+                planListScreen(
+                    onBack = { navController.navigateUp() },
+                    onOpenPlan = { navController.navigateToPlanDetails(it) }
+                )
+                planDetailsScreen(
+                    onBack = { navController.navigateUp() }
                 )
             }
         }

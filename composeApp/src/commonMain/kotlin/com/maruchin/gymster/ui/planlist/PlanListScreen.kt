@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.plans.planlist
+package com.maruchin.gymster.ui.planlist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.automirrored.rounded.ArrowBackIos
 import androidx.compose.material.icons.filled.Dataset
 import androidx.compose.material.icons.outlined.Add
@@ -42,7 +40,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans.model.Plan
 import com.maruchin.gymster.data.plans.model.PlanTraining
-import com.maruchin.gymster.feature.plans.forms.PlanFormModal
+import com.maruchin.gymster.ui.forms.PlanFormModal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

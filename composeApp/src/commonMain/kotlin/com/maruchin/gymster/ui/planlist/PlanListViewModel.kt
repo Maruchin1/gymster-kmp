@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.plans.planlist
+package com.maruchin.gymster.ui.planlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

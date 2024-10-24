@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.plans.plandetails
+package com.maruchin.gymster.ui.plandetails
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -60,9 +60,9 @@ import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans.model.Plan
 import com.maruchin.gymster.data.plans.model.PlanExercise
 import com.maruchin.gymster.data.plans.model.PlanTraining
-import com.maruchin.gymster.feature.plans.forms.ExerciseFormModal
-import com.maruchin.gymster.feature.plans.forms.PlanFormModal
-import com.maruchin.gymster.feature.plans.forms.TrainingFormModal
+import com.maruchin.gymster.ui.forms.ExerciseFormModal
+import com.maruchin.gymster.ui.forms.PlanFormModal
+import com.maruchin.gymster.ui.forms.TrainingFormModal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

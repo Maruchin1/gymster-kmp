@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.plans.forms
+package com.maruchin.gymster.ui.forms
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets

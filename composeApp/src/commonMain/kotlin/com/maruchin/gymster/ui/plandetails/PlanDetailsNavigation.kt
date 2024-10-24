@@ -1,4 +1,4 @@
-package com.maruchin.gymster.feature.plans.plandetails
+package com.maruchin.gymster.ui.plandetails
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
