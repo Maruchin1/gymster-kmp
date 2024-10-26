@@ -11,22 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.gymster.core.database.di.coreDatabaseModule
-import com.maruchin.gymster.core.ui.theme.AppTheme
-import com.maruchin.gymster.core.utils.di.coreClockModule
 import com.maruchin.gymster.di.coreModule
 import com.maruchin.gymster.di.dataModule
 import com.maruchin.gymster.di.platformModule
 import com.maruchin.gymster.di.uiModule
-import com.maruchin.gymster.ui.home.HomeRoute
-import com.maruchin.gymster.ui.home.homeScreen
-import com.maruchin.gymster.ui.plandetails.navigateToPlanDetails
-import com.maruchin.gymster.ui.plandetails.planDetailsScreen
-import com.maruchin.gymster.ui.planlist.navigateToPlanList
-import com.maruchin.gymster.ui.planlist.planListScreen
-import com.maruchin.gymster.ui.trainingdetails.navigateToTrainingDetails
-import com.maruchin.gymster.ui.trainingdetails.trainingDetailsScreen
-import com.maruchin.gymster.ui.traininghistory.navigateToTrainingHistory
-import com.maruchin.gymster.ui.traininghistory.trainingHistoryScreen
+import com.maruchin.gymster.screen.home.HomeRoute
+import com.maruchin.gymster.screen.home.homeScreen
+import com.maruchin.gymster.screen.plandetails.navigateToPlanDetails
+import com.maruchin.gymster.screen.plandetails.planDetailsScreen
+import com.maruchin.gymster.screen.planlist.navigateToPlanList
+import com.maruchin.gymster.screen.planlist.planListScreen
+import com.maruchin.gymster.screen.trainingdetails.navigateToTrainingDetails
+import com.maruchin.gymster.screen.trainingdetails.trainingDetailsScreen
+import com.maruchin.gymster.screen.traininghistory.navigateToTrainingHistory
+import com.maruchin.gymster.screen.traininghistory.trainingHistoryScreen
+import com.maruchin.gymster.ui.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
@@ -46,7 +45,6 @@ internal fun App(appModule: Module = module { }) {
                 coreModule,
                 platformModule,
                 coreDatabaseModule,
-                coreClockModule,
                 appModule
             )
         }

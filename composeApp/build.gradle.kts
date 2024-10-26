@@ -38,9 +38,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.ui)
             implementation(projects.core.database)
-            implementation(projects.core.utils)
 
             implementation(libs.kotlinx.datetime)
             implementation(libs.androidx.room.runtime)

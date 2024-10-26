@@ -22,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.maruchin.gymster.core.utils.format.format
+import com.maruchin.gymster.core.utils.format
 import com.maruchin.gymster.data.trainings.model.SetResult
 import kotlinx.coroutines.launch
 

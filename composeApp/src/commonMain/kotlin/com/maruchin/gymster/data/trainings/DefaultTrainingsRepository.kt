@@ -1,10 +1,10 @@
 package com.maruchin.gymster.data.trainings
 
+import com.maruchin.gymster.core.clock.currentDate
 import com.maruchin.gymster.core.database.dao.ExerciseDao
 import com.maruchin.gymster.core.database.dao.SetResultDao
 import com.maruchin.gymster.core.database.dao.TrainingDao
 import com.maruchin.gymster.core.database.dao.TrainingWeekDao
-import com.maruchin.gymster.core.utils.clock.currentDate
 import com.maruchin.gymster.data.plans.model.Plan
 import com.maruchin.gymster.data.trainings.mapper.toDbModel
 import com.maruchin.gymster.data.trainings.mapper.toDomainModel
