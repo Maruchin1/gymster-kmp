@@ -6,7 +6,7 @@ import com.maruchin.gymster.data.trainings.model.TrainingWeek
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
 
-interface TrainingsRepository {
+internal interface TrainingsRepository {
 
     fun observeAllTrainingWeeks(): Flow<List<TrainingWeek>>
 

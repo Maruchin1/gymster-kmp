@@ -7,7 +7,7 @@ import androidx.room.Update
 import com.maruchin.gymster.core.database.entity.SetResultEntity
 
 @Dao
-interface SetResultDao {
+internal interface SetResultDao {
 
     @Query("SELECT * FROM SetResultEntity WHERE id = :setResultId")
     suspend fun getSetResult(setResultId: String): SetResultEntity?

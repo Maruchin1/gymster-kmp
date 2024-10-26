@@ -1,14 +1,16 @@
-package com.maruchin.gymster.core.database.dao
+package com.maruchin.gymster.core.database.fakedao
 
+import com.maruchin.gymster.core.database.FakeGymsterDatabase
+import com.maruchin.gymster.core.database.dao.PlanDao
 import com.maruchin.gymster.core.database.entity.PlanEntity
 import com.maruchin.gymster.core.database.relation.PlanTrainingWithExercises
 import com.maruchin.gymster.core.database.relation.PlanWithTrainings
-import com.maruchin.gymster.core.database.FakeGymsterDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 
-class FakePlanDao internal constructor(private val database: FakeGymsterDatabase) : PlanDao {
+internal class FakePlanDao internal constructor(private val database: FakeGymsterDatabase) :
+    PlanDao {
 
     override fun observeAllPlansWithTrainings(): Flow<List<PlanWithTrainings>> = combine(
         database.plans,

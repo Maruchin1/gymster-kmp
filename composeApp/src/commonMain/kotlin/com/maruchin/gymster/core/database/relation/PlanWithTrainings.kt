@@ -5,7 +5,7 @@ import androidx.room.Relation
 import com.maruchin.gymster.core.database.entity.PlanEntity
 import com.maruchin.gymster.core.database.entity.PlanTrainingEntity
 
-data class PlanWithTrainings(
+internal data class PlanWithTrainings(
     @Embedded
     val plan: PlanEntity,
     @Relation(entity = PlanTrainingEntity::class, parentColumn = "id", entityColumn = "planId")

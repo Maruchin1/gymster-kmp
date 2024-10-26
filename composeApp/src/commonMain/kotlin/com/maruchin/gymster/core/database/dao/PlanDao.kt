@@ -11,7 +11,7 @@ import com.maruchin.gymster.core.database.relation.PlanWithTrainings
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface PlanDao {
+internal interface PlanDao {
 
     @Transaction
     @Query("SELECT * FROM PlanEntity")

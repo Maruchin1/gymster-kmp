@@ -3,7 +3,7 @@ package com.maruchin.gymster.core.preferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 
-expect class PreferencesFactory {
+internal expect class PreferencesFactory {
 
     fun createDataStore(storeName: String): DataStore<Preferences>
 

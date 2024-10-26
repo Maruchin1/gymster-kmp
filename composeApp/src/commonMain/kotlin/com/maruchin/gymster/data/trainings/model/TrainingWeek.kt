@@ -4,7 +4,7 @@ import com.maruchin.gymster.data.plans.model.Plan
 import kotlin.uuid.Uuid
 import kotlinx.datetime.LocalDate
 
-data class TrainingWeek(
+internal data class TrainingWeek(
     val id: String = Uuid.random().toString(),
     val startDate: LocalDate,
     val trainings: List<Training>
@@ -19,7 +19,7 @@ data class TrainingWeek(
     }
 }
 
-val samplePushPullLegsTrainingWeek = TrainingWeek(
+internal val samplePushPullLegsTrainingWeek = TrainingWeek(
     startDate = LocalDate(2024, 10, 21),
     trainings = listOf(
         Training(
@@ -189,4 +189,4 @@ val samplePushPullLegsTrainingWeek = TrainingWeek(
     )
 )
 
-val sampleTrainingWeeks = listOf(samplePushPullLegsTrainingWeek)
+internal val sampleTrainingWeeks = listOf(samplePushPullLegsTrainingWeek)

@@ -4,7 +4,7 @@ import com.maruchin.gymster.data.plans.model.PlanTraining
 import kotlin.uuid.Uuid
 import kotlinx.datetime.LocalDate
 
-data class Training(
+internal data class Training(
     val id: String = Uuid.random().toString(),
     val name: String,
     val exercises: List<Exercise>,

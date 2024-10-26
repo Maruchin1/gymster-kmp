@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import kotlinx.datetime.LocalDate
 
 @Entity
-data class TrainingEntity(
+internal data class TrainingEntity(
     @PrimaryKey val id: String,
     val trainingWeekId: String,
     val name: String,

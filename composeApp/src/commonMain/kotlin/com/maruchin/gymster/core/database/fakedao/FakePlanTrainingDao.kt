@@ -1,10 +1,11 @@
-package com.maruchin.gymster.core.database.dao
+package com.maruchin.gymster.core.database.fakedao
 
-import com.maruchin.gymster.core.database.entity.PlanTrainingEntity
 import com.maruchin.gymster.core.database.FakeGymsterDatabase
+import com.maruchin.gymster.core.database.dao.PlanTrainingDao
+import com.maruchin.gymster.core.database.entity.PlanTrainingEntity
 import kotlinx.coroutines.flow.update
 
-class FakePlanTrainingDao internal constructor(private val database: FakeGymsterDatabase) :
+internal class FakePlanTrainingDao internal constructor(private val database: FakeGymsterDatabase) :
     PlanTrainingDao {
 
     override suspend fun getPlanTraining(trainingId: String): PlanTrainingEntity? =

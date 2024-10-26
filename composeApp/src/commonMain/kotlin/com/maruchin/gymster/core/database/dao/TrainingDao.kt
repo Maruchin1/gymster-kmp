@@ -10,7 +10,7 @@ import com.maruchin.gymster.core.database.relation.TrainingWithExercises
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface TrainingDao {
+internal interface TrainingDao {
 
     @Transaction
     @Query("SELECT * FROM TrainingEntity WHERE id = :trainingId")

@@ -10,7 +10,7 @@ import com.maruchin.gymster.core.database.relation.TrainingWeekWithTrainings
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface TrainingWeekDao {
+internal interface TrainingWeekDao {
 
     @Transaction
     @Query("SELECT * FROM TrainingWeekEntity")

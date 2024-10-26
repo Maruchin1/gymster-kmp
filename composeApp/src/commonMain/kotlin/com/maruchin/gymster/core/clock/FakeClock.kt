@@ -7,7 +7,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atTime
 import kotlinx.datetime.toInstant
 
-class FakeClock : Clock {
+internal class FakeClock : Clock {
 
     private var now: Instant = Clock.System.now()
 

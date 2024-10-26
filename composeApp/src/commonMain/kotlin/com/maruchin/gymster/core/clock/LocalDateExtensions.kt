@@ -7,10 +7,10 @@ import kotlinx.datetime.atTime
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
-fun LocalDate.toMillis(): Long = this.atTime(12, 0)
+internal fun LocalDate.toMillis(): Long = this.atTime(12, 0)
     .toInstant(TimeZone.currentSystemDefault())
     .toEpochMilliseconds()
 
-fun Long.toLocalDate(): LocalDate = Instant.fromEpochMilliseconds(this)
+internal fun Long.toLocalDate(): LocalDate = Instant.fromEpochMilliseconds(this)
     .toLocalDateTime(TimeZone.currentSystemDefault())
     .date

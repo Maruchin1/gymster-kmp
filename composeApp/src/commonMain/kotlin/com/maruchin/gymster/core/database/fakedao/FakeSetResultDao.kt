@@ -1,10 +1,11 @@
-package com.maruchin.gymster.core.database.dao
+package com.maruchin.gymster.core.database.fakedao
 
-import com.maruchin.gymster.core.database.entity.SetResultEntity
 import com.maruchin.gymster.core.database.FakeGymsterDatabase
+import com.maruchin.gymster.core.database.dao.SetResultDao
+import com.maruchin.gymster.core.database.entity.SetResultEntity
 import kotlinx.coroutines.flow.update
 
-class FakeSetResultDao internal constructor(private val database: FakeGymsterDatabase) :
+internal class FakeSetResultDao internal constructor(private val database: FakeGymsterDatabase) :
     SetResultDao {
 
     override suspend fun getSetResult(setResultId: String): SetResultEntity? =

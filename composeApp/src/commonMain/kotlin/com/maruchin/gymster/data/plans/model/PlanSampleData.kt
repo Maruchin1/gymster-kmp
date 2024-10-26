@@ -1,6 +1,6 @@
 package com.maruchin.gymster.data.plans.model
 
-val samplePushPullLegsPlan = Plan(
+internal val samplePushPullLegsPlan = Plan(
     id = "1",
     name = "Push Pull Legs",
     isActive = false,
@@ -116,13 +116,13 @@ val samplePushPullLegsPlan = Plan(
     )
 )
 
-val samplePushPullLegsPlanActive = samplePushPullLegsPlan.copy(isActive = true)
+internal val samplePushPullLegsPlanActive = samplePushPullLegsPlan.copy(isActive = true)
 
-val sampleFullBodyWorkoutEmptyPlan = Plan(
+internal val sampleFullBodyWorkoutEmptyPlan = Plan(
     id = "2",
     name = "Full Body Workout",
     isActive = false,
     trainings = emptyList()
 )
 
-val samplePlans = listOf(samplePushPullLegsPlan, sampleFullBodyWorkoutEmptyPlan)
+internal val samplePlans = listOf(samplePushPullLegsPlan, sampleFullBodyWorkoutEmptyPlan)

@@ -8,7 +8,7 @@ import androidx.room.Update
 import com.maruchin.gymster.core.database.entity.PlanTrainingEntity
 
 @Dao
-interface PlanTrainingDao {
+internal interface PlanTrainingDao {
 
     @Query("SELECT * FROM PlanTrainingEntity WHERE id = :trainingId")
     suspend fun getPlanTraining(trainingId: String): PlanTrainingEntity?

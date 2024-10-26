@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class ExerciseEntity(
+internal data class ExerciseEntity(
     @PrimaryKey val id: String,
     val trainingId: String,
     val name: String,

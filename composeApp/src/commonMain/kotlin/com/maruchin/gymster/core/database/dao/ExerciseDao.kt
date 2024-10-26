@@ -5,7 +5,7 @@ import androidx.room.Insert
 import com.maruchin.gymster.core.database.entity.ExerciseEntity
 
 @Dao
-interface ExerciseDao {
+internal interface ExerciseDao {
 
     @Insert
     suspend fun insert(exercises: List<ExerciseEntity>)

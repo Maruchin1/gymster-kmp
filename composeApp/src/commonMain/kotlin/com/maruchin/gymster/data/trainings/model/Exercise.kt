@@ -3,7 +3,7 @@ package com.maruchin.gymster.data.trainings.model
 import com.maruchin.gymster.data.plans.model.PlanExercise
 import kotlin.uuid.Uuid
 
-data class Exercise(
+internal data class Exercise(
     val id: String = Uuid.random().toString(),
     val name: String,
     val sets: Int,
