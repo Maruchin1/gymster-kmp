@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.maruchin.gymster.core.database.di.coreDatabaseModule
 import com.maruchin.gymster.di.coreModule
 import com.maruchin.gymster.di.dataModule
 import com.maruchin.gymster.di.platformModule
@@ -44,7 +43,6 @@ internal fun App(appModule: Module = module { }) {
                 dataModule,
                 coreModule,
                 platformModule,
-                coreDatabaseModule,
                 appModule
             )
         }

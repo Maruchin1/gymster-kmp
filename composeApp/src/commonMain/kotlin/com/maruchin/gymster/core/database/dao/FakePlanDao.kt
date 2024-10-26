@@ -3,7 +3,7 @@ package com.maruchin.gymster.core.database.dao
 import com.maruchin.gymster.core.database.entity.PlanEntity
 import com.maruchin.gymster.core.database.relation.PlanTrainingWithExercises
 import com.maruchin.gymster.core.database.relation.PlanWithTrainings
-import com.maruchin.gymster.core.database.room.FakeGymsterDatabase
+import com.maruchin.gymster.core.database.FakeGymsterDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update

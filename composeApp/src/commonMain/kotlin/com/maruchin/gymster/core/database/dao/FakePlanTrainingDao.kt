@@ -1,7 +1,7 @@
 package com.maruchin.gymster.core.database.dao
 
 import com.maruchin.gymster.core.database.entity.PlanTrainingEntity
-import com.maruchin.gymster.core.database.room.FakeGymsterDatabase
+import com.maruchin.gymster.core.database.FakeGymsterDatabase
 import kotlinx.coroutines.flow.update
 
 class FakePlanTrainingDao internal constructor(private val database: FakeGymsterDatabase) :

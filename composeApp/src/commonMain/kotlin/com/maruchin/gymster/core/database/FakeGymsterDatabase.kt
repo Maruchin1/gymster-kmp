@@ -1,4 +1,4 @@
-package com.maruchin.gymster.core.database.room
+package com.maruchin.gymster.core.database
 
 import com.maruchin.gymster.core.database.entity.ExerciseEntity
 import com.maruchin.gymster.core.database.entity.PlanEntity

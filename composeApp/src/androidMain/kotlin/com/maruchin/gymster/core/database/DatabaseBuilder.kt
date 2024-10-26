@@ -1,4 +1,4 @@
-package com.maruchin.gymster.core.database.room
+package com.maruchin.gymster.core.database
 
 import android.content.Context
 import androidx.room.Room

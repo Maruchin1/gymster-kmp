@@ -4,7 +4,7 @@ import com.maruchin.gymster.core.database.entity.TrainingWeekEntity
 import com.maruchin.gymster.core.database.relation.ExerciseWithSetResults
 import com.maruchin.gymster.core.database.relation.TrainingWeekWithTrainings
 import com.maruchin.gymster.core.database.relation.TrainingWithExercises
-import com.maruchin.gymster.core.database.room.FakeGymsterDatabase
+import com.maruchin.gymster.core.database.FakeGymsterDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update

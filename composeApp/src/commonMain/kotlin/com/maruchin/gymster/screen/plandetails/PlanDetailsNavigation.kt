@@ -13,16 +13,16 @@ import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.parameter.parametersOf
 
 @Serializable
-internal data class PlanDetailsScreen(val planId: String)
+internal data class PlanDetailsRoute(val planId: String)
 
 internal fun NavController.navigateToPlanDetails(planId: String) {
-    navigate(PlanDetailsScreen(planId))
+    navigate(PlanDetailsRoute(planId))
 }
 
 @OptIn(KoinExperimentalAPI::class)
 internal fun NavGraphBuilder.planDetailsScreen(onBack: () -> Unit) {
-    composable<PlanDetailsScreen> { entry ->
-        val (planId) = entry.toRoute<PlanDetailsScreen>()
+    composable<PlanDetailsRoute> { entry ->
+        val (planId) = entry.toRoute<PlanDetailsRoute>()
         val viewModel: PlanDetailsViewModel = koinNavViewModel { parametersOf(planId) }
         val state by viewModel.uiState.collectAsStateWithLifecycle()
 
