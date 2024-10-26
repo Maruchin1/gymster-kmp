@@ -1,4 +1,4 @@
-package com.maruchin.gymster.data.plans.repository
+package com.maruchin.gymster.data.plans
 
 import com.maruchin.gymster.data.plans.model.Plan
 import kotlinx.coroutines.flow.Flow

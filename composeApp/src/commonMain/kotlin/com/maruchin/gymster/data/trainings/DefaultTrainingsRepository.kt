@@ -1,4 +1,4 @@
-package com.maruchin.gymster.data.trainings.repository
+package com.maruchin.gymster.data.trainings
 
 import com.maruchin.gymster.core.database.dao.ExerciseDao
 import com.maruchin.gymster.core.database.dao.SetResultDao

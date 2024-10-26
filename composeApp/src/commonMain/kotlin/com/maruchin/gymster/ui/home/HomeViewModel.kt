@@ -2,8 +2,8 @@ package com.maruchin.gymster.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.gymster.data.plans.repository.PlansRepository
-import com.maruchin.gymster.data.trainings.repository.TrainingsRepository
+import com.maruchin.gymster.data.plans.PlansRepository
+import com.maruchin.gymster.data.trainings.TrainingsRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine

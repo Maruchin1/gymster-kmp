@@ -14,8 +14,7 @@ import com.maruchin.gymster.core.database.di.coreDatabaseModule
 import com.maruchin.gymster.core.preferences.di.corePreferencesModule
 import com.maruchin.gymster.core.ui.theme.AppTheme
 import com.maruchin.gymster.core.utils.di.coreClockModule
-import com.maruchin.gymster.data.plans.di.dataPlansModule
-import com.maruchin.gymster.data.trainings.di.dataTrainingsModule
+import com.maruchin.gymster.di.dataModule
 import com.maruchin.gymster.di.uiModule
 import com.maruchin.gymster.ui.home.HomeRoute
 import com.maruchin.gymster.ui.home.homeScreen
@@ -42,8 +41,7 @@ internal fun App(platformModule: Module = module { }) {
         application = {
             modules(
                 uiModule,
-                dataPlansModule,
-                dataTrainingsModule,
+                dataModule,
                 coreDatabaseModule,
                 corePreferencesModule,
                 coreClockModule,

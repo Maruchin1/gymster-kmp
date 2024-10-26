@@ -2,7 +2,7 @@ package com.maruchin.gymster.ui.plandetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.gymster.data.plans.repository.PlansRepository
+import com.maruchin.gymster.data.plans.PlansRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

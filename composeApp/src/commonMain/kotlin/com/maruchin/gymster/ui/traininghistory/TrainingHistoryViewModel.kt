@@ -2,7 +2,7 @@ package com.maruchin.gymster.ui.traininghistory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.gymster.data.trainings.repository.TrainingsRepository
+import com.maruchin.gymster.data.trainings.TrainingsRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

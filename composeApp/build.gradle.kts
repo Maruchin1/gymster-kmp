@@ -26,10 +26,15 @@ kotlin {
         }
     }
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-opt-in=kotlin.uuid.ExperimentalUuidApi"
+        )
+    }
+
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.data.plans)
-            implementation(projects.data.trainings)
             implementation(projects.core.ui)
             implementation(projects.core.database)
             implementation(projects.core.preferences)

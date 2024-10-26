@@ -1,4 +1,4 @@
-package com.maruchin.gymster.data.trainings.repository
+package com.maruchin.gymster.data.trainings
 
 import com.maruchin.gymster.data.plans.model.Plan
 import com.maruchin.gymster.data.trainings.model.Training
