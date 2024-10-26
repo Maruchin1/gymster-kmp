@@ -11,10 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.gymster.core.database.di.coreDatabaseModule
-import com.maruchin.gymster.core.preferences.di.corePreferencesModule
 import com.maruchin.gymster.core.ui.theme.AppTheme
 import com.maruchin.gymster.core.utils.di.coreClockModule
+import com.maruchin.gymster.di.coreModule
 import com.maruchin.gymster.di.dataModule
+import com.maruchin.gymster.di.platformModule
 import com.maruchin.gymster.di.uiModule
 import com.maruchin.gymster.ui.home.HomeRoute
 import com.maruchin.gymster.ui.home.homeScreen
@@ -36,16 +37,17 @@ import org.koin.dsl.module
 
 @Composable
 @Preview
-internal fun App(platformModule: Module = module { }) {
+internal fun App(appModule: Module = module { }) {
     KoinApplication(
         application = {
             modules(
                 uiModule,
                 dataModule,
+                coreModule,
+                platformModule,
                 coreDatabaseModule,
-                corePreferencesModule,
                 coreClockModule,
-                platformModule
+                appModule
             )
         }
     ) {

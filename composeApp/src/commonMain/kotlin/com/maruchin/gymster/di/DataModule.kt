@@ -1,6 +1,6 @@
 package com.maruchin.gymster.di
 
-import com.maruchin.gymster.core.preferences.di.PLANS_PREFERENCES
+import com.maruchin.gymster.core.preferences.PreferencesType
 import com.maruchin.gymster.data.plans.DefaultPlansRepository
 import com.maruchin.gymster.data.plans.PlansRepository
 import com.maruchin.gymster.data.plans.datasource.PlansLocalDataSource
@@ -16,7 +16,7 @@ internal val dataModule = module {
 
     factoryOf(::PlansLocalDataSource)
 
-    factory { PlansPreferencesDataSource(get(named(PLANS_PREFERENCES))) }
+    factory { PlansPreferencesDataSource(get(named(PreferencesType.PLANS))) }
 
     factoryOf(::DefaultPlansRepository) bind PlansRepository::class
 

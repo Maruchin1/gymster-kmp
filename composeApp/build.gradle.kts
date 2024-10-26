@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.gymsterCompose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -29,7 +31,8 @@ kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         freeCompilerArgs.addAll(
-            "-opt-in=kotlin.uuid.ExperimentalUuidApi"
+            "-opt-in=kotlin.uuid.ExperimentalUuidApi",
+            "-Xexpect-actual-classes"
         )
     }
 
@@ -37,12 +40,21 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.ui)
             implementation(projects.core.database)
-            implementation(projects.core.preferences)
             implementation(projects.core.utils)
 
             implementation(libs.kotlinx.datetime)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+            implementation(libs.androidx.datastore)
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
 }
 
 android {
@@ -70,4 +82,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
