@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.maruchin.gymster.di.coreModule
+import com.maruchin.gymster.di.clockModule
 import com.maruchin.gymster.di.dataModule
-import com.maruchin.gymster.di.platformModule
+import com.maruchin.gymster.di.databaseModule
+import com.maruchin.gymster.di.preferencesModule
 import com.maruchin.gymster.di.uiModule
 import com.maruchin.gymster.screen.home.HomeRoute
 import com.maruchin.gymster.screen.home.homeScreen
@@ -41,8 +42,9 @@ internal fun App(appModule: Module = module { }) {
             modules(
                 uiModule,
                 dataModule,
-                coreModule,
-                platformModule,
+                clockModule,
+                databaseModule,
+                preferencesModule,
                 appModule
             )
         }

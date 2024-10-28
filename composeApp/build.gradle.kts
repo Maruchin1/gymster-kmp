@@ -62,6 +62,8 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.coroutines)
             implementation(libs.kotlinx.serialization)
+
+            implementation("io.ktor:ktor-client-core:3.0.0")
         }
         androidMain.dependencies {
             implementation(compose.preview)
