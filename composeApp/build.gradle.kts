@@ -69,6 +69,9 @@ kotlin {
             implementation(libs.ktor.client.contentnegotiation)
             implementation(libs.ktor.serialization.json)
 
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor3)
+
             implementation(libs.kermit)
         }
         androidMain.dependencies {

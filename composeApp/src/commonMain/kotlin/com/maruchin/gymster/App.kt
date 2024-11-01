@@ -16,11 +16,12 @@ import com.maruchin.gymster.di.dataModule
 import com.maruchin.gymster.di.databaseModule
 import com.maruchin.gymster.di.preferencesModule
 import com.maruchin.gymster.di.uiModule
+import com.maruchin.gymster.screen.exercisebrowser.exerciseBrowserScreen
+import com.maruchin.gymster.screen.exercisebrowser.navigateToExerciseBrowser
 import com.maruchin.gymster.screen.home.HomeRoute
 import com.maruchin.gymster.screen.home.homeScreen
 import com.maruchin.gymster.screen.plandetails.navigateToPlanDetails
 import com.maruchin.gymster.screen.plandetails.planDetailsScreen
-import com.maruchin.gymster.screen.planlist.navigateToPlanList
 import com.maruchin.gymster.screen.planlist.planListScreen
 import com.maruchin.gymster.screen.trainingdetails.navigateToTrainingDetails
 import com.maruchin.gymster.screen.trainingdetails.trainingDetailsScreen
@@ -74,7 +75,7 @@ internal fun App(appModule: Module = module { }) {
                 modifier = Modifier.background(MaterialTheme.colorScheme.background)
             ) {
                 homeScreen(
-                    onOpenPlans = { navController.navigateToPlanList() },
+                    onOpenPlans = { navController.navigateToExerciseBrowser() },
                     onOpenPlan = { navController.navigateToPlanDetails(it) },
                     onOpenTrainingHistory = { navController.navigateToTrainingHistory() },
                     onOpenTraining = { navController.navigateToTrainingDetails(it) }
@@ -91,6 +92,9 @@ internal fun App(appModule: Module = module { }) {
                     onOpenTraining = { navController.navigateToTrainingDetails(it) }
                 )
                 trainingDetailsScreen(
+                    onBack = { navController.navigateUp() }
+                )
+                exerciseBrowserScreen(
                     onBack = { navController.navigateUp() }
                 )
             }

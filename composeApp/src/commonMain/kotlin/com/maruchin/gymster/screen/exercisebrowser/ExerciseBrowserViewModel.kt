@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-internal class ExerciseBrowserViewModel(
-    private val exercisesRepository: ExercisesRepository
-) : ViewModel() {
+internal class ExerciseBrowserViewModel(private val exercisesRepository: ExercisesRepository) :
+    ViewModel() {
 
     private val _uiState = MutableStateFlow(ExerciseBrowserUiState())
     val uiState = _uiState.asStateFlow()
