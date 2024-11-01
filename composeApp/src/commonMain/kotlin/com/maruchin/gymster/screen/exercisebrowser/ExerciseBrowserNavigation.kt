@@ -24,7 +24,8 @@ internal fun NavGraphBuilder.exerciseBrowserScreen(onBack: () -> Unit) {
 
         ExerciseBrowserScreen(
             state = state,
-            onBack = onBack
+            onBack = onBack,
+            onLoadNextPage = viewModel::loadNextExercisePage
         )
     }
 }

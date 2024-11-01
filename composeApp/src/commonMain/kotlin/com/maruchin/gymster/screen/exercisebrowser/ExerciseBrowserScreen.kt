@@ -7,13 +7,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.screen.exercisebrowser.component.ExerciseBrowserTopAppBar
 import com.maruchin.gymster.screen.exercisebrowser.component.ExerciseItem
+import com.maruchin.gymster.screen.exercisebrowser.component.MoreExercisesLoader
 
 @Composable
-internal fun ExerciseBrowserScreen(state: ExerciseBrowserUiState, onBack: () -> Unit) {
+internal fun ExerciseBrowserScreen(
+    state: ExerciseBrowserUiState,
+    onBack: () -> Unit,
+    onLoadNextPage: () -> Unit
+) {
     Scaffold(
         topBar = {
             ExerciseBrowserTopAppBar(onBack = onBack)
@@ -26,6 +32,14 @@ internal fun ExerciseBrowserScreen(state: ExerciseBrowserUiState, onBack: () -> 
         ) {
             items(state.exercises) { exercise ->
                 ExerciseItem(exercise = exercise, onClick = {})
+            }
+            if (state.hasNextPage) {
+                item {
+                    LaunchedEffect(Unit) {
+                        onLoadNextPage()
+                    }
+                    MoreExercisesLoader()
+                }
             }
         }
     }
