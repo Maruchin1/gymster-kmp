@@ -10,9 +10,10 @@ import io.ktor.client.request.parameter
 
 internal class ExercisesRepository(private val httpClient: HttpClient) {
 
-    suspend fun getExercises(pageIndex: Int): List<Exercise> {
+    suspend fun getExercises(pageIndex: Int, categoryId: Int?): List<Exercise> {
         val response = httpClient.get("/api/v2/exercisebaseinfo/") {
             parameter("offset", pageIndex)
+            parameter("category", categoryId)
         }
         val responseBody = response.body<PaginatedExerciseBaseInfoListJson>()
         return responseBody.results.map { it.toDomain() }

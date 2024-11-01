@@ -1,6 +1,7 @@
 package com.maruchin.gymster.di
 
 import com.maruchin.gymster.core.preferences.PLANS_PREFERENCES
+import com.maruchin.gymster.data.exercises.ExerciseCategoriesRepository
 import com.maruchin.gymster.data.exercises.ExercisesRepository
 import com.maruchin.gymster.data.plans.DefaultPlansRepository
 import com.maruchin.gymster.data.plans.PlansRepository
@@ -24,4 +25,6 @@ internal val dataModule = module {
     factoryOf(::DefaultTrainingsRepository) bind TrainingsRepository::class
 
     factoryOf(::ExercisesRepository)
+
+    factoryOf(::ExerciseCategoriesRepository)
 }

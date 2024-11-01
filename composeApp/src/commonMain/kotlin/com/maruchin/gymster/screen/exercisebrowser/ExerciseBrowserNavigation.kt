@@ -1,7 +1,5 @@
 package com.maruchin.gymster.screen.exercisebrowser
 
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -20,12 +18,12 @@ internal fun NavController.navigateToExerciseBrowser() {
 internal fun NavGraphBuilder.exerciseBrowserScreen(onBack: () -> Unit) {
     composable<ExerciseBrowserRoute> {
         val viewModel = koinNavViewModel<ExerciseBrowserViewModel>()
-        val state by viewModel.uiState.collectAsStateWithLifecycle()
 
         ExerciseBrowserScreen(
-            state = state,
+            state = viewModel.uiState,
             onBack = onBack,
-            onLoadNextPage = viewModel::loadNextExercisePage
+            onLoadNextPage = viewModel::loadNextExercisePage,
+            onSelectCategoryChange = viewModel::selectCategory
         )
     }
 }
