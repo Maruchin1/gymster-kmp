@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.maruchin.gymster.di.backendModule
 import com.maruchin.gymster.di.clockModule
 import com.maruchin.gymster.di.dataModule
 import com.maruchin.gymster.di.databaseModule
@@ -34,6 +35,8 @@ import org.koin.dsl.module
 // TODO Unify navigation routes naming
 // TODO Unify packages naming in features
 
+// TODO Try Ktor Http Cache
+
 @Composable
 @Preview
 internal fun App(appModule: Module = module { }) {
@@ -45,6 +48,7 @@ internal fun App(appModule: Module = module { }) {
                 clockModule,
                 databaseModule,
                 preferencesModule,
+                backendModule,
                 appModule
             )
         }

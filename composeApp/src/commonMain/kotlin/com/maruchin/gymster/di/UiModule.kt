@@ -1,5 +1,6 @@
 package com.maruchin.gymster.di
 
+import com.maruchin.gymster.screen.exercisebrowser.ExerciseBrowserViewModel
 import com.maruchin.gymster.screen.home.HomeViewModel
 import com.maruchin.gymster.screen.plandetails.PlanDetailsViewModel
 import com.maruchin.gymster.screen.planlist.PlanListViewModel
@@ -20,4 +21,6 @@ internal val uiModule = module {
     viewModelOf(::TrainingHistoryViewModel)
 
     viewModel { TrainingDetailsViewModel(it[0], get()) }
+
+    viewModelOf(::ExerciseBrowserViewModel)
 }
