@@ -11,6 +11,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 internal fun wgerHttpClient(engine: HttpClientEngine) = HttpClient(engine) {
+    expectSuccess = true
     defaultRequest {
         url("https://wger.de")
         contentType(ContentType.Application.Json)

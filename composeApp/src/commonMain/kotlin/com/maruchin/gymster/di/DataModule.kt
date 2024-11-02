@@ -1,12 +1,14 @@
 package com.maruchin.gymster.di
 
 import com.maruchin.gymster.core.preferences.PLANS_PREFERENCES
+import com.maruchin.gymster.core.preferences.SessionPreferences
 import com.maruchin.gymster.data.exercises.ExerciseCategoriesRepository
 import com.maruchin.gymster.data.exercises.ExercisesRepository
 import com.maruchin.gymster.data.plans.DefaultPlansRepository
 import com.maruchin.gymster.data.plans.PlansRepository
 import com.maruchin.gymster.data.plans.datasource.PlansLocalDataSource
 import com.maruchin.gymster.data.plans.datasource.PlansPreferencesDataSource
+import com.maruchin.gymster.data.session.SessionRepository
 import com.maruchin.gymster.data.trainings.DefaultTrainingsRepository
 import com.maruchin.gymster.data.trainings.TrainingsRepository
 import org.koin.core.module.dsl.factoryOf
@@ -27,4 +29,6 @@ internal val dataModule = module {
     factoryOf(::ExercisesRepository)
 
     factoryOf(::ExerciseCategoriesRepository)
+
+    factory { SessionRepository(get(), get(named<SessionPreferences>())) }
 }

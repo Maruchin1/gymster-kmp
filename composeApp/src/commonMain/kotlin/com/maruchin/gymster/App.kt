@@ -15,7 +15,7 @@ import com.maruchin.gymster.di.clockModule
 import com.maruchin.gymster.di.dataModule
 import com.maruchin.gymster.di.databaseModule
 import com.maruchin.gymster.di.preferencesModule
-import com.maruchin.gymster.di.uiModule
+import com.maruchin.gymster.di.screenModule
 import com.maruchin.gymster.screen.exercisebrowser.exerciseBrowserScreen
 import com.maruchin.gymster.screen.exercisebrowser.navigateToExerciseBrowser
 import com.maruchin.gymster.screen.home.HomeRoute
@@ -44,7 +44,7 @@ internal fun App(appModule: Module = module { }) {
     KoinApplication(
         application = {
             modules(
-                uiModule,
+                screenModule,
                 dataModule,
                 clockModule,
                 databaseModule,
