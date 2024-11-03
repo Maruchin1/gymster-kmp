@@ -18,8 +18,9 @@ import com.maruchin.gymster.di.preferencesModule
 import com.maruchin.gymster.di.screenModule
 import com.maruchin.gymster.screen.exercisebrowser.exerciseBrowserScreen
 import com.maruchin.gymster.screen.exercisebrowser.navigateToExerciseBrowser
-import com.maruchin.gymster.screen.home.HomeRoute
 import com.maruchin.gymster.screen.home.homeScreen
+import com.maruchin.gymster.screen.login.LoginRoute
+import com.maruchin.gymster.screen.login.loginScreen
 import com.maruchin.gymster.screen.plandetails.navigateToPlanDetails
 import com.maruchin.gymster.screen.plandetails.planDetailsScreen
 import com.maruchin.gymster.screen.planlist.planListScreen
@@ -59,7 +60,7 @@ internal fun App(appModule: Module = module { }) {
 
             NavHost(
                 navController = navController,
-                startDestination = HomeRoute,
+                startDestination = LoginRoute,
                 enterTransition = {
                     slideInHorizontally(initialOffsetX = { it }) + fadeIn()
                 },
@@ -93,6 +94,9 @@ internal fun App(appModule: Module = module { }) {
                 )
                 trainingDetailsScreen(
                     onBack = { navController.navigateUp() }
+                )
+                loginScreen(
+                    onLoginSuccess = { } // TODO navigate to home
                 )
                 exerciseBrowserScreen(
                     onBack = { navController.navigateUp() }

@@ -1,7 +1,8 @@
 package com.maruchin.gymster.screen.login
 
-internal data class LoginUiState(val isLoggedIn: Boolean = false, val message: LoginMessage? = null)
+internal data class LoginUiState(val isSubmitting: Boolean = false, val result: LoginResult? = null)
 
-internal enum class LoginMessage {
-    INVALID_CREDENTIALS
+internal enum class LoginResult {
+    INVALID_CREDENTIALS,
+    SUCCESS
 }

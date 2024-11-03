@@ -51,8 +51,8 @@ class LoginViewModelTest : KoinTest {
             awaitItem() shouldBe LoginUiState()
 
             viewModel.login(testLoginRequest)
-
-            awaitItem() shouldBe LoginUiState(isLoggedIn = true)
+            awaitItem() shouldBe LoginUiState(isSubmitting = true)
+            awaitItem() shouldBe LoginUiState(result = LoginResult.SUCCESS)
         }
     }
 
@@ -69,12 +69,8 @@ class LoginViewModelTest : KoinTest {
             awaitItem() shouldBe LoginUiState()
 
             viewModel.login(testLoginRequest)
-
-            awaitItem() shouldBe LoginUiState(message = LoginMessage.INVALID_CREDENTIALS)
-
-            viewModel.clearMessage()
-
-            awaitItem() shouldBe LoginUiState()
+            awaitItem() shouldBe LoginUiState(isSubmitting = true)
+            awaitItem() shouldBe LoginUiState(result = LoginResult.INVALID_CREDENTIALS)
         }
     }
 }

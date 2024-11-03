@@ -22,21 +22,18 @@ internal class LoginViewModel(private val sessionRepository: SessionRepository) 
     }
 
     fun login(request: LoginRequest) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update {
+            it.copy(isSubmitting = true)
+        }
         try {
             sessionRepository.login(request)
             _uiState.update {
-                it.copy(isLoggedIn = true)
+                it.copy(isSubmitting = false, result = LoginResult.SUCCESS)
             }
         } catch (_: InvalidCredentialsException) {
             _uiState.update {
-                it.copy(message = LoginMessage.INVALID_CREDENTIALS)
+                it.copy(isSubmitting = false, result = LoginResult.INVALID_CREDENTIALS)
             }
-        }
-    }
-
-    fun clearMessage() {
-        _uiState.update {
-            it.copy(message = null)
         }
     }
 }
