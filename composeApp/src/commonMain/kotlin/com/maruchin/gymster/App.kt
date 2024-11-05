@@ -18,12 +18,16 @@ import com.maruchin.gymster.di.preferencesModule
 import com.maruchin.gymster.di.screenModule
 import com.maruchin.gymster.screen.exercisebrowser.exerciseBrowserScreen
 import com.maruchin.gymster.screen.exercisebrowser.navigateToExerciseBrowser
+import com.maruchin.gymster.screen.home.HomeRoute
 import com.maruchin.gymster.screen.home.homeScreen
-import com.maruchin.gymster.screen.login.LoginRoute
+import com.maruchin.gymster.screen.home.navigateToHome
 import com.maruchin.gymster.screen.login.loginScreen
+import com.maruchin.gymster.screen.login.navigateToLogin
 import com.maruchin.gymster.screen.plandetails.navigateToPlanDetails
 import com.maruchin.gymster.screen.plandetails.planDetailsScreen
 import com.maruchin.gymster.screen.planlist.planListScreen
+import com.maruchin.gymster.screen.profile.navigateToProfile
+import com.maruchin.gymster.screen.profile.profileScreen
 import com.maruchin.gymster.screen.trainingdetails.navigateToTrainingDetails
 import com.maruchin.gymster.screen.trainingdetails.trainingDetailsScreen
 import com.maruchin.gymster.screen.traininghistory.navigateToTrainingHistory
@@ -33,9 +37,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
-
-// TODO Unify navigation routes naming
-// TODO Unify packages naming in features
 
 // TODO Try Ktor Http Cache
 
@@ -60,7 +61,7 @@ internal fun App(appModule: Module = module { }) {
 
             NavHost(
                 navController = navController,
-                startDestination = LoginRoute,
+                startDestination = HomeRoute,
                 enterTransition = {
                     slideInHorizontally(initialOffsetX = { it }) + fadeIn()
                 },
@@ -79,7 +80,9 @@ internal fun App(appModule: Module = module { }) {
                     onOpenPlans = { navController.navigateToExerciseBrowser() },
                     onOpenPlan = { navController.navigateToPlanDetails(it) },
                     onOpenTrainingHistory = { navController.navigateToTrainingHistory() },
-                    onOpenTraining = { navController.navigateToTrainingDetails(it) }
+                    onOpenTraining = { navController.navigateToTrainingDetails(it) },
+                    onOpenLogin = { navController.navigateToLogin() },
+                    onOpenProfile = { navController.navigateToProfile() }
                 )
                 planListScreen(
                     onBack = { navController.navigateUp() },
@@ -96,7 +99,11 @@ internal fun App(appModule: Module = module { }) {
                     onBack = { navController.navigateUp() }
                 )
                 loginScreen(
-                    onLoginSuccess = { } // TODO navigate to home
+                    onOpenHome = { navController.navigateToHome() }
+                )
+                profileScreen(
+                    onBack = { navController.navigateUp() },
+                    onOpenLogin = { navController.navigateToLogin() }
                 )
                 exerciseBrowserScreen(
                     onBack = { navController.navigateUp() }

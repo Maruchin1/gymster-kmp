@@ -5,6 +5,7 @@ import com.maruchin.gymster.screen.home.HomeViewModel
 import com.maruchin.gymster.screen.login.LoginViewModel
 import com.maruchin.gymster.screen.plandetails.PlanDetailsViewModel
 import com.maruchin.gymster.screen.planlist.PlanListViewModel
+import com.maruchin.gymster.screen.profile.ProfileViewModel
 import com.maruchin.gymster.screen.trainingdetails.TrainingDetailsViewModel
 import com.maruchin.gymster.screen.traininghistory.TrainingHistoryViewModel
 import org.koin.core.module.dsl.viewModel
@@ -26,4 +27,6 @@ internal val screenModule = module {
     viewModelOf(::ExerciseBrowserViewModel)
 
     viewModelOf(::LoginViewModel)
+
+    viewModelOf(::ProfileViewModel)
 }

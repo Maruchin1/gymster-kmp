@@ -1,4 +1,4 @@
-package com.maruchin.gymster.screen.login
+package com.maruchin.gymster.screen.profile
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -11,31 +11,28 @@ import org.koin.compose.viewmodel.koinNavViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @Serializable
-internal data object LoginRoute
+internal data object ProfileRoute
 
-internal fun NavController.navigateToLogin() {
-    navigate(LoginRoute) {
-        popUpTo(graph.startDestinationId) {
-            inclusive = true
-        }
-    }
+internal fun NavController.navigateToProfile() {
+    navigate(ProfileRoute)
 }
 
 @OptIn(KoinExperimentalAPI::class)
-internal fun NavGraphBuilder.loginScreen(onOpenHome: () -> Unit) {
-    composable<LoginRoute> {
-        val viewModel = koinNavViewModel<LoginViewModel>()
+internal fun NavGraphBuilder.profileScreen(onBack: () -> Unit, onOpenLogin: () -> Unit) {
+    composable<ProfileRoute> {
+        val viewModel = koinNavViewModel<ProfileViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
+        val session = state.session
 
-        if (state.result == LoginResult.SUCCESS) {
+        if (session != null && !session.isLoggedIn) {
             LaunchedEffect(Unit) {
-                onOpenHome()
+                onOpenLogin()
             }
         }
 
-        LoginScreen(
-            state = state,
-            onLogin = viewModel::login
+        ProfileScreen(
+            onBack = onBack,
+            onLogout = viewModel::logout
         )
     }
 }

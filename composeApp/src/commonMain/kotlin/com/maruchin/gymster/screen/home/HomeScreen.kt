@@ -30,13 +30,14 @@ internal fun HomeScreen(
     onOpenPlan: (planId: String) -> Unit,
     onStartNewWeek: () -> Unit,
     onOpenTrainingHistory: () -> Unit,
-    onOpenTraining: (String) -> Unit
+    onOpenTraining: (String) -> Unit,
+    onOpenProfile: () -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(
         topBar = {
-            TopBar(topAppBarScrollBehavior = topAppBarScrollBehavior)
+            TopBar(topAppBarScrollBehavior = topAppBarScrollBehavior, onOpenProfile = onOpenProfile)
         }
     ) { innerPadding ->
         Column(
@@ -65,13 +66,13 @@ internal fun HomeScreen(
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun TopBar(topAppBarScrollBehavior: TopAppBarScrollBehavior) {
+private fun TopBar(topAppBarScrollBehavior: TopAppBarScrollBehavior, onOpenProfile: () -> Unit) {
     CenterAlignedTopAppBar(
         title = {
             Text("Gymster")
         },
         actions = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = onOpenProfile) {
                 Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
             }
         },

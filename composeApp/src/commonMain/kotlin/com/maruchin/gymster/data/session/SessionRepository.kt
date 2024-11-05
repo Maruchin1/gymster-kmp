@@ -44,4 +44,11 @@ internal class SessionRepository(
             throw e
         }
     }
+
+    suspend fun logout() {
+        store.edit {
+            it.remove(SessionPreferences.accessToken)
+            it.remove(SessionPreferences.refreshToken)
+        }
+    }
 }
