@@ -22,15 +22,16 @@ internal fun NavGraphBuilder.profileScreen(onBack: () -> Unit, onOpenLogin: () -
     composable<ProfileRoute> {
         val viewModel = koinNavViewModel<ProfileViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
-        val session = state.session ?: return@composable
+        val isLoggedIn = state.isLoggedIn ?: return@composable
 
-        if (!session.isLoggedIn) {
+        if (!isLoggedIn) {
             LaunchedEffect(Unit) {
                 onOpenLogin()
             }
         }
 
         ProfileScreen(
+            state = state,
             onBack = onBack,
             onLogout = viewModel::logout
         )

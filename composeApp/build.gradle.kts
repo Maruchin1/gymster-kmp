@@ -67,6 +67,7 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.mock)
             implementation(libs.ktor.client.contentnegotiation)
+            implementation(libs.ktor.client.auth)
             implementation(libs.ktor.serialization.json)
 
             implementation(libs.coil.compose)

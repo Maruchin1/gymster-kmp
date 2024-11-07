@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.session.model.LoginRequest
+import com.maruchin.gymster.data.session.model.LoginResult
 import com.maruchin.gymster.screen.login.component.LoginForm
 
 @Composable
@@ -40,7 +41,7 @@ internal fun LoginScreen(state: LoginUiState, onLogin: (LoginRequest) -> Unit) {
                     .padding(top = 128.dp)
             )
             LoginForm(
-                invalidCredentials = state.result == LoginResult.INVALID_CREDENTIALS,
+                invalidCredentials = state.result is LoginResult.InvalidCredentials,
                 isSubmitting = state.isSubmitting,
                 onSubmit = onLogin,
                 modifier = Modifier.padding(32.dp)

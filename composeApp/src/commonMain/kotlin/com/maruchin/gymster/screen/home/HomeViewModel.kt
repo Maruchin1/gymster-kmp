@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.stateIn
 
 internal class HomeViewModel(private val sessionRepository: SessionRepository) : ViewModel() {
 
-    val uiState: StateFlow<HomeUiState> = sessionRepository.observeSession()
+    val uiState: StateFlow<HomeUiState> = sessionRepository.isLoggedInFlow
         .map { HomeUiState(it) }
         .stateIn(
             scope = viewModelScope,

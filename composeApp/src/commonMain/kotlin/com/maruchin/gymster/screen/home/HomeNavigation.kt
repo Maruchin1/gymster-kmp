@@ -8,6 +8,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.maruchin.gymster.screen.login.LoginRoute
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinNavViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -17,7 +18,7 @@ internal data object HomeRoute
 
 internal fun NavController.navigateToHome() {
     navigate(HomeRoute) {
-        popUpTo(graph.startDestinationId) {
+        popUpTo(LoginRoute) {
             inclusive = true
         }
     }
@@ -28,9 +29,9 @@ internal fun NavGraphBuilder.homeScreen(onOpenLogin: () -> Unit, onOpenProfile: 
     composable<HomeRoute> {
         val viewModel = koinNavViewModel<HomeViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
-        val session = state.session ?: return@composable
+        val isLoggedIn = state.isLoggedIn ?: return@composable
 
-        if (!session.isLoggedIn) {
+        if (!isLoggedIn) {
             LaunchedEffect(Unit) {
                 onOpenLogin()
             }

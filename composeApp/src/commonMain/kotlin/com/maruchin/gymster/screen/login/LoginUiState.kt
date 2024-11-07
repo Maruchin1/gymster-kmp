@@ -1,8 +1,5 @@
 package com.maruchin.gymster.screen.login
 
-internal data class LoginUiState(val isSubmitting: Boolean = false, val result: LoginResult? = null)
+import com.maruchin.gymster.data.session.model.LoginResult
 
-internal enum class LoginResult {
-    INVALID_CREDENTIALS,
-    SUCCESS
-}
+internal data class LoginUiState(val isSubmitting: Boolean = false, val result: LoginResult? = null)

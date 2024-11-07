@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.maruchin.gymster.data.session.SessionRepository
-import com.maruchin.gymster.data.session.model.InvalidCredentialsException
 import com.maruchin.gymster.data.session.model.LoginRequest
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,15 +24,9 @@ internal class LoginViewModel(private val sessionRepository: SessionRepository) 
         _uiState.update {
             it.copy(isSubmitting = true)
         }
-        try {
-            sessionRepository.login(request)
-            _uiState.update {
-                it.copy(isSubmitting = false, result = LoginResult.SUCCESS)
-            }
-        } catch (_: InvalidCredentialsException) {
-            _uiState.update {
-                it.copy(isSubmitting = false, result = LoginResult.INVALID_CREDENTIALS)
-            }
+        val result = sessionRepository.login(request)
+        _uiState.update {
+            it.copy(isSubmitting = false, result = result)
         }
     }
 }

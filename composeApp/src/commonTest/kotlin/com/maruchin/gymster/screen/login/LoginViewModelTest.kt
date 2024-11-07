@@ -1,10 +1,11 @@
 package com.maruchin.gymster.screen.login
 
 import app.cash.turbine.test
-import com.maruchin.gymster.data.session.json.testTokenObtainPairJson
-import com.maruchin.gymster.data.session.json.testTokenObtainPairJsonInvalidCredentials
-import com.maruchin.gymster.data.session.model.testLoginRequest
-import com.maruchin.gymster.di.testModule
+import com.maruchin.gymster.data.session.model.LoginResult
+import com.maruchin.gymster.data.session.testdata.testLoginJsonRaw
+import com.maruchin.gymster.data.session.testdata.testLoginJsonRawInvalidCredentials
+import com.maruchin.gymster.data.session.testdata.testLoginRequest
+import com.maruchin.gymster.di.testAppModules
 import com.maruchin.gymster.test.respondJson
 import io.kotest.matchers.shouldBe
 import io.ktor.client.engine.mock.MockEngineConfig
@@ -32,7 +33,7 @@ class LoginViewModelTest : KoinTest {
     @BeforeTest
     fun setup() {
         Dispatchers.setMain(StandardTestDispatcher())
-        startKoin { modules(testModule) }
+        startKoin { modules(testAppModules) }
     }
 
     @AfterTest
@@ -44,7 +45,7 @@ class LoginViewModelTest : KoinTest {
     @Test
     fun `successful login`() = runTest {
         mockEngineConfig.addHandler {
-            respondJson(testTokenObtainPairJson)
+            respondJson(testLoginJsonRaw)
         }
 
         viewModel.uiState.test {
@@ -52,7 +53,7 @@ class LoginViewModelTest : KoinTest {
 
             viewModel.login(testLoginRequest)
             awaitItem() shouldBe LoginUiState(isSubmitting = true)
-            awaitItem() shouldBe LoginUiState(result = LoginResult.SUCCESS)
+            awaitItem() shouldBe LoginUiState(result = LoginResult.Success)
         }
     }
 
@@ -60,8 +61,8 @@ class LoginViewModelTest : KoinTest {
     fun `invalid credentials`() = runTest {
         mockEngineConfig.addHandler {
             respondJson(
-                json = testTokenObtainPairJsonInvalidCredentials,
-                status = HttpStatusCode.Unauthorized
+                json = testLoginJsonRawInvalidCredentials,
+                status = HttpStatusCode.BadRequest
             )
         }
 
@@ -70,7 +71,7 @@ class LoginViewModelTest : KoinTest {
 
             viewModel.login(testLoginRequest)
             awaitItem() shouldBe LoginUiState(isSubmitting = true)
-            awaitItem() shouldBe LoginUiState(result = LoginResult.INVALID_CREDENTIALS)
+            awaitItem() shouldBe LoginUiState(result = LoginResult.InvalidCredentials)
         }
     }
 }
