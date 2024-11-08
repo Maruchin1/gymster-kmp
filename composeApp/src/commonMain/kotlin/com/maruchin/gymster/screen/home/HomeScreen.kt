@@ -11,11 +11,13 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
+import com.maruchin.gymster.screen.home.component.ActivePlanWidget
 import com.maruchin.gymster.screen.home.component.HomeTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun HomeScreen(onOpenProfile: () -> Unit) {
+internal fun HomeScreen(onOpenProfile: () -> Unit, onOpenAllPlans: () -> Unit) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(
@@ -33,6 +35,10 @@ internal fun HomeScreen(onOpenProfile: () -> Unit) {
                 .verticalScroll(rememberScrollState())
                 .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection)
         ) {
+            ActivePlanWidget(
+                onOpenAllPlans = onOpenAllPlans,
+                modifier = Modifier.padding(24.dp)
+            )
         }
     }
 }

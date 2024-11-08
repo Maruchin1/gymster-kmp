@@ -12,11 +12,11 @@ import io.ktor.http.HttpHeaders
 
 internal class UserProfileRepository(
     private val httpClient: HttpClient,
-    private val preferences: SessionStore
+    private val sessionStore: SessionStore
 ) {
 
     suspend fun getUserProfile(): UserProfile {
-        val token = preferences.getToken()
+        val token = sessionStore.getToken()
         val response = httpClient.get("/api/v2/userprofile/") {
             header(HttpHeaders.Authorization, "Token $token")
         }.body<UserProfileJson>()

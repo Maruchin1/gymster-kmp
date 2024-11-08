@@ -25,7 +25,11 @@ internal fun NavController.navigateToHome() {
 }
 
 @OptIn(KoinExperimentalAPI::class)
-internal fun NavGraphBuilder.homeScreen(onOpenLogin: () -> Unit, onOpenProfile: () -> Unit) {
+internal fun NavGraphBuilder.homeScreen(
+    onOpenLogin: () -> Unit,
+    onOpenProfile: () -> Unit,
+    onOpenAllPlans: () -> Unit
+) {
     composable<HomeRoute> {
         val viewModel = koinNavViewModel<HomeViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -38,7 +42,8 @@ internal fun NavGraphBuilder.homeScreen(onOpenLogin: () -> Unit, onOpenProfile: 
         }
 
         HomeScreen(
-            onOpenProfile = onOpenProfile
+            onOpenProfile = onOpenProfile,
+            onOpenAllPlans = onOpenAllPlans
         )
     }
 }
