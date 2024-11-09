@@ -27,7 +27,6 @@ internal fun NavGraphBuilder.planListScreen(onBack: () -> Unit, onOpenPlan: (Int
             onBack = onBack,
             onOpenPlan = onOpenPlan,
             onAddPlan = viewModel::addPlan,
-            onDeletePlan = viewModel::deletePlan,
             onClearError = viewModel::clearError
         )
     }

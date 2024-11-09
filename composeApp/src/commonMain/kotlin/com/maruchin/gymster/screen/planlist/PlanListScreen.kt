@@ -31,7 +31,6 @@ internal fun PlanListScreen(
     onBack: () -> Unit,
     onOpenPlan: (Int) -> Unit,
     onAddPlan: (AddPlanRequest) -> Unit,
-    onDeletePlan: (Int) -> Unit,
     onClearError: () -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -67,8 +66,7 @@ internal fun PlanListScreen(
                 items(state.plans, key = { it.id }) { plan ->
                     PlanItem(
                         plan = plan,
-                        onClick = { onOpenPlan(plan.id) },
-                        onDelete = { onDeletePlan(plan.id) }
+                        onClick = { onOpenPlan(plan.id) }
                     )
                 }
             }

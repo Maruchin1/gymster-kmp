@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.maruchin.gymster.data.plans.PlansRepository
+import com.maruchin.gymster.data.plans.model.EditPlanRequest
 import com.maruchin.gymster.data.trainings.TrainingsRepository
 import com.maruchin.gymster.data.trainings.model.AddTrainingRequest
 import com.maruchin.gymster.data.trainings.model.EditTrainingRequest
@@ -32,6 +33,24 @@ internal class PlanDetailsViewModel(
 
     init {
         loadPlanAndTrainings()
+    }
+
+    fun editPlan(request: EditPlanRequest) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+        plansRepository.editPlan(request)
+        loadPlanAndTrainings()
+    }
+
+    fun deletePlan(planId: Int) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+        plansRepository.deletePlan(planId)
+        _uiState.update {
+            it.copy(isLoading = false, isDeleted = true)
+        }
     }
 
     fun addTraining(request: AddTrainingRequest) = viewModelScope.launch(exceptionHandler) {

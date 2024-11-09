@@ -7,5 +7,6 @@ internal data class PlanDetailsUiState(
     val plan: Plan? = null,
     val trainings: List<Training> = emptyList(),
     val isLoading: Boolean = true,
-    val isError: Boolean = false
+    val isError: Boolean = false,
+    val isDeleted: Boolean = false
 )

@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import com.maruchin.gymster.data.plans.model.EditPlanRequest
 import com.maruchin.gymster.data.trainings.model.AddTrainingRequest
 import com.maruchin.gymster.data.trainings.model.EditTrainingRequest
 import com.maruchin.gymster.screen.plandetails.component.AddExerciseButton
@@ -39,6 +40,8 @@ import com.maruchin.gymster.screen.plandetails.component.TrainingHeader
 internal fun PlanDetailsScreen(
     state: PlanDetailsUiState,
     onBack: () -> Unit,
+    onEditPlan: (EditPlanRequest) -> Unit,
+    onDeletePlan: (Int) -> Unit,
     onAddTraining: (AddTrainingRequest) -> Unit,
     onEditTraining: (EditTrainingRequest) -> Unit,
     onDeleteTraining: (Int) -> Unit,
@@ -59,7 +62,9 @@ internal fun PlanDetailsScreen(
             PlanDetailsTopAppBar(
                 plan = state.plan,
                 scrollBehavior = topAppBarScrollBehavior,
-                onBack = onBack
+                onBack = onBack,
+                onEditPlan = onEditPlan,
+                onDeletePlan = onDeletePlan
             )
         },
         snackbarHost = {
