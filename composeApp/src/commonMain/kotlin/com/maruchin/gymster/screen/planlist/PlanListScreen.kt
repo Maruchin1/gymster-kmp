@@ -31,7 +31,8 @@ internal fun PlanListScreen(
     onBack: () -> Unit,
     onOpenPlan: (Int) -> Unit,
     onAddPlan: (AddPlanRequest) -> Unit,
-    onDeletePlan: (Int) -> Unit
+    onDeletePlan: (Int) -> Unit,
+    onClearError: () -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -39,6 +40,7 @@ internal fun PlanListScreen(
     if (state.isError) {
         LaunchedEffect(Unit) {
             snackbarHostState.showSnackbar("Something went wrong")
+            onClearError()
         }
     }
 

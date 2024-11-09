@@ -17,6 +17,8 @@ import com.maruchin.gymster.screen.home.homeScreen
 import com.maruchin.gymster.screen.home.navigateToHome
 import com.maruchin.gymster.screen.login.loginScreen
 import com.maruchin.gymster.screen.login.navigateToLogin
+import com.maruchin.gymster.screen.plandetails.navigatePlanDetails
+import com.maruchin.gymster.screen.plandetails.planDetailsScreen
 import com.maruchin.gymster.screen.planlist.navigateToPlanList
 import com.maruchin.gymster.screen.planlist.planListScreen
 import com.maruchin.gymster.screen.profile.navigateToProfile
@@ -71,7 +73,10 @@ internal fun App(externalModule: Module = module { }) {
                 )
                 planListScreen(
                     onBack = { navController.navigateUp() },
-                    onOpenPlan = {}
+                    onOpenPlan = { navController.navigatePlanDetails(it) }
+                )
+                planDetailsScreen(
+                    onBack = { navController.navigateUp() }
                 )
                 exerciseBrowserScreen(
                     onBack = { navController.navigateUp() }

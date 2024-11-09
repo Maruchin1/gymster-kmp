@@ -44,6 +44,12 @@ internal class PlanListViewModel(private val plansRepository: PlansRepository) :
         loadPlans()
     }
 
+    fun clearError() {
+        _uiState.update {
+            it.copy(isError = false)
+        }
+    }
+
     private fun loadPlans() = viewModelScope.launch(exceptionHandler) {
         val plans = plansRepository.getAllPlans()
         _uiState.update {
