@@ -1,21 +1,21 @@
 package com.maruchin.gymster.data.exercises.model
 
-internal val sampleExercises = listOf(
-    Exercise(
+internal val sampleExerciseBases = listOf(
+    ExerciseBase(
         id = 31,
         name = "Axe Hold",
         description = "<p>Grab dumbbells and extend arms to side and hold as long as you can</p>",
         category = ExerciseCategory(id = 8, name = "Arms"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 56,
         name = "Abdominal Stabilization",
         description = "",
         category = ExerciseCategory(id = 10, name = "Abs"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 805,
         name = "Tricep Pushdown on Cable",
         description = "The cable rope push-down is a popular exercise targeting the " +
@@ -28,7 +28,7 @@ internal val sampleExercises = listOf(
             "https://wger.de/media/exercise-images/805/ba006cae-44ca-46a9-bb71-6f5d4fa130e9.png"
         )
     ),
-    Exercise(
+    ExerciseBase(
         id = 981,
         name = "Step-ups",
         description = "<p>Starting position:</p><p>Stand facing a chair.</p><p>Steps:" +
@@ -37,7 +37,7 @@ internal val sampleExercises = listOf(
         category = ExerciseCategory(id = 9, name = "Legs"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 980,
         name = "commando pull-ups",
         description = "variation of the pull-up exercise, it is performed with a grip of one " +
@@ -46,7 +46,7 @@ internal val sampleExercises = listOf(
         category = ExerciseCategory(id = 10, name = "Abs"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 1022,
         name = "Single Arm Plank to Row",
         description = "Start position as row, extend to plank and back. Finish with row and repeat",
@@ -56,14 +56,14 @@ internal val sampleExercises = listOf(
             "https://wger.de/media/exercise-images/1022/eef8fb9d-ae72-4e23-81da-4d62f2734332.jpg"
         )
     ),
-    Exercise(
+    ExerciseBase(
         id = 820,
         name = "Fingerboard 20 mm edge",
         description = "Hang for 10 seconds on a fingerboard with a 20 mm edge",
         category = ExerciseCategory(id = 8, name = "Arms"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 822,
         name = "Cable Rear Delt Fly",
         description = "<p style=\"\">The reverse cable fly, also known as the cable rear delt " +
@@ -84,7 +84,7 @@ internal val sampleExercises = listOf(
             "https://wger.de/media/exercise-images/822/6a770e5d-cd62-4754-a18c-eebe2103d7c5.png"
         )
     ),
-    Exercise(
+    ExerciseBase(
         id = 828,
         name = "Incline Bench Reverse Fly - Hello",
         description = "The incline dumbbell reverse fly is an upper-body exercise targeting " +
@@ -97,7 +97,7 @@ internal val sampleExercises = listOf(
             "https://wger.de/media/exercise-images/828/abfc7700-fadf-4f2d-ac84-e045e590a2fe.png"
         )
     ),
-    Exercise(
+    ExerciseBase(
         id = 849,
         name = "Barbell Squat",
         description = "Control the descent, go down in 2 seconds and go up as explosively as " +
@@ -111,28 +111,28 @@ internal val sampleExercises = listOf(
             "https://wger.de/media/exercise-images/849/30b2631d-d7ec-415c-800b-7eb082314c0a.gif"
         )
     ),
-    Exercise(
+    ExerciseBase(
         id = 907,
         name = "Handstand Push Up",
         description = "Handstands Push Up which demand high level of skill",
         category = ExerciseCategory(id = 13, name = "Shoulders"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 908,
         name = "Zone 2 Running",
         description = "Zone two Cardio for endurance, you should be able to speak while running",
         category = ExerciseCategory(id = 15, name = "Cardio"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 923,
         name = "LYING DUMBBELL ROW SS SEATED SHRUG",
         description = "laying on the stomach on a bench with slight angle",
         category = ExerciseCategory(id = 12, name = "Back"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 927,
         name = "Suspended crossess",
         description = "Suspension exercise with trx for chest training",
@@ -141,7 +141,7 @@ internal val sampleExercises = listOf(
             "https://wger.de/media/exercise-images/927/7b392101-9c47-4693-935e-a88b1887eec5.jpg"
         )
     ),
-    Exercise(
+    ExerciseBase(
         id = 958,
         name = "Bicipiti con trx",
         description = "muscoli coinvolti: bicipitiAfferrare le maniglie delle cinghie TRX, " +
@@ -154,7 +154,7 @@ internal val sampleExercises = listOf(
             "https://wger.de/media/exercise-images/958/dfad24f7-3f6f-497c-8436-7dfd909bca3f.png"
         )
     ),
-    Exercise(
+    ExerciseBase(
         id = 960,
         name = "kettlebell swing",
         description = "While kettlebell swings are a full-body workout, they mostly target " +
@@ -163,14 +163,14 @@ internal val sampleExercises = listOf(
         category = ExerciseCategory(id = 10, name = "Abs"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 961,
         name = "Swimming 50m sprints",
         description = "50m swimming sprints at 1min",
         category = ExerciseCategory(id = 15, name = "Cardio"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 962,
         name = "Elliptical",
         description = "It improves muscle toning, strengthens the leg muscles " +
@@ -179,7 +179,7 @@ internal val sampleExercises = listOf(
         category = ExerciseCategory(id = 15, name = "Cardio"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 975,
         name = "one-handed kettlebell curls",
         description = "Standing with the kettlebell in one hand and bent at the elbow, start " +
@@ -188,7 +188,7 @@ internal val sampleExercises = listOf(
         category = ExerciseCategory(id = 8, name = "Arms"),
         images = emptyList()
     ),
-    Exercise(
+    ExerciseBase(
         id = 976,
         name = "Medicine ball booklet crunch",
         description = "Using a medicine ball as an overload will make the exercise heavier.",

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.maruchin.gymster.data.exercises.ExerciseCategoriesRepository
-import com.maruchin.gymster.data.exercises.ExercisesRepository
+import com.maruchin.gymster.data.exercises.ExercisesBaseRepository
 import com.maruchin.gymster.data.exercises.model.ExerciseCategory
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 // TODO Add more unit tests
 
 internal class ExerciseBrowserViewModel(
-    private val exercisesRepository: ExercisesRepository,
+    private val exercisesBaseRepository: ExercisesBaseRepository,
     private val exerciseCategoriesRepository: ExerciseCategoriesRepository
 ) : ViewModel() {
 
@@ -54,14 +54,14 @@ internal class ExerciseBrowserViewModel(
 
     private fun loadData() = viewModelScope.launch(exceptionHandler) {
         val categoriesAsync = async { exerciseCategoriesRepository.getAllExerciseCategories() }
-        val exercisesAsync = async { exercisesRepository.getAllExercises() }
+        val exercisesAsync = async { exercisesBaseRepository.getAllExercises() }
         val categories = categoriesAsync.await()
         val exercises = exercisesAsync.await()
 
         _uiState.update {
             it.copy(
                 categories = categories,
-                exercises = exercises,
+                exerciseBases = exercises,
                 status = ExerciseBrowserStatus.IDLE
             )
         }

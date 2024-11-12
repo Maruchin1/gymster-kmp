@@ -17,13 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.maruchin.gymster.data.exercises.model.Exercise
+import com.maruchin.gymster.data.exercises.model.ExerciseBase
 import com.maruchin.gymster.data.trainings.model.AddExerciseRequest
 
 @Composable
 internal fun ExerciseItem(
     trainingId: Int,
-    exercise: Exercise,
+    exerciseBase: ExerciseBase,
     onAddToTraining: (AddExerciseRequest) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -31,14 +31,14 @@ internal fun ExerciseItem(
 
     ListItem(
         headlineContent = {
-            Text(text = exercise.name)
+            Text(text = exerciseBase.name)
         },
         supportingContent = {
-            Text(text = exercise.category.name)
+            Text(text = exerciseBase.category.name)
         },
         leadingContent = {
             AsyncImage(
-                model = exercise.images.firstOrNull(),
+                model = exerciseBase.images.firstOrNull(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -53,7 +53,7 @@ internal fun ExerciseItem(
     if (isAddingToTraining) {
         AddExerciseToTrainingModal(
             trainingId = trainingId,
-            exerciseBaseId = exercise.id,
+            exerciseBaseId = exerciseBase.id,
             onDismiss = { isAddingToTraining = false },
             onAdd = onAddToTraining
         )

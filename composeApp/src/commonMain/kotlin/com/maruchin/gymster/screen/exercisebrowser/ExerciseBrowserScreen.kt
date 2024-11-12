@@ -69,10 +69,10 @@ internal fun ExerciseBrowserScreen(
                     }
                 }
                 LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(state.filteredExercises) { exercise ->
+                    items(state.filteredExerciseBases) { exercise ->
                         ExerciseItem(
                             trainingId = trainingId,
-                            exercise = exercise,
+                            exerciseBase = exercise,
                             onAddToTraining = onAddExerciseToTraining
                         )
                         HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
