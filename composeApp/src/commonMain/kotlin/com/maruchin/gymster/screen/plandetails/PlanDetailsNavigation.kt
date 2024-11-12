@@ -20,7 +20,10 @@ internal fun NavController.navigatePlanDetails(planId: Int) {
 }
 
 @OptIn(KoinExperimentalAPI::class)
-internal fun NavGraphBuilder.planDetailsScreen(onBack: () -> Unit) {
+internal fun NavGraphBuilder.planDetailsScreen(
+    onBack: () -> Unit,
+    onAddExercise: (trainingId: Int) -> Unit
+) {
     composable<PlanDetailsRoute> { entry ->
         val (planId) = entry.toRoute<PlanDetailsRoute>()
         val viewModel = koinNavViewModel<PlanDetailsViewModel> { parametersOf(planId) }
@@ -40,6 +43,7 @@ internal fun NavGraphBuilder.planDetailsScreen(onBack: () -> Unit) {
             onAddTraining = viewModel::addTraining,
             onEditTraining = viewModel::editTraining,
             onDeleteTraining = viewModel::deleteTraining,
+            onAddExercise = onAddExercise,
             onClearError = viewModel::clearError
         )
     }

@@ -11,7 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.gymster.di.appModules
-import com.maruchin.gymster.screen.exercisebrowser.exerciseBrowserScreen
+import com.maruchin.gymster.screen.exercisebrowser.exerciseBrowserDialog
+import com.maruchin.gymster.screen.exercisebrowser.navigateToExerciseBrowser
 import com.maruchin.gymster.screen.home.HomeRoute
 import com.maruchin.gymster.screen.home.homeScreen
 import com.maruchin.gymster.screen.home.navigateToHome
@@ -28,6 +29,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
+
+// TODO Update dependencies
 
 // TODO Try Ktor Http Cache
 
@@ -76,10 +79,12 @@ internal fun App(externalModule: Module = module { }) {
                     onOpenPlan = { navController.navigatePlanDetails(it) }
                 )
                 planDetailsScreen(
-                    onBack = { navController.navigateUp() }
+                    onBack = { navController.navigateUp() },
+                    onAddExercise = { navController.navigateToExerciseBrowser(it) }
                 )
-                exerciseBrowserScreen(
-                    onBack = { navController.navigateUp() }
+                exerciseBrowserDialog(
+                    navController = navController,
+                    onClose = { navController.navigateUp() }
                 )
             }
         }

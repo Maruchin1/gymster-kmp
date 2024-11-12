@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import com.maruchin.gymster.data.plans.PlansRepository
 import com.maruchin.gymster.data.plans.model.EditPlanRequest
 import com.maruchin.gymster.data.trainings.TrainingsRepository
+import com.maruchin.gymster.data.trainings.model.AddExerciseRequest
 import com.maruchin.gymster.data.trainings.model.AddTrainingRequest
 import com.maruchin.gymster.data.trainings.model.EditTrainingRequest
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -77,6 +78,14 @@ internal class PlanDetailsViewModel(
         loadPlanAndTrainings()
     }
 
+    fun addExercise(request: AddExerciseRequest) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+        trainingsRepository.addExercise(request)
+        loadPlanAndTrainings()
+    }
+
     fun clearError() {
         _uiState.update {
             it.copy(isError = false)
@@ -85,7 +94,7 @@ internal class PlanDetailsViewModel(
 
     private fun loadPlanAndTrainings() = viewModelScope.launch(exceptionHandler) {
         val planAsync = async { plansRepository.getPlan(planId) }
-        val trainingsAsync = async { trainingsRepository.getPlanTrainings(planId) }
+        val trainingsAsync = async { trainingsRepository.getTrainings(planId) }
 
         val plan = planAsync.await()
         val trainings = trainingsAsync.await()

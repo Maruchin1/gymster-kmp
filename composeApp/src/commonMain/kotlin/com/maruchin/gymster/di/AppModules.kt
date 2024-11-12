@@ -3,6 +3,7 @@ package com.maruchin.gymster.di
 internal val appModules = listOf(
     screenModule,
     dataModule,
+    apiModule,
     storeModule,
     clockModule,
     dataStoreModule,
@@ -12,6 +13,7 @@ internal val appModules = listOf(
 internal val testAppModules = listOf(
     screenModule,
     dataModule,
+    apiModule,
     storeModule,
     testClockModule,
     testDataStoreModule,

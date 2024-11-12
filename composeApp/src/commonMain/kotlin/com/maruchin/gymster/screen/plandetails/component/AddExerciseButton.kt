@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun AddExerciseButton(modifier: Modifier = Modifier) {
+internal fun AddExerciseButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     OutlinedButton(
-        onClick = {},
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth().then(modifier)
     ) {
         Text(text = "Add exercise")

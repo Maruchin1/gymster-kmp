@@ -1,63 +1,64 @@
 package com.maruchin.gymster.data.trainings
 
-import com.maruchin.gymster.core.preferences.SessionStore
-import com.maruchin.gymster.core.utils.tokenAuth
-import com.maruchin.gymster.data.trainings.json.PaginatedDayListJson
+import com.maruchin.gymster.data.trainings.api.DayApi
+import com.maruchin.gymster.data.trainings.api.ExerciseApi
+import com.maruchin.gymster.data.trainings.api.SetApi
+import com.maruchin.gymster.data.trainings.api.SettingApi
 import com.maruchin.gymster.data.trainings.mapper.toDomain
 import com.maruchin.gymster.data.trainings.mapper.toJson
+import com.maruchin.gymster.data.trainings.mapper.toSetRequestJson
+import com.maruchin.gymster.data.trainings.mapper.toSettingRequestJson
+import com.maruchin.gymster.data.trainings.model.AddExerciseRequest
 import com.maruchin.gymster.data.trainings.model.AddTrainingRequest
 import com.maruchin.gymster.data.trainings.model.EditTrainingRequest
 import com.maruchin.gymster.data.trainings.model.Training
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.request.accept
-import io.ktor.client.request.delete
-import io.ktor.client.request.get
-import io.ktor.client.request.parameter
-import io.ktor.client.request.patch
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.http.ContentType
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 
 internal class TrainingsRepository(
-    private val httpClient: HttpClient,
-    private val sessionStore: SessionStore
+    private val dayApi: DayApi,
+    private val setApi: SetApi,
+    private val settingApi: SettingApi,
+    private val exerciseApi: ExerciseApi
 ) {
 
-    suspend fun getPlanTrainings(planId: Int): List<Training> {
-        val token = sessionStore.getToken()
-        val responseJson = httpClient.get("/api/v2/day/") {
-            tokenAuth(token)
-            parameter("training", planId)
-            parameter("limit", 100)
-        }.body<PaginatedDayListJson>()
-        return responseJson.results.map { it.toDomain() }
+    suspend fun getTrainings(planId: Int): List<Training> = coroutineScope {
+        dayApi.getDays(planId).map { dayJson ->
+            async {
+                val exercises = getExercises(dayJson.id)
+                dayJson.toDomain(exercises)
+            }
+        }.awaitAll()
+    }
+
+    private suspend fun getExercises(trainingId: Int) = coroutineScope {
+        setApi.getSets(trainingId).map { setJson ->
+            async {
+                val settingListJson = settingApi.getSettings(setJson.id)
+                val exerciseId = settingListJson.first().exerciseBase
+                val exerciseJson = exerciseApi.getExercise(exerciseId)
+                setJson.toDomain(settingListJson, exerciseJson)
+            }
+        }.awaitAll()
     }
 
     suspend fun addTraining(request: AddTrainingRequest) {
-        val token = sessionStore.getToken()
-        val requestJson = request.toJson()
-        httpClient.post("/api/v2/day/") {
-            tokenAuth(token)
-            accept(ContentType.Application.Json)
-            setBody(requestJson)
-        }
+        dayApi.addDay(request.toJson())
     }
 
     suspend fun editTraining(request: EditTrainingRequest) {
-        val token = sessionStore.getToken()
-        val requestJson = request.toJson()
-        httpClient.patch("/api/v2/day/${request.id}/") {
-            tokenAuth(token)
-            accept(ContentType.Application.Json)
-            setBody(requestJson)
-        }
+        dayApi.updateDay(request.id, request.toJson())
     }
 
     suspend fun deleteTraining(trainingId: Int) {
-        val token = sessionStore.getToken()
-        httpClient.delete("/api/v2/day/$trainingId/") {
-            tokenAuth(token)
+        dayApi.deleteDay(trainingId)
+    }
+
+    suspend fun addExercise(request: AddExerciseRequest) {
+        val setJson = setApi.addSet(request.toSetRequestJson())
+        request.toSettingRequestJson(setJson).forEach { settingRequestJson ->
+            settingApi.addSetting(settingRequestJson)
         }
     }
 }
