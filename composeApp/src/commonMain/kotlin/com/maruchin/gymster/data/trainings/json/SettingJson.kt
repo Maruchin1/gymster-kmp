@@ -8,5 +8,6 @@ internal data class SettingJson(
     val id: Int,
     @SerialName("exercise_base") val exerciseBase: Int,
     val weight: Double?,
-    val reps: Int
+    val reps: Int,
+    val order: Int
 )

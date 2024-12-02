@@ -1,9 +1,9 @@
 package com.maruchin.gymster.screen.plandetails.component
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBackIos
-import androidx.compose.material.icons.rounded.MoreHoriz
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,7 +27,6 @@ internal fun PlanDetailsTopAppBar(
     onEditPlan: (EditPlanRequest) -> Unit,
     onDeletePlan: (Int) -> Unit
 ) {
-    var isMenuOpen by rememberSaveable { mutableStateOf(false) }
     var isEditing by rememberSaveable { mutableStateOf(false) }
     var isDeleting by rememberSaveable { mutableStateOf(false) }
 
@@ -44,18 +43,11 @@ internal fun PlanDetailsTopAppBar(
             }
         },
         actions = {
-            if (plan != null) {
-                Box {
-                    IconButton(onClick = { isMenuOpen = true }) {
-                        Icon(imageVector = Icons.Rounded.MoreHoriz, contentDescription = null)
-                    }
-                    PlanMenu(
-                        expanded = isMenuOpen,
-                        onDismiss = { isMenuOpen = false },
-                        onChangeName = { isEditing = true },
-                        onDeletePlan = { isDeleting = true }
-                    )
-                }
+            IconButton(onClick = { isEditing = true }) {
+                Icon(imageVector = Icons.Rounded.Edit, contentDescription = null)
+            }
+            IconButton(onClick = { isDeleting = true }) {
+                Icon(imageVector = Icons.Rounded.Delete, contentDescription = null)
             }
         },
         scrollBehavior = scrollBehavior
@@ -66,7 +58,7 @@ internal fun PlanDetailsTopAppBar(
     }
 
     if (plan != null && isDeleting) {
-        ConfirmPlanDeletionDialog(
+        DeletePlanDialog(
             onDismiss = { isDeleting = false },
             onConfirm = { onDeletePlan(plan.id) }
         )

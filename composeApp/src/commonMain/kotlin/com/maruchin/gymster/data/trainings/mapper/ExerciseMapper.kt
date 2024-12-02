@@ -10,7 +10,7 @@ internal fun SetJson.toDomain(
     exerciseBaseInfoJson: ExerciseBaseInfoJson
 ) = Exercise(
     id = id,
+    exerciseBaseId = exerciseBaseInfoJson.id,
     name = exerciseBaseInfoJson.exercises.find { it.language == 2 }?.name.orEmpty(),
-    sets = sets,
-    reps = settingListJson.first().reps
+    sets = settingListJson.sortedBy { it.order }.map { it.toDomain() }
 )

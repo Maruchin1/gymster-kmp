@@ -14,7 +14,6 @@ import io.ktor.client.call.body
 import io.ktor.client.request.accept
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
-import io.ktor.client.request.parameter
 import io.ktor.client.request.patch
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -29,7 +28,6 @@ internal class PlansRepository(
         val token = sessionStore.getToken()
         val responseJson = httpClient.get("/api/v2/workout/") {
             tokenAuth(token)
-            parameter("ordering", "creation_date")
         }.body<PaginatedWorkoutListJson>()
         return responseJson.results.map { it.toDomain() }
     }

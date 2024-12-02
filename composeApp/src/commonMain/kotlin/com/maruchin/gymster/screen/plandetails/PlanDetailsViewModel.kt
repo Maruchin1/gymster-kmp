@@ -7,10 +7,11 @@ import com.maruchin.gymster.data.plans.PlansRepository
 import com.maruchin.gymster.data.plans.model.EditPlanRequest
 import com.maruchin.gymster.data.trainings.TrainingsRepository
 import com.maruchin.gymster.data.trainings.model.AddExerciseRequest
+import com.maruchin.gymster.data.trainings.model.AddSetRequest
 import com.maruchin.gymster.data.trainings.model.AddTrainingRequest
+import com.maruchin.gymster.data.trainings.model.EditSetRequest
 import com.maruchin.gymster.data.trainings.model.EditTrainingRequest
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -26,7 +27,7 @@ internal class PlanDetailsViewModel(
     val uiState = _uiState.asStateFlow()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        Logger.e(throwable) { "Error in PlanDetailsViewModel" }
+        Logger.e(throwable) { throwable.message.orEmpty() }
         _uiState.update {
             it.copy(isLoading = false, isError = true)
         }
@@ -86,6 +87,30 @@ internal class PlanDetailsViewModel(
         loadPlanAndTrainings()
     }
 
+    fun addSet(request: AddSetRequest) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+        trainingsRepository.addSet(request)
+        loadPlanAndTrainings()
+    }
+
+    fun editSet(request: EditSetRequest) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+        trainingsRepository.editSet(request)
+        loadPlanAndTrainings()
+    }
+
+    fun deleteSet(setId: Int) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
+        trainingsRepository.deleteSet(setId)
+        loadPlanAndTrainings()
+    }
+
     fun clearError() {
         _uiState.update {
             it.copy(isError = false)
@@ -93,11 +118,8 @@ internal class PlanDetailsViewModel(
     }
 
     private fun loadPlanAndTrainings() = viewModelScope.launch(exceptionHandler) {
-        val planAsync = async { plansRepository.getPlan(planId) }
-        val trainingsAsync = async { trainingsRepository.getTrainings(planId) }
-
-        val plan = planAsync.await()
-        val trainings = trainingsAsync.await()
+        val plan = plansRepository.getPlan(planId)
+        val trainings = trainingsRepository.getTrainings(planId)
 
         _uiState.update {
             it.copy(plan = plan, trainings = trainings, isLoading = false)

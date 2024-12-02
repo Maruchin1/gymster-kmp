@@ -4,4 +4,4 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class SetRequestJson(@SerialName("exerciseday") val exerciseDay: Int, val sets: Int)
+internal data class SetRequestJson(@SerialName("exerciseday") val exerciseDay: Int)

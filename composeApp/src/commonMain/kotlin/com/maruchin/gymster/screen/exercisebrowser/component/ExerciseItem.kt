@@ -7,10 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -27,8 +23,6 @@ internal fun ExerciseItem(
     onAddToTraining: (AddExerciseRequest) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var isAddingToTraining by rememberSaveable { mutableStateOf(false) }
-
     ListItem(
         headlineContent = {
             Text(text = exerciseBase.name)
@@ -47,15 +41,11 @@ internal fun ExerciseItem(
                     .background(Color.White)
             )
         },
-        modifier = Modifier.clickable { isAddingToTraining = true }.then(modifier)
+        modifier = Modifier
+            .clickable {
+                val request = AddExerciseRequest(trainingId, exerciseBase.id)
+                onAddToTraining(request)
+            }
+            .then(modifier)
     )
-
-    if (isAddingToTraining) {
-        AddExerciseToTrainingModal(
-            trainingId = trainingId,
-            exerciseBaseId = exerciseBase.id,
-            onDismiss = { isAddingToTraining = false },
-            onAdd = onAddToTraining
-        )
-    }
 }

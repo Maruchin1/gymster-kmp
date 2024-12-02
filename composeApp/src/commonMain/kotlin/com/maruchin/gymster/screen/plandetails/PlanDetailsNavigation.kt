@@ -44,6 +44,9 @@ internal fun NavGraphBuilder.planDetailsScreen(
             onEditTraining = viewModel::editTraining,
             onDeleteTraining = viewModel::deleteTraining,
             onAddExercise = onAddExercise,
+            onAddSet = viewModel::addSet,
+            onEditSet = viewModel::editSet,
+            onDeleteSet = viewModel::deleteSet,
             onClearError = viewModel::clearError
         )
     }

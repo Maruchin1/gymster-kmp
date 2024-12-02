@@ -3,13 +3,16 @@ package com.maruchin.gymster.data.trainings.api
 import com.maruchin.gymster.core.preferences.SessionStore
 import com.maruchin.gymster.core.utils.tokenAuth
 import com.maruchin.gymster.data.common.model.PaginatedListJson
+import com.maruchin.gymster.data.trainings.json.PatchedSettingRequestJson
 import com.maruchin.gymster.data.trainings.json.SettingJson
 import com.maruchin.gymster.data.trainings.json.SettingRequestJson
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.accept
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import io.ktor.client.request.patch
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
@@ -40,4 +43,15 @@ internal class SettingApi(
             accept(ContentType.Application.Json)
             setBody(request)
         }.body()
+
+    suspend fun updateSetting(settingId: Int, request: PatchedSettingRequestJson): SettingJson =
+        httpClient.patch("/api/v2/setting/$settingId/") {
+            tokenAuth(sessionStore.getToken())
+            accept(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+
+    suspend fun deleteSetting(settingId: Int) = httpClient.delete("/api/v2/setting/$settingId/") {
+        tokenAuth(sessionStore.getToken())
+    }
 }
