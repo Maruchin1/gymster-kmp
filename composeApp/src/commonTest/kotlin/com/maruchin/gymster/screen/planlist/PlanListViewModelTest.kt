@@ -13,9 +13,6 @@ import io.ktor.client.engine.mock.MockEngineConfig
 import io.ktor.client.engine.mock.respondError
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -26,6 +23,9 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PlanListViewModelTest : KoinTest {

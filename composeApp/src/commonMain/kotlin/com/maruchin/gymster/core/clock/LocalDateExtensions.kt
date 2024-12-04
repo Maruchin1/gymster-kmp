@@ -7,7 +7,7 @@ import kotlinx.datetime.atTime
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
-internal fun LocalDate.toMillis(): Long = this.atTime(12, 0)
+internal fun LocalDate.toMillis(): Long = this.atTime(hour = 12, minute = 0)
     .toInstant(TimeZone.currentSystemDefault())
     .toEpochMilliseconds()
 

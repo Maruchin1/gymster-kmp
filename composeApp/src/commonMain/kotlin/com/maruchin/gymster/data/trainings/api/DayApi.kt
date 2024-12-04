@@ -22,7 +22,7 @@ internal class DayApi(private val httpClient: HttpClient, private val sessionSto
     suspend fun getDays(training: Int): List<DayJson> = httpClient.get("/api/v2/day/") {
         tokenAuth(sessionStore.getToken())
         parameter("training", training)
-        parameter("limit", 100)
+        parameter("limit", value = 100)
     }.body<PaginatedListJson<DayJson>>().results
 
     suspend fun addDay(request: DayRequestJson): DayJson = httpClient.post("/api/v2/day/") {

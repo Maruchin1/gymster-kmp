@@ -24,4 +24,5 @@ detekt {
 
 tasks.withType<Detekt>().configureEach {
     setSource(files(projectDir))
+    exclude("**/build/**")
 }

@@ -24,13 +24,13 @@ internal fun ExerciseSetLabels(modifier: Modifier = Modifier) {
             text = "Weight",
             style = MaterialTheme.typography.labelMedium,
             textAlign = TextAlign.Center,
-            modifier = Modifier.weight(3f)
+            modifier = Modifier.weight(weight = 3f)
         )
         Text(
             text = "Reps",
             style = MaterialTheme.typography.labelMedium,
             textAlign = TextAlign.Center,
-            modifier = Modifier.weight(3f)
+            modifier = Modifier.weight(weight = 3f)
         )
         Spacer(modifier = Modifier.width(48.dp))
     }

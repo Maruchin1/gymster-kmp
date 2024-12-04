@@ -28,7 +28,7 @@ internal class SetApi(private val httpClient: HttpClient, private val sessionSto
     suspend fun getSets(day: Int): List<SetJson> = httpClient.get("/api/v2/set/") {
         tokenAuth(sessionStore.getToken())
         parameter("exerciseday", day)
-        parameter("limit", 100)
+        parameter("limit", value = 100)
     }.body<PaginatedListJson<SetJson>>().results
 
     suspend fun addSet(request: SetRequestJson): SetJson = httpClient.post("/api/v2/set/") {

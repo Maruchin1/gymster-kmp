@@ -34,7 +34,7 @@ internal class SettingApi(
     suspend fun getSettings(set: Int): List<SettingJson> = httpClient.get("/api/v2/setting/") {
         tokenAuth(sessionStore.getToken())
         parameter("set", set)
-        parameter("limit", 100)
+        parameter("limit", value = 100)
     }.body<PaginatedListJson<SettingJson>>().results
 
     suspend fun addSetting(request: SettingRequestJson): SettingJson =

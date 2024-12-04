@@ -30,10 +30,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.trainings.model.EditSetRequest
 import com.maruchin.gymster.data.trainings.model.ExerciseSet
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlin.time.Duration.Companion.seconds
 
 @OptIn(FlowPreview::class)
 @Composable
@@ -79,45 +79,84 @@ internal fun ExerciseSetItem(
         modifier = Modifier.height(IntrinsicSize.Min).then(modifier),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Card(modifier = Modifier.weight(1f)) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = number.toString(),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
+        SetNumberLabel(
+            number = number,
+            modifier = Modifier.weight(weight = 1f)
+        )
+        WeightInput(
+            value = weightInput,
+            onValueChange = { weightInput = it },
+            modifier = Modifier.weight(weight = 3f)
+        )
+        RepsInput(
+            value = repsInput,
+            onValueChange = { repsInput = it },
+            modifier = Modifier.weight(weight = 3f)
+        )
+        DeleteSetButton(onClick = { onDelete(set.id) })
+    }
+}
+
+@Composable
+private fun SetNumberLabel(number: Int, modifier: Modifier = Modifier) {
+    Card(modifier = modifier) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = number.toString(),
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
-        Card(modifier = Modifier.weight(3f)) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                BasicTextField(
-                    value = weightInput,
-                    onValueChange = { weightInput = it },
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        textAlign = TextAlign.Center,
-                        color = LocalContentColor.current
-                    ),
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+    }
+}
+
+@Composable
+private fun WeightInput(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(modifier = modifier) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
+                    textAlign = TextAlign.Center,
+                    color = LocalContentColor.current
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
         }
-        Card(modifier = Modifier.weight(3f)) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                BasicTextField(
-                    value = repsInput,
-                    onValueChange = { repsInput = it },
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        textAlign = TextAlign.Center,
-                        color = LocalContentColor.current
-                    ),
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+    }
+}
+
+@Composable
+private fun RepsInput(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(modifier = modifier) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(
+                    textAlign = TextAlign.Center,
+                    color = LocalContentColor.current
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
         }
-        IconButton(onClick = { onDelete(set.id) }) {
-            Icon(imageVector = Icons.Rounded.Close, contentDescription = "Delete set")
-        }
+    }
+}
+
+@Composable
+private fun DeleteSetButton(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(imageVector = Icons.Rounded.Close, contentDescription = "Delete set")
     }
 }

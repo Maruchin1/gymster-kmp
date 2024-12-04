@@ -32,6 +32,7 @@ internal fun ProfileTopAppBar(
                 )
             }
         },
+        scrollBehavior = scrollBehavior,
         modifier = modifier
     )
 }

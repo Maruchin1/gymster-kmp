@@ -9,9 +9,6 @@ import com.maruchin.gymster.di.testAppModules
 import com.maruchin.gymster.test.respondJson
 import io.kotest.matchers.shouldBe
 import io.ktor.client.engine.mock.MockEngineConfig
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -22,6 +19,9 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ProfileViewModelTest : KoinTest {

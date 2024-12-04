@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+@Suppress("TooManyFunctions")
 internal class PlanDetailsViewModel(
     private val planId: Int,
     private val plansRepository: PlansRepository,

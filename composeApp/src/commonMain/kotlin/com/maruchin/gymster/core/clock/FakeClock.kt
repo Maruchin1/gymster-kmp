@@ -14,6 +14,7 @@ internal class FakeClock : Clock {
     override fun now(): Instant = now
 
     fun setNow(localDate: LocalDate) {
-        now = localDate.atTime(12, 0, 0).toInstant(TimeZone.currentSystemDefault())
+        now = localDate.atTime(hour = 12, minute = 0, second = 0)
+            .toInstant(TimeZone.currentSystemDefault())
     }
 }

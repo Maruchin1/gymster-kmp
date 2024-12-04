@@ -45,7 +45,7 @@ internal fun NoTrainingsPlaceholder(
         Button(onClick = { isAdding = true }) {
             Text(text = "Add training")
         }
-        Spacer(modifier = Modifier.weight(3f))
+        Spacer(modifier = Modifier.weight(weight = 3f))
     }
 
     if (isAdding) {
