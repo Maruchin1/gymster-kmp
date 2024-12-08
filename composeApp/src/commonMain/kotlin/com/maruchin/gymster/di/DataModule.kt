@@ -2,7 +2,7 @@ package com.maruchin.gymster.di
 
 import com.maruchin.gymster.data.exercises.ExerciseCategoriesRepository
 import com.maruchin.gymster.data.exercises.ExercisesBaseRepository
-import com.maruchin.gymster.data.plans.PlansRepository
+import com.maruchin.gymster.data.plans2.PlansRepository
 import com.maruchin.gymster.data.session.SessionRepository
 import com.maruchin.gymster.data.trainings.TrainingsRepository
 import com.maruchin.gymster.data.userprofile.UserProfileRepository
