@@ -9,8 +9,11 @@ import com.maruchin.gymster.data.plans2.api.WorkoutApi
 import com.maruchin.gymster.data.plans2.json.DayJson
 import com.maruchin.gymster.data.plans2.json.WorkoutJson
 import com.maruchin.gymster.data.plans2.mapper.toDomain
+import com.maruchin.gymster.data.plans2.mapper.toJson
+import com.maruchin.gymster.data.plans2.model.AddPlanRequest
 import com.maruchin.gymster.data.plans2.model.ExerciseTemplate
 import com.maruchin.gymster.data.plans2.model.Plan
+import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
 import com.maruchin.gymster.data.plans2.model.WorkoutTemplate
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -70,5 +73,17 @@ internal class PlansRepository(
                 )
             }
         }.awaitAll()
+    }
+
+    suspend fun addPlan(request: AddPlanRequest) {
+        workoutApi.post(body = request.toJson())
+    }
+
+    suspend fun deletePlan(planId: Int) {
+        workoutApi.delete(planId)
+    }
+
+    suspend fun renamePlan(request: RenamePlanRequest) {
+        workoutApi.patch(id = request.id, body = request.toJson())
     }
 }

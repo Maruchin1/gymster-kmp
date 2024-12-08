@@ -17,10 +17,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.maruchin.gymster.data.plans2.model.Plan
+import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
 
 @Composable
-internal fun PlanHeader(plan: Plan, modifier: Modifier = Modifier) {
+internal fun PlanHeader(
+    plan: Plan,
+    onRenamePlan: (RenamePlanRequest) -> Unit,
+    onDeletePlan: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
     var isMenuOpen by rememberSaveable { mutableStateOf(false) }
+    var isRenamingPlan by rememberSaveable { mutableStateOf(false) }
 
     Row(
         modifier = Modifier.fillMaxWidth().then(modifier),
@@ -39,7 +46,20 @@ internal fun PlanHeader(plan: Plan, modifier: Modifier = Modifier) {
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
-            PlanMenu(expanded = isMenuOpen, onDismiss = { isMenuOpen = false })
+            PlanMenu(
+                expanded = isMenuOpen,
+                onDismiss = { isMenuOpen = false },
+                onRenamePlan = { isRenamingPlan = true },
+                onDeletePlan = { onDeletePlan(plan.id) },
+            )
         }
+    }
+
+    if (isRenamingPlan) {
+        RenamePlanModal(
+            plan = plan,
+            onDismiss = { isRenamingPlan = false },
+            onSave = onRenamePlan
+        )
     }
 }

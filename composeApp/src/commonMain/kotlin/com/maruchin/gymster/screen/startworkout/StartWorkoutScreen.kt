@@ -22,13 +22,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import com.maruchin.gymster.data.plans2.model.AddPlanRequest
+import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
 import com.maruchin.gymster.screen.startworkout.component.PlanHeader
 import com.maruchin.gymster.screen.startworkout.component.StartWorkoutTopBar
 import com.maruchin.gymster.screen.startworkout.component.WorkoutTemplateItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun StartWorkoutScreen(state: StartWorkoutUiState, onClearFailure: () -> Unit) {
+internal fun StartWorkoutScreen(
+    state: StartWorkoutUiState,
+    onClearFailure: () -> Unit,
+    onAddPlan: (AddPlanRequest) -> Unit,
+    onRenamePlan: (RenamePlanRequest) -> Unit,
+    onDeletePlan: (Int) -> Unit
+) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -42,7 +50,8 @@ internal fun StartWorkoutScreen(state: StartWorkoutUiState, onClearFailure: () -
     Scaffold(
         topBar = {
             StartWorkoutTopBar(
-                scrollBehavior = topAppBarScrollBehavior
+                scrollBehavior = topAppBarScrollBehavior,
+                onAddPlan = onAddPlan
             )
         },
         snackbarHost = {
@@ -65,7 +74,11 @@ internal fun StartWorkoutScreen(state: StartWorkoutUiState, onClearFailure: () -
             ) {
                 state.plans.forEach { plan ->
                     item(span = StaggeredGridItemSpan.FullLine) {
-                        PlanHeader(plan = plan)
+                        PlanHeader(
+                            plan = plan,
+                            onRenamePlan = onRenamePlan,
+                            onDeletePlan = onDeletePlan
+                        )
                     }
                     items(plan.workouts) { workoutTemplate ->
                         WorkoutTemplateItem(workoutTemplate = workoutTemplate)

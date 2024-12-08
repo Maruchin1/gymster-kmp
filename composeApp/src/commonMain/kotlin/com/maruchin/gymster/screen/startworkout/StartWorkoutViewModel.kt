@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.maruchin.gymster.data.plans2.PlansRepository
+import com.maruchin.gymster.data.plans2.model.AddPlanRequest
+import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,6 +30,24 @@ internal class StartWorkoutViewModel(
 
     fun clearFailure() {
         _uiState.update { it.copy(isFailure = false) }
+    }
+
+    fun addPlan(request: AddPlanRequest) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update { it.copy(isLoading = true) }
+        plansRepository.addPlan(request)
+        loadPlans()
+    }
+
+    fun renamePlan(request: RenamePlanRequest) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update { it.copy(isLoading = true) }
+        plansRepository.renamePlan(request)
+        loadPlans()
+    }
+
+    fun deletePlan(planId: Int) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update { it.copy(isLoading = true) }
+        plansRepository.deletePlan(planId)
+        loadPlans()
     }
 
     private fun loadPlans() = viewModelScope.launch(exceptionHandler) {

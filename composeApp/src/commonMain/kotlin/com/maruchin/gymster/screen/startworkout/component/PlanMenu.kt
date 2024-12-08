@@ -13,7 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun PlanMenu(expanded: Boolean, onDismiss: () -> Unit, modifier: Modifier = Modifier) {
+internal fun PlanMenu(
+    expanded: Boolean,
+    onDismiss: () -> Unit,
+    onDeletePlan: () -> Unit,
+    onRenamePlan: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     DropdownMenu(expanded = expanded, onDismissRequest = onDismiss, modifier = modifier) {
         DropdownMenuItem(
             text = {
@@ -39,7 +45,10 @@ internal fun PlanMenu(expanded: Boolean, onDismiss: () -> Unit, modifier: Modifi
                     tint = MaterialTheme.colorScheme.primary
                 )
             },
-            onClick = {}
+            onClick = {
+                onRenamePlan()
+                onDismiss()
+            }
         )
         DropdownMenuItem(
             text = {
@@ -52,7 +61,10 @@ internal fun PlanMenu(expanded: Boolean, onDismiss: () -> Unit, modifier: Modifi
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            onClick = {}
+            onClick = {
+                onDeletePlan()
+                onDismiss()
+            }
         )
     }
 }

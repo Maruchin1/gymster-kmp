@@ -19,7 +19,10 @@ internal fun NavGraphBuilder.startWorkoutScreen() {
 
         StartWorkoutScreen(
             state = state,
-            onClearFailure = viewModel::clearFailure
+            onClearFailure = viewModel::clearFailure,
+            onAddPlan = viewModel::addPlan,
+            onRenamePlan = viewModel::renamePlan,
+            onDeletePlan = viewModel::deletePlan
         )
     }
 }
