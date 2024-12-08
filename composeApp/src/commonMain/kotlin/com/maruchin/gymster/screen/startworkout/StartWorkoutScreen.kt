@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.plans2.model.AddPlanRequest
+import com.maruchin.gymster.data.plans2.model.AddWorkoutRequest
 import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
 import com.maruchin.gymster.screen.startworkout.component.PlanHeader
 import com.maruchin.gymster.screen.startworkout.component.StartWorkoutTopBar
@@ -35,7 +36,8 @@ internal fun StartWorkoutScreen(
     onClearFailure: () -> Unit,
     onAddPlan: (AddPlanRequest) -> Unit,
     onRenamePlan: (RenamePlanRequest) -> Unit,
-    onDeletePlan: (Int) -> Unit
+    onDeletePlan: (Int) -> Unit,
+    onAddWorkout: (AddWorkoutRequest) -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -76,6 +78,7 @@ internal fun StartWorkoutScreen(
                     item(span = StaggeredGridItemSpan.FullLine) {
                         PlanHeader(
                             plan = plan,
+                            onAddWorkout = onAddWorkout,
                             onRenamePlan = onRenamePlan,
                             onDeletePlan = onDeletePlan
                         )

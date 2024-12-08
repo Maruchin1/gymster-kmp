@@ -11,6 +11,7 @@ import com.maruchin.gymster.data.plans2.json.WorkoutJson
 import com.maruchin.gymster.data.plans2.mapper.toDomain
 import com.maruchin.gymster.data.plans2.mapper.toJson
 import com.maruchin.gymster.data.plans2.model.AddPlanRequest
+import com.maruchin.gymster.data.plans2.model.AddWorkoutRequest
 import com.maruchin.gymster.data.plans2.model.ExerciseTemplate
 import com.maruchin.gymster.data.plans2.model.Plan
 import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
@@ -85,5 +86,9 @@ internal class PlansRepository(
 
     suspend fun renamePlan(request: RenamePlanRequest) {
         workoutApi.patch(id = request.id, body = request.toJson())
+    }
+
+    suspend fun addWorkout(request: AddWorkoutRequest) {
+        dayApi.post(body = request.toJson())
     }
 }

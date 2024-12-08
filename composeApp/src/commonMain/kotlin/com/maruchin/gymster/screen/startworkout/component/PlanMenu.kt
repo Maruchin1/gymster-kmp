@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 internal fun PlanMenu(
     expanded: Boolean,
     onDismiss: () -> Unit,
+    onAddWorkout: () -> Unit,
     onDeletePlan: () -> Unit,
     onRenamePlan: () -> Unit,
     modifier: Modifier = Modifier
@@ -32,7 +33,10 @@ internal fun PlanMenu(
                     tint = MaterialTheme.colorScheme.primary
                 )
             },
-            onClick = {}
+            onClick = {
+                onAddWorkout()
+                onDismiss()
+            }
         )
         DropdownMenuItem(
             text = {

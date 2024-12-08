@@ -15,7 +15,7 @@ internal class SettingApi(
 ) {
 
     suspend fun get(setId: Int? = null): PaginatedListJson<SettingJson> {
-        return httpClient.get("/api/v2/setting") {
+        return httpClient.get("/api/v2/setting/") {
             tokenAuth(sessionStore.getToken())
             parameter("limit", value = 1_000)
             parameter("set", setId)
@@ -23,7 +23,7 @@ internal class SettingApi(
     }
 
     suspend fun get(id: Int): SettingJson? {
-        return httpClient.get("/api/v2/setting/$id") {
+        return httpClient.get("/api/v2/setting/$id/") {
             tokenAuth(sessionStore.getToken())
         }.body()
     }

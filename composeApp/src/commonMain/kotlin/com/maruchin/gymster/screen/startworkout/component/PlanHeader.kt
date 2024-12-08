@@ -16,17 +16,20 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.maruchin.gymster.data.plans2.model.AddWorkoutRequest
 import com.maruchin.gymster.data.plans2.model.Plan
 import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
 
 @Composable
 internal fun PlanHeader(
     plan: Plan,
+    onAddWorkout: (AddWorkoutRequest) -> Unit,
     onRenamePlan: (RenamePlanRequest) -> Unit,
     onDeletePlan: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isMenuOpen by rememberSaveable { mutableStateOf(false) }
+    var isAddingWorkout by rememberSaveable { mutableStateOf(false) }
     var isRenamingPlan by rememberSaveable { mutableStateOf(false) }
 
     Row(
@@ -49,10 +52,19 @@ internal fun PlanHeader(
             PlanMenu(
                 expanded = isMenuOpen,
                 onDismiss = { isMenuOpen = false },
+                onAddWorkout = { isAddingWorkout = true },
                 onRenamePlan = { isRenamingPlan = true },
                 onDeletePlan = { onDeletePlan(plan.id) },
             )
         }
+    }
+
+    if (isAddingWorkout) {
+        AddWorkoutModal(
+            planId = plan.id,
+            onDismiss = { isAddingWorkout = false },
+            onSave = onAddWorkout
+        )
     }
 
     if (isRenamingPlan) {

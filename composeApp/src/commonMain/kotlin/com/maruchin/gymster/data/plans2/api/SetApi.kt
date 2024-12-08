@@ -15,7 +15,7 @@ internal class SetApi(
 ) {
 
     suspend fun get(dayId: Int? = null): PaginatedListJson<SetJson> {
-        return httpClient.get("/api/v2/set") {
+        return httpClient.get("/api/v2/set/") {
             tokenAuth(sessionStore.getToken())
             parameter("limit", value = 1_000)
             parameter("exerciseday", dayId)
@@ -23,7 +23,7 @@ internal class SetApi(
     }
 
     suspend fun get(id: Int): SetJson? {
-        return httpClient.get("/api/v2/set/$id") {
+        return httpClient.get("/api/v2/set/$id/") {
             tokenAuth(sessionStore.getToken())
         }.body()
     }

@@ -6,6 +6,8 @@ import com.maruchin.gymster.screen.startworkout.StartWorkoutRoute
 import com.maruchin.gymster.screen.startworkout.startWorkoutScreen
 import kotlinx.serialization.Serializable
 
+// TODO WorkoutEditorScreen
+
 @Serializable
 internal data object WorkoutGraph
 

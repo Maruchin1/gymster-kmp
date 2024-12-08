@@ -35,12 +35,19 @@ internal fun WorkoutTemplateItem(
                 text = workoutTemplate.name,
                 style = MaterialTheme.typography.titleMedium
             )
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                workoutTemplate.exercises.forEach { exercise ->
-                    Text(
-                        text = exercise.exerciseBase.name,
-                        style = MaterialTheme.typography.bodySmall
-                    )
+            if (workoutTemplate.exercises.isEmpty()) {
+                Text(
+                    text = "No exercises",
+                    style = MaterialTheme.typography.bodySmall
+                )
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    workoutTemplate.exercises.forEach { exercise ->
+                        Text(
+                            text = exercise.exerciseBase.name,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
                 }
             }
         }
