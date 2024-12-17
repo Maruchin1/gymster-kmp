@@ -37,7 +37,8 @@ internal fun StartWorkoutScreen(
     onAddPlan: (AddPlanRequest) -> Unit,
     onRenamePlan: (RenamePlanRequest) -> Unit,
     onDeletePlan: (Int) -> Unit,
-    onAddWorkout: (AddWorkoutRequest) -> Unit
+    onAddWorkout: (AddWorkoutRequest) -> Unit,
+    onEditWorkout: (Int) -> Unit
 ) {
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -84,7 +85,10 @@ internal fun StartWorkoutScreen(
                         )
                     }
                     items(plan.workouts) { workoutTemplate ->
-                        WorkoutTemplateItem(workoutTemplate = workoutTemplate)
+                        WorkoutTemplateItem(
+                            workoutTemplate = workoutTemplate,
+                            onEdit = { onEditWorkout(workoutTemplate.id) }
+                        )
                     }
                 }
             }

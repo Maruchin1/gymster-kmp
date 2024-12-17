@@ -19,6 +19,7 @@ import com.maruchin.gymster.data.plans2.model.WorkoutTemplate
 @Composable
 internal fun WorkoutTemplateItem(
     workoutTemplate: WorkoutTemplate,
+    onEdit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isPreviewOpen by rememberSaveable { mutableStateOf(false) }
@@ -56,7 +57,8 @@ internal fun WorkoutTemplateItem(
     if (isPreviewOpen) {
         WorkoutTemplatePreviewDialog(
             workoutTemplate = workoutTemplate,
-            onDismiss = { isPreviewOpen = false }
+            onDismiss = { isPreviewOpen = false },
+            onEdit = onEdit
         )
     }
 }

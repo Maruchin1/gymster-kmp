@@ -12,7 +12,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 internal data object StartWorkoutRoute
 
 @OptIn(KoinExperimentalAPI::class)
-internal fun NavGraphBuilder.startWorkoutScreen() {
+internal fun NavGraphBuilder.startWorkoutScreen(onEditWorkout: (Int) -> Unit) {
     composable<StartWorkoutRoute> {
         val viewModel = koinNavViewModel<StartWorkoutViewModel>()
         val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -23,7 +23,8 @@ internal fun NavGraphBuilder.startWorkoutScreen() {
             onAddPlan = viewModel::addPlan,
             onRenamePlan = viewModel::renamePlan,
             onDeletePlan = viewModel::deletePlan,
-            onAddWorkout = viewModel::addWorkout
+            onAddWorkout = viewModel::addWorkout,
+            onEditWorkout = onEditWorkout
         )
     }
 }

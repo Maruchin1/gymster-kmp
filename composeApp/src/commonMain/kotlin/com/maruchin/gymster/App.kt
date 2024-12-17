@@ -62,7 +62,7 @@ internal fun App(externalModule: Module = module { }) {
                     },
                     modifier = Modifier.padding(innerPadding)
                 ) {
-                    workoutGraph()
+                    workoutGraph(navController)
                 }
             }
         }

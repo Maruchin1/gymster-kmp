@@ -25,7 +25,11 @@ import com.maruchin.gymster.data.plans2.model.WorkoutTemplate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun WorkoutTemplatePreviewDialog(workoutTemplate: WorkoutTemplate, onDismiss: () -> Unit) {
+internal fun WorkoutTemplatePreviewDialog(
+    workoutTemplate: WorkoutTemplate,
+    onDismiss: () -> Unit,
+    onEdit: () -> Unit
+) {
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -46,7 +50,12 @@ internal fun WorkoutTemplatePreviewDialog(workoutTemplate: WorkoutTemplate, onDi
                         }
                     },
                     actions = {
-                        TextButton(onClick = {}) {
+                        TextButton(
+                            onClick = {
+                                onEdit()
+                                onDismiss()
+                            }
+                        ) {
                             Text(text = "Edit")
                         }
                     }
