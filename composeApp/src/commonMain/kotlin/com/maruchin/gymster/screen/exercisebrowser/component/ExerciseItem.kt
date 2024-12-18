@@ -14,13 +14,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.maruchin.gymster.data.exercises.model.ExerciseBase
-import com.maruchin.gymster.data.trainings.model.AddExerciseRequest
+import com.maruchin.gymster.data.plans2.model.AddExerciseTemplateRequest
 
 @Composable
 internal fun ExerciseItem(
-    trainingId: Int,
+    workoutTemplateId: Int,
     exerciseBase: ExerciseBase,
-    onAddToTraining: (AddExerciseRequest) -> Unit,
+    onAddToTraining: (AddExerciseTemplateRequest) -> Unit,
     modifier: Modifier = Modifier
 ) {
     ListItem(
@@ -43,7 +43,7 @@ internal fun ExerciseItem(
         },
         modifier = Modifier
             .clickable {
-                val request = AddExerciseRequest(trainingId, exerciseBase.id)
+                val request = AddExerciseTemplateRequest(workoutTemplateId, exerciseBase.id)
                 onAddToTraining(request)
             }
             .then(modifier)

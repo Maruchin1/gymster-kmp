@@ -26,7 +26,8 @@ internal fun NavController.navigateToWorkoutTemplate(workoutId: Int) {
 @OptIn(KoinExperimentalAPI::class)
 internal fun NavGraphBuilder.workoutTemplateScreen(
     navController: NavController,
-    onClose: () -> Unit
+    onClose: () -> Unit,
+    onAddExercise: (workoutTemplateId: Int) -> Unit
 ) {
     dialog<WorkoutTemplateRoute>(
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
@@ -52,7 +53,10 @@ internal fun NavGraphBuilder.workoutTemplateScreen(
             state = state,
             onClose = onClose,
             onRenameWorkoutTemplate = viewModel::renameWorkoutTemplate,
-            onClearError = viewModel::clearError
+            onClearError = viewModel::clearError,
+            onAddExercise = onAddExercise,
+            onAddSetTemplate = viewModel::addSetTemplate,
+            onDeleteSetTemplate = viewModel::deleteSetTemplate
         )
     }
 }

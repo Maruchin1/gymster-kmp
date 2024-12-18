@@ -23,7 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.maruchin.gymster.data.plans2.model.AddWorkoutRequest
+import com.maruchin.gymster.data.plans2.model.AddWorkoutTemplateRequest
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 internal fun AddWorkoutModal(
     planId: Int,
     onDismiss: () -> Unit,
-    onSave: (AddWorkoutRequest) -> Unit,
+    onSave: (AddWorkoutTemplateRequest) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -56,7 +56,7 @@ internal fun AddWorkoutModal(
 }
 
 @Composable
-private fun AddTrainingContent(planId: Int, onSave: (AddWorkoutRequest) -> Unit) {
+private fun AddTrainingContent(planId: Int, onSave: (AddWorkoutTemplateRequest) -> Unit) {
     var nameInput by rememberSaveable { mutableStateOf("") }
 
     val canSave by remember {
@@ -80,7 +80,7 @@ private fun AddTrainingContent(planId: Int, onSave: (AddWorkoutRequest) -> Unit)
         )
         Button(
             onClick = {
-                val request = AddWorkoutRequest(planId = planId, name = nameInput)
+                val request = AddWorkoutTemplateRequest(planId = planId, name = nameInput)
                 onSave(request)
             },
             enabled = canSave,

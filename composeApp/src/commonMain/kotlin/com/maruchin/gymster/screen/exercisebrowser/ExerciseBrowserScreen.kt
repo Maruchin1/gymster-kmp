@@ -19,7 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.maruchin.gymster.data.exercises.model.ExerciseCategory
-import com.maruchin.gymster.data.trainings.model.AddExerciseRequest
+import com.maruchin.gymster.data.plans2.model.AddExerciseTemplateRequest
 import com.maruchin.gymster.screen.exercisebrowser.component.CategorySelector
 import com.maruchin.gymster.screen.exercisebrowser.component.ExerciseBrowserTopAppBar
 import com.maruchin.gymster.screen.exercisebrowser.component.ExerciseItem
@@ -27,12 +27,12 @@ import com.maruchin.gymster.screen.exercisebrowser.component.ExerciseSearchField
 
 @Composable
 internal fun ExerciseBrowserScreen(
-    trainingId: Int,
+    workoutTemplateId: Int,
     state: ExerciseBrowserUiState,
     onBack: () -> Unit,
     onSearchTermChange: (String) -> Unit,
     onCategoryChange: (ExerciseCategory?) -> Unit,
-    onAddExerciseToTraining: (AddExerciseRequest) -> Unit,
+    onAddExerciseToTraining: (AddExerciseTemplateRequest) -> Unit,
     onResetStatus: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -71,7 +71,7 @@ internal fun ExerciseBrowserScreen(
                 LazyColumn(modifier = Modifier.weight(1f)) {
                     items(state.filteredExerciseBases) { exercise ->
                         ExerciseItem(
-                            trainingId = trainingId,
+                            workoutTemplateId = workoutTemplateId,
                             exerciseBase = exercise,
                             onAddToTraining = onAddExerciseToTraining
                         )

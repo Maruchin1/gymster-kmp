@@ -8,12 +8,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun WorkoutTemplateTopBar(
+    scrollBehavior: TopAppBarScrollBehavior,
     onClose: () -> Unit,
     onSave: () -> Unit,
     modifier: Modifier = Modifier
@@ -32,6 +34,7 @@ internal fun WorkoutTemplateTopBar(
                 Text(text = "Save")
             }
         },
-        modifier = modifier
+        modifier = modifier,
+        scrollBehavior = scrollBehavior
     )
 }

@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.maruchin.gymster.data.plans2.PlansRepository
+import com.maruchin.gymster.data.plans2.model.AddExerciseTemplateRequest
+import com.maruchin.gymster.data.plans2.model.AddSetTemplateRequest
 import com.maruchin.gymster.data.plans2.model.RenameWorkoutTemplateRequest
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +39,28 @@ internal class WorkoutTemplateViewModel(
     ) = viewModelScope.launch(exceptionHandler) {
         _uiState.update { it.copy(isLoading = true) }
         plansRepository.renameWorkoutTemplate(request)
+        loadWorkoutTemplate()
+    }
+
+    fun addExerciseTemplate(
+        request: AddExerciseTemplateRequest
+    ) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update { it.copy(isLoading = true) }
+        plansRepository.addExerciseTemplate(request)
+        loadWorkoutTemplate()
+    }
+
+    fun addSetTemplate(
+        request: AddSetTemplateRequest
+    ) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update { it.copy(isLoading = true) }
+        plansRepository.addSetTemplate(request)
+        loadWorkoutTemplate()
+    }
+
+    fun deleteSetTemplate(setTemplateId: Int) = viewModelScope.launch(exceptionHandler) {
+        _uiState.update { it.copy(isLoading = true) }
+        plansRepository.deleteSetTemplate(setTemplateId)
         loadWorkoutTemplate()
     }
 

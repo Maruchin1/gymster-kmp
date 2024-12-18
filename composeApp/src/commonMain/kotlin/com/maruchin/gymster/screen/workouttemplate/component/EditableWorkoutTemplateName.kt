@@ -17,6 +17,7 @@ import com.maruchin.gymster.data.plans2.model.RenameWorkoutTemplateRequest
 import com.maruchin.gymster.data.plans2.model.WorkoutTemplate
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.drop
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(FlowPreview::class)
@@ -29,7 +30,7 @@ internal fun EditableWorkoutTemplateName(
     var value by rememberSaveable(workoutTemplate.name) { mutableStateOf(workoutTemplate.name) }
 
     LaunchedEffect(workoutTemplate) {
-        snapshotFlow { value }.debounce(2.seconds).collect { newName ->
+        snapshotFlow { value }.drop(1).debounce(2.seconds).collect { newName ->
             val request = RenameWorkoutTemplateRequest(workoutTemplate.id, newName)
             onRenameWorkoutTemplate(request)
         }

@@ -16,14 +16,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.maruchin.gymster.data.plans2.model.AddWorkoutRequest
+import com.maruchin.gymster.data.plans2.model.AddWorkoutTemplateRequest
 import com.maruchin.gymster.data.plans2.model.Plan
 import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
 
 @Composable
 internal fun PlanHeader(
     plan: Plan,
-    onAddWorkout: (AddWorkoutRequest) -> Unit,
+    onAddWorkout: (AddWorkoutTemplateRequest) -> Unit,
     onRenamePlan: (RenamePlanRequest) -> Unit,
     onDeletePlan: (Int) -> Unit,
     modifier: Modifier = Modifier

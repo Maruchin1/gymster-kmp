@@ -11,8 +11,10 @@ import com.maruchin.gymster.data.plans2.json.WorkoutJson
 import com.maruchin.gymster.data.plans2.json.toJson
 import com.maruchin.gymster.data.plans2.mapper.toDomain
 import com.maruchin.gymster.data.plans2.mapper.toJson
+import com.maruchin.gymster.data.plans2.model.AddExerciseTemplateRequest
 import com.maruchin.gymster.data.plans2.model.AddPlanRequest
-import com.maruchin.gymster.data.plans2.model.AddWorkoutRequest
+import com.maruchin.gymster.data.plans2.model.AddSetTemplateRequest
+import com.maruchin.gymster.data.plans2.model.AddWorkoutTemplateRequest
 import com.maruchin.gymster.data.plans2.model.ExerciseTemplate
 import com.maruchin.gymster.data.plans2.model.Plan
 import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
@@ -91,7 +93,7 @@ internal class PlansRepository(
         workoutApi.patch(id = request.id, body = request.toJson())
     }
 
-    suspend fun addWorkout(request: AddWorkoutRequest) {
+    suspend fun addWorkoutTemplate(request: AddWorkoutTemplateRequest) {
         dayApi.post(body = request.toJson())
     }
 
@@ -101,5 +103,22 @@ internal class PlansRepository(
 
     suspend fun deleteWorkoutTemplate(workoutTemplateId: Int) {
         dayApi.delete(id = workoutTemplateId)
+    }
+
+    suspend fun addExerciseTemplate(request: AddExerciseTemplateRequest) {
+        val setJson = setApi.post(body = request.toJson())
+        val addSetTemplateRequest = AddSetTemplateRequest(
+            exerciseTemplateId = setJson.id,
+            exerciseBaseId = request.exerciseBaseId
+        )
+        settingApi.post(addSetTemplateRequest.toJson())
+    }
+
+    suspend fun addSetTemplate(request: AddSetTemplateRequest) {
+        settingApi.post(request.toJson())
+    }
+
+    suspend fun deleteSetTemplate(setTemplateId: Int) {
+        settingApi.delete(setTemplateId)
     }
 }
