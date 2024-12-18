@@ -8,6 +8,7 @@ import com.maruchin.gymster.data.plans2.api.SettingApi
 import com.maruchin.gymster.data.plans2.api.WorkoutApi
 import com.maruchin.gymster.data.plans2.json.DayJson
 import com.maruchin.gymster.data.plans2.json.WorkoutJson
+import com.maruchin.gymster.data.plans2.json.toJson
 import com.maruchin.gymster.data.plans2.mapper.toDomain
 import com.maruchin.gymster.data.plans2.mapper.toJson
 import com.maruchin.gymster.data.plans2.model.AddPlanRequest
@@ -15,11 +16,13 @@ import com.maruchin.gymster.data.plans2.model.AddWorkoutRequest
 import com.maruchin.gymster.data.plans2.model.ExerciseTemplate
 import com.maruchin.gymster.data.plans2.model.Plan
 import com.maruchin.gymster.data.plans2.model.RenamePlanRequest
+import com.maruchin.gymster.data.plans2.model.RenameWorkoutTemplateRequest
 import com.maruchin.gymster.data.plans2.model.WorkoutTemplate
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
+@Suppress("TooManyFunctions")
 internal class PlansRepository(
     private val workoutApi: WorkoutApi,
     private val dayApi: DayApi,
@@ -38,10 +41,10 @@ internal class PlansRepository(
         }.awaitAll()
     }
 
-    suspend fun getPlanById(planId: Int): Plan? {
-        return workoutApi.get(planId)?.let { workoutJson ->
-            workoutJson.toDomain(
-                workouts = getWorkouts(workoutJson)
+    suspend fun getWorkoutTemplateById(workoutId: Int): WorkoutTemplate? {
+        return dayApi.get(id = workoutId)?.let { dayJson ->
+            dayJson.toDomain(
+                exercises = getExercises(dayJson)
             )
         }
     }
@@ -90,5 +93,13 @@ internal class PlansRepository(
 
     suspend fun addWorkout(request: AddWorkoutRequest) {
         dayApi.post(body = request.toJson())
+    }
+
+    suspend fun renameWorkoutTemplate(request: RenameWorkoutTemplateRequest) {
+        dayApi.patch(id = request.workoutTemplateId, body = request.toJson())
+    }
+
+    suspend fun deleteWorkoutTemplate(workoutTemplateId: Int) {
+        dayApi.delete(id = workoutTemplateId)
     }
 }

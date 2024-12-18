@@ -20,6 +20,7 @@ internal fun NavGraphBuilder.workoutGraph(navController: NavController) {
             onEditWorkout = { navController.navigateToWorkoutTemplate(it) }
         )
         workoutTemplateScreen(
+            navController = navController,
             onClose = { navController.navigateUp() }
         )
     }

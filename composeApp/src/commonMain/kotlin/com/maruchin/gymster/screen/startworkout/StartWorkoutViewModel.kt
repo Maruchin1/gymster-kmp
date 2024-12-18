@@ -33,6 +33,11 @@ internal class StartWorkoutViewModel(
         _uiState.update { it.copy(isFailure = false) }
     }
 
+    fun refresh() {
+        _uiState.update { it.copy(isLoading = true) }
+        loadPlans()
+    }
+
     fun addPlan(request: AddPlanRequest) = viewModelScope.launch(exceptionHandler) {
         _uiState.update { it.copy(isLoading = true) }
         plansRepository.addPlan(request)
